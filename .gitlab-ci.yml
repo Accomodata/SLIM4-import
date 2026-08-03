@@ -1,0 +1,3 @@
+# standard gitlab include file for odoo addons projects
+include: 'https://gitlab.com/Apertoso/tools/git-base/raw/master/addons/gitlab-ci-template.yml'
+
