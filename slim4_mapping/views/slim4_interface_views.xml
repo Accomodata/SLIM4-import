@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- LISTS -->
+  <record id="slim4_interface_view_list" model="ir.ui.view">
+    <field name="name">slim4.interface.view.list</field>
+    <field name="model">slim4.interface</field>
+    <field name="arch" type="xml">
+      <list string="Slim4 Interfaces" decoration-muted="not active">
+        <field name="name"/>
+        <field name="technical_name"/>
+        <field name="source_model"/>
+        <field name="mapping_count"/>
+        <field name="active"/>
+      </list>
+    </field>
+  </record>
+  <record id="slim4_interface_mapping_view_list" model="ir.ui.view">
+    <field name="name">slim4.interface.mapping.view.list</field>
+    <field name="model">slim4.interface.mapping</field>
+    <field name="arch" type="xml">
+      <list string="Slim4 Field Mappings" decoration-success="status == 'validated'" decoration-warning="status == 'to_validate'" decoration-muted="status == 'ignored' " decoration-danger="status == 'error'">
+        <field name="sequence"/>
+        <field name="slim4_field"/>
+        <field name="mapping_type"/>
+        <field name="field_path"/>
+        <field name="slim4_required"/>
+        <field name="field_type"/>
+        <field name="status"/>
+      </list>
+    </field>
+  </record>
+  <!-- FORMS -->
+  <record id="slim4_interface_view_form" model="ir.ui.view">
+    <field name="name">slim4.interface.view.form</field>
+    <field name="model">slim4.interface</field>
+    <field name="arch" type="xml">
+      <form string="Slim4 Interface">
+        <header>
+          <button name="action_validate_mapping_config" type="object" string="Validate Mapping" groups="base.group_system"/>
+          <button name="action_reset_mapping_to_default" type="object" string="Reset Mapping" groups="base.group_system"/>
+        </header>
+        <sheet>
+          <group>
+            <group>
+              <field name="name"/>
+              <field name="technical_name"/>
+              <field name="source_model_id"/>
+              <field name="source_model" readonly="1"/>
+              <field name="active" widget="boolean_toggle"/>
+            </group>
+            <group>
+              <field name="mapping_count"/>
+            </group>
+          </group>
+          <group string="Source Preview">
+            <field name="source_domain" widget="domain" colspan="2" readonly="not source_model_id" options="{'model': 'source_model', 'foldable': true, 'in_dialog': true}" />
+          </group>
+          <group string="Notes">
+            <field name="notes" nolabel="1" colspan="2"/>
+          </group>
+          <notebook>
+            <page string="Field Mapping">
+              <field name="mapping_line_ids">
+                <list editable="bottom" decoration-success="status == 'validated' and not mapping_error" decoration-warning="status == 'to_validate'" decoration-muted="status == 'ignored'"  decoration-danger="status == 'validated' and mapping_error ">
+                  <field name="sequence" widget="handle"/>
+                  <field name="slim4_field"/>
+                  <field name="mapping_type"/>
+                  <field name="field_path"/>
+                  <field name="constant_value"/>
+                  <field name="rule_key"  readonly="0"/>
+                  <field name="slim4_required"/>
+                  <field name="field_type"/>
+                  <field name="max_length"/>
+                  <field name="status"/>
+                  <field name="notes"/>
+                  <field name="mapping_error"/>
+                </list>
+              </field>
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+  <record id="slim4_interface_mapping_view_form" model="ir.ui.view">
+    <field name="name">slim4.interface.mapping.view.form</field>
+    <field name="model">slim4.interface.mapping</field>
+    <field name="arch" type="xml">
+      <form string="Slim4 Field Mapping">
+        <sheet>
+          <group>
+            <group>
+              <field name="interface_id"/>
+              <field name="sequence"/>
+              <field name="slim4_field"/>
+              <field name="mapping_type"/>
+              <field name="slim4_required"/>
+              <field name="field_type"/>
+              <field name="max_length"/>
+            </group>
+            <group>
+              <field name="field_path"/>
+              <field name="status"/>
+            </group>
+          </group>
+          <group>
+            <field name="notes"/>
+            <field name="mapping_error"/>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+  <!-- SEARCH -->
+  <record id="slim4_interface_mapping_view_search" model="ir.ui.view">
+    <field name="name">slim4.interface.mapping.view.search</field>
+    <field name="model">slim4.interface.mapping</field>
+    <field name="arch" type="xml">
+      <search string="Slim4 Field Mappings">
+        <field name="slim4_field"/>
+        <field name="interface_id"/>
+        <filter name="validated" string="validated" domain="[('status', '=', 'validated')]"/>
+        <filter name="to_validate" string="To Validate" domain="[('status', '=', 'to_validate')]"/>
+        <filter name="ignored" string="Ignored" domain="[('status', '=', 'ignored')]"/>
+        <separator/>
+        <filter name="mapping_type_field" string="Field Mapping" domain="[('mapping_type', '=', 'field')]"/>
+        <filter name="mapping_type_rule" string="Rule Mapping" domain="[('mapping_type', '=', 'rule')]"/>
+        <filter name="mapping_type_generated" string="Generated Mapping" domain="[('mapping_type', '=', 'generated')]"/>
+        <filter name="mapping_type_manual" string="Manual" domain="[('mapping_type', '=', 'manual')]"/>
+        <separator/>
+        <group>
+          <filter name="group_interface" string="Interface" context="{'group_by': 'interface_id'}"/>
+          <filter name="group_status" string="Status" context="{'group_by': 'status'}"/>
+          <filter name="group_mapping_type" string="Mapping Type" context="{'group_by': 'mapping_type'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+  <!-- ACTIONS -->
+  <record id="action_slim4_interface" model="ir.actions.act_window">
+    <field name="name">Interfaces</field>
+    <field name="res_model">slim4.interface</field>
+    <field name="view_mode">list,form</field>
+  </record>
+  <record id="action_slim4_interface_mapping" model="ir.actions.act_window">
+    <field name="name">Field Mappings</field>
+    <field name="res_model">slim4.interface.mapping</field>
+    <field name="view_mode">list,form</field>
+  </record>
+  <!-- MENUITEMS -->
+  <menuitem id="menu_slim4_root" name="Slim4" sequence="80"/>
+  <menuitem id="menu_slim4_configuration" name="Configuration" parent="menu_slim4_root" sequence="10"/>
+  <menuitem id="menu_slim4_interfaces" name="Interfaces" parent="menu_slim4_configuration" action="action_slim4_interface" sequence="10"/>
+  <menuitem id="menu_slim4_interface_mappings" name="Field Mappings" parent="menu_slim4_configuration" action="action_slim4_interface_mapping" sequence="20"/>
+</odoo>
