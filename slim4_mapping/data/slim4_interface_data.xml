@@ -25,7 +25,6 @@
       <field name="technical_name">S4Import_PurchaseOrder</field>
       <field name="source_model_id" ref="purchase.model_purchase_order_line"/>
       <field name="source_domain"><![CDATA[[('order_id.state', '=', 'purchase'), ('product_qty', '>', 0), ('product_id.default_code', '!=', False)]]]></field>
-      <field name="active">False</field>
     </record>
     <record id="slim4_interface_stock_details" model="slim4.interface">
       <field name="name">Stock Details</field>
