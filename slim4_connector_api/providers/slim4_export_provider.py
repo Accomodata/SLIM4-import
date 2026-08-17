@@ -93,13 +93,13 @@ class Slim4ExportProvider(models.AbstractModel):
         }
 
     def _get_source_records(
-            self,
-            interface,
-            page_size=20,
-            offset=0,
-            skiptoken=None,
-            **params,
-        ):
+        self,
+        interface,
+        page_size=20,
+        offset=0,
+        skiptoken=None,
+        **params,
+    ):
         domain = self._get_source_domain(interface, **params)
 
         if skiptoken is not None:
@@ -120,24 +120,29 @@ class Slim4ExportProvider(models.AbstractModel):
         )
 
     def _get_mapping_plan(self, interface):
+        user = self.env.user
         mapping_lines = interface.mapping_line_ids.filtered(
-            lambda line: line.status == 'validated',
+            lambda line: line.status == 'validated' and (
+                not line.group_id or user.has_group(
+                    line.group_id.get_external_id().get(line.group_id.id),
+                )
+            ),
         )
 
         return [
-        (
-            line,
             (
-                methodcaller('mapped', line.field_path)
-                if line.split_records
-                else attrgetter(line.field_path)
+                line,
+                (
+                    methodcaller('mapped', line.field_path)
+                    if line.split_records
+                    else attrgetter(line.field_path)
+                )
+                if line.mapping_type in {'field', 'rule'}
+                and line.field_path
+                else None,
             )
-            if line.mapping_type in {'field', 'rule'}
-            and line.field_path
-            else None,
-        )
-        for line in mapping_lines
-    ]
+            for line in mapping_lines
+        ]
 
     def _get_rule_context(self):
         """Prepare reusable values required by configured rules."""
@@ -192,12 +197,12 @@ class Slim4ExportProvider(models.AbstractModel):
         }
 
     def _resolve_mapping_value(
-            self,
-            line,
-            record,
-            field_getter=None,
-            rule_context=None,
-        ):
+        self,
+        line,
+        record,
+        field_getter=None,
+        rule_context=None,
+    ):
         if line.mapping_type == 'field':
             return self._resolve_field_path(record, line, field_getter)
 
@@ -275,6 +280,7 @@ class Slim4ExportProvider(models.AbstractModel):
             eval_context['result'],
         )
 
+    # ruff: ignore[too-many-return-statements]
     def _normalize_mapping_value(self, line, value):
         """Normalize a resolved value to the type expected by Slim4."""
         if value is False:
@@ -302,8 +308,10 @@ class Slim4ExportProvider(models.AbstractModel):
                     value = int(value)
                 elif line.field_type == 'decimal':
                     value = float(value)
+                elif line.field_type == 'boolean':
+                    value = bool(value)
                 elif line.field_type == 'char':
-                    value = str(value)
+                    value = str(value if value else '')
 
         return value
 

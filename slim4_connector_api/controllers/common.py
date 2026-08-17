@@ -1,3 +1,4 @@
+import logging
 from urllib.parse import urlencode
 
 from odoo import _
@@ -113,12 +114,12 @@ class Slim4ControllerMixin:
         )
 
     def _export_collection(
-            self,
-            page=DEFAULT_PAGE_SIZE,
-            skip=None,
-            skiptoken=None,
-            **params,
-        ):
+        self,
+        page=DEFAULT_PAGE_SIZE,
+        skip=None,
+        skiptoken=None,
+        **params,
+    ):
         """Run the common export flow and return an HTTP JSON response."""
         try:
             return self._process_collection_request(
@@ -141,7 +142,8 @@ class Slim4ControllerMixin:
                 status=422,
                 context={'interface': self._interface_technical_name},
             )
-        except Exception:
+        except Exception as error:
+            logging.exception(error)
             return make_error_response(
                 code='internal_error',
                 message='An unexpected error occurred while exporting Slim4 data.',
