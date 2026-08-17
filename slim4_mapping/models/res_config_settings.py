@@ -63,7 +63,7 @@ class ResConfigSettings(models.TransientModel):
 
         # Lookup tag records by technical_name
         active_tags = self.env['slim4.feature.tag'].sudo().search([
-            ('technical_name', 'in', active_tech_names)
+            ('technical_name', 'in', active_tech_names),
         ])
 
         # Assign Many2many command tuple: (6, 0, [IDs])

@@ -68,13 +68,13 @@ class ProductTemplate(models.Model):
             visible_keys & {
                 'product.template.slim4_moq',
                 'product.product.slim4_moq',
-            }
+            },
         )
         show_ioq = bool(
             visible_keys & {
                 'product.template.slim4_ioq',
                 'product.product.slim4_ioq',
-            }
+            },
         )
 
         for template in self:
