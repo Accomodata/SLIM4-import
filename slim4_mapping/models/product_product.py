@@ -1,7 +1,5 @@
 from odoo import fields, models
 
-from .res_config_settings import get_slim4_visible_field_keys
-
 
 class ProductProduct(models.Model):
     _inherit = 'product.product'
@@ -13,15 +11,5 @@ class ProductProduct(models.Model):
         column2='warehouse_id',
         string='Slim4 Warehouses',
         help='Warehouses used by Slim4 for this product.',
+        groups='slim4_mapping.warehouse_field',
     )
-    slim4_show_warehouse_ids = fields.Boolean(
-        compute='_compute_slim4_show_warehouse_ids',
-    )
-
-    def _compute_slim4_show_warehouse_ids(self):
-        is_visible = (
-            'product.product.warehouse_ids'
-            in get_slim4_visible_field_keys(self.env)
-        )
-        for product in self:
-            product.slim4_show_warehouse_ids = is_visible

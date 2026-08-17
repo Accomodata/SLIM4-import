@@ -45,14 +45,18 @@
         'sale_management',
     ],
     'data': [
+        'security/security_groups.xml',
         'security/ir.model.access.csv',
+        'security/ir_rule.xml',
 
         'data/slim4_interface_data.xml',
         'data/slim4_interface_mapping_data.xml',
 
         'views/slim4_interface_views.xml',
         'views/slim4_interface_mapping_views.xml',
+        'views/product_supplierinfo_views.xml',
         'views/product_product_views.xml',
+        'views/product_template_views.xml',
         'views/res_config_settings_views.xml',
         'views/slim4_menuitem.xml',
 
