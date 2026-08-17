@@ -53,6 +53,7 @@ class Slim4InterfaceMapping(models.Model):
             ('char', 'Char'),
             ('date', 'Date'),
             ('time', 'Time'),
+            ('boolean', 'Boolean'),
         ],
     )
     field_path = fields.Char(
@@ -111,8 +112,8 @@ class Slim4InterfaceMapping(models.Model):
     )
 
     _unique_interface_mapping = models.Constraint(
-            'unique(interface_id, slim4_field)',
-            'Each Slim4 field can only be mapped once per interface.',
+        'unique(interface_id, slim4_field)',
+        'Each Slim4 field can only be mapped once per interface.',
     )
 
     split_records = fields.Boolean(
