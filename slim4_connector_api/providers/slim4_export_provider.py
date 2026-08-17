@@ -128,7 +128,10 @@ class Slim4ExportProvider(models.AbstractModel):
                     methodcaller('mapped', line.field_path)
                     if line.split_records
                     else attrgetter(line.field_path)
-                ),
+                )
+                if line.mapping_type == 'field'
+                else None,
+
             )
             for line in mapping_lines
         ]
@@ -236,6 +239,7 @@ class Slim4ExportProvider(models.AbstractModel):
 
         return eval_context['result']
 
+    # ruff: ignore[too-many-return-statements]
     def _normalize_mapping_value(self, line, value):
         """Normalize a resolved value to the type expected by Slim4."""
         if isinstance(value, list):
@@ -259,7 +263,12 @@ class Slim4ExportProvider(models.AbstractModel):
         if line.field_type == 'decimal':
             return float(value)
 
+        if line.field_type == 'boolean':
+            return bool(value)
+
         if line.field_type == 'char':
+            if not value:
+                return ''
             return str(value)
 
         return value
