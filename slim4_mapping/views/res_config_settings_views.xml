@@ -3,19 +3,23 @@
   <record id="res_config_settings_view_form" model="ir.ui.view">
     <field name="name">res.config.settings.view.form.inherit.slim4</field>
     <field name="model">res.config.settings</field>
-    <field name="inherit_id" ref="base.res_config_settings_view_form"/>
+    <field name="inherit_id" ref="base.res_config_settings_view_form" />
     <field name="arch" type="xml">
       <xpath expr="//form" position="inside">
         <app string="Slim4" name="slim4_mapping">
           <block title="Slim4">
-            <setting string="Visible Slim4 Fields" help="Select the Slim4-specific fields displayed in Odoo. This setting does not affect exports.">
-              <field name="slim4_visible_field_ids" widget="many2many_tags" options="{'no_create': True, 'no_create_edit': True, 'no_open': True}"/>
+            <setting string="Visible Slim4 Features"
+              help="Select features to display associated fields in Slim4. This setting does not affect exports.">
+              <field name="slim4_feature_tag_ids"
+                widget="many2many_tags"
+                options="{'no_create': True, 'no_open': True}" />
             </setting>
           </block>
         </app>
       </xpath>
     </field>
   </record>
+
   <record id="action_slim4_settings" model="ir.actions.act_window">
     <field name="name">Settings</field>
     <field name="res_model">res.config.settings</field>

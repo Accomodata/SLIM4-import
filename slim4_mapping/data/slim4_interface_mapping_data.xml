@@ -46,8 +46,8 @@
       <field name="slim4_field">warehouse</field>
       <field name="field_type">char</field>
       <field name="max_length">20</field>
-      <field name="mapping_type">field</field>
-      <field name="field_path">product_id.warehouse_id.code</field>
+      <field name="mapping_type">rule</field>
+      <field name="specific_rule">result = record.product_id.warehouse_id.code or record.product_tmpl_id.warehouse_id.code</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_logistics_code" model="slim4.interface.mapping">
@@ -58,7 +58,8 @@
       <field name="max_length">40</field>
       <field name="field_path">product_id.default_code</field>
       <field name="slim4_required">1</field>
-      <field name="mapping_type">field</field>
+      <field name="mapping_type">rule</field>
+      <field name="specific_rule">result = record.product_id.default_code or record.product_tmpl_id.default_code</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_logistics_suppliernumber" model="slim4.interface.mapping">
@@ -137,7 +138,8 @@
       <field name="slim4_field">minimumOrderQuantity</field>
       <field name="field_type">integer</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">product_id.slim4_moq</field>
+      <field name="mapping_type">rule</field>
+      <field name="specific_rule">result = record.product_id.slim4_moq or record.product_tmpl_id.slim4_moq</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_logistics_incrementelorderquantity" model="slim4.interface.mapping">
@@ -146,7 +148,7 @@
       <field name="slim4_field">incrementelOrderQuantity</field>
       <field name="field_type">integer</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">product_id.slim4_ioq</field>
+      <field name="specific_rule">result = record.product_id.slim4_ioq or record.product_tmpl_id.slim4_ioq</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_logistics_economicorderquantity" model="slim4.interface.mapping">

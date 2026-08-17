@@ -47,6 +47,7 @@
     'data': [
         'security/ir.model.access.csv',
 
+        'data/slim4_feature_tag_data.xml',
         'data/slim4_interface_data.xml',
         'data/slim4_interface_mapping_data.xml',
 

@@ -7,11 +7,14 @@
     <field name="arch" type="xml">
       <xpath expr="//page[@name='inventory']" position="inside">
         <field name="slim4_show_warehouse_ids" invisible="1" />
-        <group string="Slim4" invisible="not slim4_show_warehouse_ids">
-          <field name="warehouse_ids" widget="many2many_tags" />
+        <field name="slim4_show_moq" invisible="1" />
+        <field name="slim4_show_ioq" invisible="1" />
 
-          <field name="slim4_moq" />
-          <field name="slim4_ioq" />
+        <group string="Slim4">
+          <field name="warehouse_ids" invisible="not slim4_show_warehouse_ids" widget="many2many_tags" />
+
+          <field name="slim4_moq" invisible="not slim4_show_moq" />
+          <field name="slim4_ioq" invisible="not slim4_show_ioq" />
         </group>
       </xpath>
     </field>
