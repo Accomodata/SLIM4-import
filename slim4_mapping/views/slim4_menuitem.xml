@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <menuitem id="menu_slim4_root" name="Slim4" sequence="80"  web_icon="slim4_mapping,static/description/icon.png"/>
-  <menuitem id="menu_slim4_configuration" name="Configuration" parent="menu_slim4_root" sequence="20"/>
-  <menuitem id="menu_slim4_interfaces" name="Interfaces" parent="menu_slim4_configuration" action="action_slim4_interface" sequence="10"/>
-  <menuitem id="menu_slim4_interface_mappings" name="Field Mappings" parent="menu_slim4_configuration" action="action_slim4_interface_mapping" sequence="20"/>
-  <menuitem id="menu_slim4_settings" name="Settings" parent="menu_slim4_configuration" action="action_slim4_settings" sequence="30" groups="base.group_system"/>
+  <menuitem id="menu_slim4_root" name="Slim4" sequence="80" web_icon="slim4_mapping,static/description/icon.png" />
+  <menuitem id="menu_slim4_configuration" name="Configuration" parent="menu_slim4_root" sequence="20" />
+  <menuitem id="menu_slim4_interfaces" name="Interfaces" parent="menu_slim4_configuration"
+    action="action_slim4_interface" sequence="10" />
+  <menuitem id="menu_slim4_interface_mappings" name="Field Mappings" parent="menu_slim4_configuration"
+    action="action_slim4_interface_mapping" sequence="20" />
+  <menuitem id="menu_slim4_settings" name="Settings" parent="menu_slim4_configuration" action="action_slim4_settings"
+    sequence="30" groups="base.group_system" />
 </odoo>
