@@ -2,7 +2,7 @@
 <odoo>
   <data noupdate="0">
     <record id="slim4_mapping_article_filter_controlid" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_article_filter"/>
+      <field name="interface_id" ref="slim4_interface_article_filter" />
       <field name="sequence">10</field>
       <field name="slim4_field">controlID</field>
       <field name="field_type">integer</field>
@@ -11,7 +11,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_article_filter_warehouse" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_article_filter"/>
+      <field name="interface_id" ref="slim4_interface_article_filter" />
       <field name="sequence">20</field>
       <field name="slim4_field">warehouse</field>
       <field name="field_type">char</field>
@@ -21,7 +21,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_article_filter_code" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_article_filter"/>
+      <field name="interface_id" ref="slim4_interface_article_filter" />
       <field name="sequence">30</field>
       <field name="slim4_field">code</field>
       <field name="field_type">char</field>
@@ -32,7 +32,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_logistics_controlid" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">10</field>
       <field name="slim4_field">controlID</field>
       <field name="field_type">integer</field>
@@ -41,17 +41,17 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_logistics_warehouse" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">20</field>
       <field name="slim4_field">warehouse</field>
       <field name="field_type">char</field>
       <field name="max_length">20</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">warehouse_id.code</field>
+      <field name="field_path">product_id.warehouse_id.code</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_logistics_code" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">30</field>
       <field name="slim4_field">code</field>
       <field name="field_type">char</field>
@@ -62,7 +62,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_logistics_suppliernumber" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">40</field>
       <field name="slim4_field">supplierNumber</field>
       <field name="field_type">char</field>
@@ -72,7 +72,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_logistics_suppliername" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">50</field>
       <field name="slim4_field">supplierName</field>
       <field name="field_type">char</field>
@@ -82,7 +82,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_logistics_leadtime" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">60</field>
       <field name="slim4_field">leadTime</field>
       <field name="field_type">decimal</field>
@@ -92,193 +92,196 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_logistics_reviewtime" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">70</field>
       <field name="slim4_field">reviewTime</field>
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_review_time</field>
-      <field name="status">to_validate</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_supplierreliability" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">80</field>
       <field name="slim4_field">supplierReliability</field>
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_supplier_reliability</field>
-      <field name="status">to_validate</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_supplierreliabilitysetting" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">90</field>
       <field name="slim4_field">supplierReliabilitySetting</field>
       <field name="field_type">integer</field>
       <field name="max_length">1</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_supplier_reliability_setting</field>
-      <field name="status">to_validate</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_stockeditem" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">100</field>
       <field name="slim4_field">stockedItem</field>
       <field name="field_type">char</field>
       <field name="max_length">1</field>
-      <field name="mapping_type">rule</field>
-      <field name="status">to_validate</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_minimumorderquantity" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">110</field>
       <field name="slim4_field">minimumOrderQuantity</field>
       <field name="field_type">integer</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">min_qty</field>
+      <field name="field_path">product_id.slim4_moq</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_logistics_incrementelorderquantity" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">120</field>
       <field name="slim4_field">incrementelOrderQuantity</field>
       <field name="field_type">integer</field>
-      <field name="mapping_type">rule</field>
-      <field name="status">to_validate</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">product_id.slim4_ioq</field>
+      <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_logistics_economicorderquantity" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">130</field>
       <field name="slim4_field">economicOrderQuantity</field>
       <field name="field_type">integer</field>
-      <field name="mapping_type">rule</field>
-      <field name="status">to_validate</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_logisticunit1" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">140</field>
       <field name="slim4_field">logisticUnit1</field>
       <field name="field_type">integer</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">product_packaging_ids.qty</field>
-      <field name="status">to_validate</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_logisticunit2" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">150</field>
       <field name="slim4_field">logisticUnit2</field>
       <field name="field_type">integer</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">product_packaging_ids.qty</field>
-      <field name="status">to_validate</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_logisticunit3" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">160</field>
       <field name="slim4_field">logisticUnit3</field>
       <field name="field_type">integer</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">product_packaging_ids.qty</field>
-      <field name="status">to_validate</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_logisticunit4" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">170</field>
       <field name="slim4_field">logisticUnit4</field>
       <field name="field_type">integer</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">product_packaging_ids.qty</field>
-      <field name="status">to_validate</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_logisticunit5" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">180</field>
       <field name="slim4_field">logisticUnit5</field>
       <field name="field_type">integer</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">product_packaging_ids.qty</field>
-      <field name="status">to_validate</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_logisticunit6" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">190</field>
       <field name="slim4_field">logisticUnit6</field>
       <field name="field_type">integer</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">product_packaging_ids.qty</field>
-      <field name="status">to_validate</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_insuranceinventory" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">200</field>
       <field name="slim4_field">insuranceInventory</field>
       <field name="field_type">integer</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">product_min_qty</field>
-      <field name="status">to_validate</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_insuranceinventorytype" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">210</field>
       <field name="slim4_field">insuranceInventoryType</field>
       <field name="field_type">integer</field>
       <field name="max_length">1</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_insurance_inventory_type</field>
-      <field name="status">to_validate</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_targetservicelevel" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">220</field>
       <field name="slim4_field">targetServiceLevel</field>
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_target_service_level</field>
-      <field name="status">to_validate</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_plcarticlecode" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">230</field>
       <field name="slim4_field">plcArticleCode</field>
       <field name="field_type">char</field>
       <field name="max_length">85</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_successor_product_id</field>
-      <field name="status">to_validate</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_plcdate" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">240</field>
       <field name="slim4_field">plcDate</field>
       <field name="field_type">date</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_successor_product_id.expiration_date</field>
-      <field name="status">to_validate</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_plcperc" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">250</field>
       <field name="slim4_field">plcPerc</field>
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_successor_product_id.x_product_life_cycle_x</field>
-      <field name="status">to_validate</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_abcclass" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">260</field>
       <field name="slim4_field">abcClass</field>
       <field name="field_type">char</field>
       <field name="max_length">2</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_abc_class</field>
-      <field name="status">to_validate</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_buyingprice" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">270</field>
       <field name="slim4_field">buyingPrice</field>
       <field name="field_type">decimal</field>
@@ -287,54 +290,54 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_logistics_msq" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">280</field>
       <field name="slim4_field">MSQ</field>
       <field name="field_type">integer</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">min_qty</field>
-      <field name="status">to_validate</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_isq" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">290</field>
       <field name="slim4_field">ISQ</field>
       <field name="field_type">integer</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_incremental_order_qty</field>
-      <field name="status">to_validate</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_coverdate" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">300</field>
       <field name="slim4_field">coverDate</field>
       <field name="field_type">date</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_cover_date</field>
-      <field name="status">to_validate</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_coversetting" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">310</field>
       <field name="slim4_field">coverSetting</field>
       <field name="field_type">integer</field>
       <field name="max_length">1</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_cover_setting</field>
-      <field name="status">to_validate</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_covertime" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">320</field>
       <field name="slim4_field">coverTime</field>
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_cover_time</field>
-      <field name="status">to_validate</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_supplierarticlecode" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">330</field>
       <field name="slim4_field">supplierArticleCode</field>
       <field name="field_type">char</field>
@@ -344,73 +347,77 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_logistics_replenishmentscheduleid" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">340</field>
       <field name="slim4_field">replenishmentScheduleId</field>
       <field name="field_type">char</field>
       <field name="max_length">60</field>
-      <field name="mapping_type">rule</field>
-      <field name="status">to_validate</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_inboundguaranteedshelflife" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">350</field>
       <field name="slim4_field">inboundGuaranteedShelfLife</field>
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_inbound_guaranteed_shelf_life</field>
-      <field name="status">to_validate</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_outboundguaranteedshelflife" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">360</field>
       <field name="slim4_field">outboundGuaranteedShelfLife</field>
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_outbound_guaranteed_shelf_life</field>
-      <field name="status">to_validate</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_netshelflife" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">370</field>
       <field name="slim4_field">netShelfLife</field>
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_net_shelf_life</field>
-      <field name="status">to_validate</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_productionresource" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">380</field>
       <field name="slim4_field">productionResource</field>
       <field name="field_type">char</field>
       <field name="max_length">65</field>
-      <field name="mapping_type">rule</field>
-      <field name="status">to_validate</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_productionresourcename" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">390</field>
       <field name="slim4_field">productionResourceName</field>
       <field name="field_type">char</field>
       <field name="max_length">100</field>
-      <field name="mapping_type">rule</field>
-      <field name="status">to_validate</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_logistics_returnwarehouse" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics"/>
+      <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">400</field>
       <field name="slim4_field">returnWarehouse</field>
       <field name="field_type">char</field>
       <field name="max_length">25</field>
-      <field name="mapping_type">rule</field>
-      <field name="status">to_validate</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path"></field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_article_code_master_controlid" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_article_code_master"/>
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
       <field name="sequence">10</field>
       <field name="slim4_field">controlID</field>
       <field name="field_type">integer</field>
@@ -419,7 +426,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_article_code_master_warehouse" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_article_code_master"/>
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
       <field name="sequence">20</field>
       <field name="slim4_field">warehouse</field>
       <field name="field_type">char</field>
@@ -429,7 +436,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_article_code_master_code" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_article_code_master"/>
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
       <field name="sequence">30</field>
       <field name="slim4_field">code</field>
       <field name="field_type">char</field>
@@ -440,7 +447,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_article_code_master_creationdate" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_article_code_master"/>
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
       <field name="sequence">40</field>
       <field name="slim4_field">creationDate</field>
       <field name="field_type">date</field>
@@ -449,7 +456,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_article_code_master_description" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_article_code_master"/>
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
       <field name="sequence">50</field>
       <field name="slim4_field">description</field>
       <field name="field_type">char</field>
@@ -460,7 +467,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_article_code_master_unitprice" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_article_code_master"/>
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
       <field name="sequence">60</field>
       <field name="slim4_field">unitPrice</field>
       <field name="field_type">decimal</field>
@@ -470,7 +477,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_article_code_master_salesprice" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_article_code_master"/>
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
       <field name="sequence">70</field>
       <field name="slim4_field">salesPrice</field>
       <field name="field_type">decimal</field>
@@ -480,7 +487,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_article_code_master_criterium1" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_article_code_master"/>
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
       <field name="sequence">80</field>
       <field name="slim4_field">criterium1</field>
       <field name="field_type">decimal</field>
@@ -490,7 +497,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_article_code_master_criterium2" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_article_code_master"/>
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
       <field name="sequence">90</field>
       <field name="slim4_field">criterium2</field>
       <field name="field_type">decimal</field>
@@ -500,7 +507,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_article_code_master_criterium3" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_article_code_master"/>
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
       <field name="sequence">100</field>
       <field name="slim4_field">criterium3</field>
       <field name="field_type">decimal</field>
@@ -510,7 +517,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_article_code_master_groupcode1" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_article_code_master"/>
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
       <field name="sequence">120</field>
       <field name="slim4_field">groupCode1</field>
       <field name="field_type">char</field>
@@ -520,7 +527,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_article_code_master_ud1" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_article_code_master"/>
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
       <field name="sequence">180</field>
       <field name="slim4_field">uD1</field>
       <field name="field_type">char</field>
@@ -530,7 +537,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_article_code_master_ud2" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_article_code_master"/>
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
       <field name="sequence">190</field>
       <field name="slim4_field">uD2</field>
       <field name="field_type">char</field>
@@ -540,7 +547,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_article_code_master_articlestatus" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_article_code_master"/>
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
       <field name="sequence">1330</field>
       <field name="slim4_field">articleStatus</field>
       <field name="field_type">char</field>
@@ -550,7 +557,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_article_code_master_barcode" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_article_code_master"/>
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
       <field name="sequence">1340</field>
       <field name="slim4_field">barCode</field>
       <field name="field_type">char</field>
@@ -560,7 +567,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_article_code_master_fefopercentage" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_article_code_master"/>
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
       <field name="sequence">1350</field>
       <field name="slim4_field">fefoPercentage</field>
       <field name="field_type">decimal</field>
@@ -570,7 +577,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_purchase_order_controlid" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order"/>
+      <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">10</field>
       <field name="slim4_field">controlID</field>
       <field name="field_type">integer</field>
@@ -579,7 +586,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_purchase_order_warehouse" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order"/>
+      <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">20</field>
       <field name="slim4_field">warehouse</field>
       <field name="field_type">char</field>
@@ -589,7 +596,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_purchase_order_code" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order"/>
+      <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">30</field>
       <field name="slim4_field">code</field>
       <field name="field_type">char</field>
@@ -600,7 +607,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_purchase_order_ponumber" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order"/>
+      <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">40</field>
       <field name="slim4_field">poNumber</field>
       <field name="field_type">char</field>
@@ -611,7 +618,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_purchase_order_deliverydate" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order"/>
+      <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">50</field>
       <field name="slim4_field">deliveryDate</field>
       <field name="field_type">date</field>
@@ -620,7 +627,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_purchase_order_openquantity" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order"/>
+      <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">60</field>
       <field name="slim4_field">openQuantity</field>
       <field name="field_type">integer</field>
@@ -629,7 +636,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_purchase_order_supplierdetails" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order"/>
+      <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">70</field>
       <field name="slim4_field">supplierDetails</field>
       <field name="field_type">char</field>
@@ -639,7 +646,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_purchase_order_pocomment" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order"/>
+      <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">80</field>
       <field name="slim4_field">poComment</field>
       <field name="field_type">char</field>
@@ -649,7 +656,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_purchase_order_originalquantity" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order"/>
+      <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">90</field>
       <field name="slim4_field">originalQuantity</field>
       <field name="field_type">integer</field>
@@ -658,7 +665,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_purchase_order_suppliedquantity" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order"/>
+      <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">100</field>
       <field name="slim4_field">suppliedQuantity</field>
       <field name="field_type">integer</field>
@@ -667,7 +674,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_purchase_order_freetext1" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order"/>
+      <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">110</field>
       <field name="slim4_field">freeText1</field>
       <field name="field_type">char</field>
@@ -677,7 +684,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_purchase_order_freenumber1" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order"/>
+      <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">130</field>
       <field name="slim4_field">freeNumber1</field>
       <field name="field_type">decimal</field>
@@ -687,7 +694,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_purchase_order_ordertypenumber" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order"/>
+      <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">150</field>
       <field name="slim4_field">orderTypeNumber</field>
       <field name="field_type">integer</field>
@@ -697,7 +704,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_purchase_order_line" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order"/>
+      <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">160</field>
       <field name="slim4_field">line</field>
       <field name="field_type">integer</field>
@@ -706,7 +713,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_purchase_order_excludesetting" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order"/>
+      <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">170</field>
       <field name="slim4_field">excludeSetting</field>
       <field name="field_type">integer</field>
@@ -716,7 +723,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_purchase_order_excludedate" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order"/>
+      <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">180</field>
       <field name="slim4_field">excludeDate</field>
       <field name="field_type">date</field>
@@ -725,7 +732,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_purchase_order_excludefromam" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order"/>
+      <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">190</field>
       <field name="slim4_field">excludeFromAM</field>
       <field name="field_type">integer</field>
@@ -734,7 +741,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_purchase_order_suppliernumber" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order"/>
+      <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">200</field>
       <field name="slim4_field">supplierNumber</field>
       <field name="field_type">char</field>
@@ -744,7 +751,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_purchase_order_suppliername" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order"/>
+      <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">210</field>
       <field name="slim4_field">supplierName</field>
       <field name="field_type">char</field>
@@ -754,7 +761,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_purchase_order_activedate" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order"/>
+      <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">220</field>
       <field name="slim4_field">activeDate</field>
       <field name="field_type">char</field>
@@ -764,7 +771,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_purchase_order_defaultcontract" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order"/>
+      <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">230</field>
       <field name="slim4_field">defaultContract</field>
       <field name="field_type">integer</field>
@@ -774,17 +781,37 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_purchase_order_buyingprice" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order"/>
+      <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">240</field>
       <field name="slim4_field">buyingPrice</field>
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
-      <field name="mapping_type">field</field>
-      <field name="field_path">price_unit</field>
+      <field name="mapping_type">rule</field>
+      <field name="specific_rule">
+target_currency = (
+    self.property_purchase_currency_id
+    or self.env.company.currency_id
+)
+
+supplierinfo = record
+
+if supplierinfo and target_currency:
+    source_currency = supplierinfo.currency_id
+    price = supplierinfo.price
+
+    buying_price = source_currency._convert(
+        from_amount=price,
+        to_currency=target_currency,
+        company=self.env.company,
+        date=fields.Date.context_today(self),
+    )
+else:
+    buying_price = 0.0
+      </field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_purchase_order_orderdate" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order"/>
+      <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">250</field>
       <field name="slim4_field">orderDate</field>
       <field name="field_type">char</field>
@@ -794,7 +821,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_purchase_order_requestdate" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order"/>
+      <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">260</field>
       <field name="slim4_field">requestDate</field>
       <field name="field_type">char</field>
@@ -804,7 +831,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_purchase_order_excludefrompp" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order"/>
+      <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">270</field>
       <field name="slim4_field">excludeFromPP</field>
       <field name="field_type">integer</field>
@@ -814,7 +841,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_purchase_order_supplierarticlecode" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order"/>
+      <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">280</field>
       <field name="slim4_field">supplierArticleCode</field>
       <field name="field_type">char</field>
@@ -824,7 +851,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_confirmed_demand_controlid" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_confirmed_demand"/>
+      <field name="interface_id" ref="slim4_interface_confirmed_demand" />
       <field name="sequence">10</field>
       <field name="slim4_field">controlID</field>
       <field name="field_type">integer</field>
@@ -833,7 +860,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_confirmed_demand_warehouse" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_confirmed_demand"/>
+      <field name="interface_id" ref="slim4_interface_confirmed_demand" />
       <field name="sequence">20</field>
       <field name="slim4_field">warehouse</field>
       <field name="field_type">char</field>
@@ -843,7 +870,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_confirmed_demand_code" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_confirmed_demand"/>
+      <field name="interface_id" ref="slim4_interface_confirmed_demand" />
       <field name="sequence">30</field>
       <field name="slim4_field">code</field>
       <field name="field_type">char</field>
@@ -854,7 +881,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_confirmed_demand_number" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_confirmed_demand"/>
+      <field name="interface_id" ref="slim4_interface_confirmed_demand" />
       <field name="sequence">40</field>
       <field name="slim4_field">number</field>
       <field name="field_type">char</field>
@@ -865,7 +892,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_confirmed_demand_requireddate" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_confirmed_demand"/>
+      <field name="interface_id" ref="slim4_interface_confirmed_demand" />
       <field name="sequence">50</field>
       <field name="slim4_field">requiredDate</field>
       <field name="field_type">date</field>
@@ -874,7 +901,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_confirmed_demand_requiredquantity" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_confirmed_demand"/>
+      <field name="interface_id" ref="slim4_interface_confirmed_demand" />
       <field name="sequence">60</field>
       <field name="slim4_field">requiredQuantity</field>
       <field name="field_type">integer</field>
@@ -883,7 +910,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_confirmed_demand_exceptionlevel" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_confirmed_demand"/>
+      <field name="interface_id" ref="slim4_interface_confirmed_demand" />
       <field name="sequence">70</field>
       <field name="slim4_field">exceptionLevel</field>
       <field name="field_type">integer</field>
@@ -893,7 +920,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_confirmed_demand_ordertype" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_confirmed_demand"/>
+      <field name="interface_id" ref="slim4_interface_confirmed_demand" />
       <field name="sequence">80</field>
       <field name="slim4_field">orderType</field>
       <field name="field_type">char</field>
@@ -903,7 +930,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_confirmed_demand_customerdetails" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_confirmed_demand"/>
+      <field name="interface_id" ref="slim4_interface_confirmed_demand" />
       <field name="sequence">90</field>
       <field name="slim4_field">customerDetails</field>
       <field name="field_type">char</field>
@@ -913,7 +940,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_confirmed_demand_productiondetails" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_confirmed_demand"/>
+      <field name="interface_id" ref="slim4_interface_confirmed_demand" />
       <field name="sequence">100</field>
       <field name="slim4_field">productionDetails</field>
       <field name="field_type">char</field>
@@ -922,7 +949,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_confirmed_demand_comment" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_confirmed_demand"/>
+      <field name="interface_id" ref="slim4_interface_confirmed_demand" />
       <field name="sequence">110</field>
       <field name="slim4_field">comment</field>
       <field name="field_type">char</field>
@@ -932,7 +959,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_confirmed_demand_originalquantity" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_confirmed_demand"/>
+      <field name="interface_id" ref="slim4_interface_confirmed_demand" />
       <field name="sequence">120</field>
       <field name="slim4_field">originalQuantity</field>
       <field name="field_type">integer</field>
@@ -940,7 +967,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_confirmed_demand_suppliedquantity" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_confirmed_demand"/>
+      <field name="interface_id" ref="slim4_interface_confirmed_demand" />
       <field name="sequence">130</field>
       <field name="slim4_field">suppliedQuantity</field>
       <field name="field_type">integer</field>
@@ -949,7 +976,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_confirmed_demand_freetext1" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_confirmed_demand"/>
+      <field name="interface_id" ref="slim4_interface_confirmed_demand" />
       <field name="sequence">140</field>
       <field name="slim4_field">freeText1</field>
       <field name="field_type">char</field>
@@ -959,7 +986,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_confirmed_demand_freenumber1" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_confirmed_demand"/>
+      <field name="interface_id" ref="slim4_interface_confirmed_demand" />
       <field name="sequence">160</field>
       <field name="slim4_field">freeNumber1</field>
       <field name="field_type">decimal</field>
@@ -969,7 +996,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_confirmed_demand_type" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_confirmed_demand"/>
+      <field name="interface_id" ref="slim4_interface_confirmed_demand" />
       <field name="sequence">180</field>
       <field name="slim4_field">type</field>
       <field name="field_type">integer</field>
@@ -979,7 +1006,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_confirmed_demand_line" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_confirmed_demand"/>
+      <field name="interface_id" ref="slim4_interface_confirmed_demand" />
       <field name="sequence">190</field>
       <field name="slim4_field">line</field>
       <field name="field_type">integer</field>
@@ -988,7 +1015,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_controlid" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">10</field>
       <field name="slim4_field">controlID</field>
       <field name="field_type">integer</field>
@@ -997,7 +1024,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_transactionnumber" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">20</field>
       <field name="slim4_field">transactionNumber</field>
       <field name="field_type">char</field>
@@ -1007,7 +1034,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_transactiontype" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">30</field>
       <field name="slim4_field">transactionType</field>
       <field name="field_type">char</field>
@@ -1017,7 +1044,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_transactionname" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">40</field>
       <field name="slim4_field">transactionName</field>
       <field name="field_type">char</field>
@@ -1027,7 +1054,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_transactionstatus" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">50</field>
       <field name="slim4_field">transactionStatus</field>
       <field name="field_type">char</field>
@@ -1037,7 +1064,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_warehouse" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">60</field>
       <field name="slim4_field">warehouse</field>
       <field name="field_type">char</field>
@@ -1047,7 +1074,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_code" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">70</field>
       <field name="slim4_field">code</field>
       <field name="field_type">char</field>
@@ -1058,7 +1085,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_issuedate" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">80</field>
       <field name="slim4_field">issueDate</field>
       <field name="field_type">date</field>
@@ -1067,7 +1094,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_confirmeddate" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">90</field>
       <field name="slim4_field">confirmedDate</field>
       <field name="field_type">date</field>
@@ -1076,7 +1103,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_requesteddate" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">100</field>
       <field name="slim4_field">requestedDate</field>
       <field name="field_type">date</field>
@@ -1085,7 +1112,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_issuequantity" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">110</field>
       <field name="slim4_field">issueQuantity</field>
       <field name="field_type">decimal</field>
@@ -1095,7 +1122,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_linenumber" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">120</field>
       <field name="slim4_field">lineNumber</field>
       <field name="field_type">char</field>
@@ -1105,7 +1132,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_confirmedquantity" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">130</field>
       <field name="slim4_field">confirmedQuantity</field>
       <field name="field_type">decimal</field>
@@ -1115,7 +1142,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_requestedquantity" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">140</field>
       <field name="slim4_field">requestedQuantity</field>
       <field name="field_type">decimal</field>
@@ -1125,7 +1152,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_customernumber" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">150</field>
       <field name="slim4_field">customerNumber</field>
       <field name="field_type">char</field>
@@ -1135,7 +1162,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_customertype" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">160</field>
       <field name="slim4_field">customerType</field>
       <field name="field_type">char</field>
@@ -1144,7 +1171,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_transactions_customername" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">170</field>
       <field name="slim4_field">customerName</field>
       <field name="field_type">char</field>
@@ -1154,7 +1181,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_salesprice" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">180</field>
       <field name="slim4_field">salesPrice</field>
       <field name="field_type">decimal</field>
@@ -1164,7 +1191,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_deliverylocation" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">190</field>
       <field name="slim4_field">deliveryLocation</field>
       <field name="field_type">char</field>
@@ -1174,7 +1201,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_supplier" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">200</field>
       <field name="slim4_field">supplier</field>
       <field name="field_type">char</field>
@@ -1183,7 +1210,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_transactions_suppliertype" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">210</field>
       <field name="slim4_field">supplierType</field>
       <field name="field_type">char</field>
@@ -1192,7 +1219,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_transactions_suppliername" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">220</field>
       <field name="slim4_field">supplierName</field>
       <field name="field_type">char</field>
@@ -1201,7 +1228,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_transactions_buyingprice" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">230</field>
       <field name="slim4_field">buyingPrice</field>
       <field name="field_type">decimal</field>
@@ -1210,7 +1237,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_transactions_supplyinglocation" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">240</field>
       <field name="slim4_field">supplyingLocation</field>
       <field name="field_type">char</field>
@@ -1219,7 +1246,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_transactions_conversionfactor" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">250</field>
       <field name="slim4_field">conversionFactor</field>
       <field name="field_type">decimal</field>
@@ -1229,7 +1256,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_transactions_ud1" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">260</field>
       <field name="slim4_field">uD1</field>
       <field name="field_type">char</field>
@@ -1239,7 +1266,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_transactions_issuetime" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">300</field>
       <field name="slim4_field">issueTime</field>
       <field name="field_type">char</field>
@@ -1248,7 +1275,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_transactions_linkedtransactionnumber" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">310</field>
       <field name="slim4_field">linkedTransactionNumber</field>
       <field name="field_type">char</field>
@@ -1258,7 +1285,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_transactions_demandchannel" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">320</field>
       <field name="slim4_field">demandChannel</field>
       <field name="field_type">char</field>
@@ -1268,7 +1295,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_transactions_demandregion" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions"/>
+      <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">330</field>
       <field name="slim4_field">demandRegion</field>
       <field name="field_type">char</field>
@@ -1278,7 +1305,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_stock_details_controlid" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_stock_details"/>
+      <field name="interface_id" ref="slim4_interface_stock_details" />
       <field name="sequence">10</field>
       <field name="slim4_field">controlID</field>
       <field name="field_type">integer</field>
@@ -1287,7 +1314,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_stock_details_warehouse" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_stock_details"/>
+      <field name="interface_id" ref="slim4_interface_stock_details" />
       <field name="sequence">20</field>
       <field name="slim4_field">warehouse</field>
       <field name="field_type">char</field>
@@ -1297,7 +1324,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_stock_details_code" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_stock_details"/>
+      <field name="interface_id" ref="slim4_interface_stock_details" />
       <field name="sequence">30</field>
       <field name="slim4_field">code</field>
       <field name="field_type">char</field>
@@ -1308,7 +1335,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_stock_details_stockonhand" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_stock_details"/>
+      <field name="interface_id" ref="slim4_interface_stock_details" />
       <field name="sequence">40</field>
       <field name="slim4_field">stockOnHand</field>
       <field name="field_type">integer</field>
@@ -1317,7 +1344,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_stock_details_stockid" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_stock_details"/>
+      <field name="interface_id" ref="slim4_interface_stock_details" />
       <field name="sequence">50</field>
       <field name="slim4_field">stockID</field>
       <field name="field_type">char</field>
@@ -1327,7 +1354,7 @@
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_stock_details_stocktype" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_stock_details"/>
+      <field name="interface_id" ref="slim4_interface_stock_details" />
       <field name="sequence">60</field>
       <field name="slim4_field">stockType</field>
       <field name="field_type">char</field>
@@ -1337,7 +1364,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_stock_details_excludesetting" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_stock_details"/>
+      <field name="interface_id" ref="slim4_interface_stock_details" />
       <field name="sequence">70</field>
       <field name="slim4_field">excludeSetting</field>
       <field name="field_type">integer</field>
@@ -1346,7 +1373,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_stock_details_excludetilldate" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_stock_details"/>
+      <field name="interface_id" ref="slim4_interface_stock_details" />
       <field name="sequence">80</field>
       <field name="slim4_field">excludeTillDate</field>
       <field name="field_type">date</field>
@@ -1355,7 +1382,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_stock_details_excludefromdate" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_stock_details"/>
+      <field name="interface_id" ref="slim4_interface_stock_details" />
       <field name="sequence">90</field>
       <field name="slim4_field">excludeFromDate</field>
       <field name="field_type">date</field>
@@ -1364,7 +1391,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_stock_details_initialshelflife" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_stock_details"/>
+      <field name="interface_id" ref="slim4_interface_stock_details" />
       <field name="sequence">100</field>
       <field name="slim4_field">initialShelfLife</field>
       <field name="field_type">decimal</field>
@@ -1374,7 +1401,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_stock_details_remainingshelflife" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_stock_details"/>
+      <field name="interface_id" ref="slim4_interface_stock_details" />
       <field name="sequence">110</field>
       <field name="slim4_field">remainingShelfLife</field>
       <field name="field_type">decimal</field>
@@ -1384,7 +1411,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_stock_details_ud1" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_stock_details"/>
+      <field name="interface_id" ref="slim4_interface_stock_details" />
       <field name="sequence">120</field>
       <field name="slim4_field">uD1</field>
       <field name="field_type">char</field>
@@ -1394,7 +1421,7 @@
       <field name="status">to_validate</field>
     </record>
     <record id="slim4_mapping_stock_details_excludefromam" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_stock_details"/>
+      <field name="interface_id" ref="slim4_interface_stock_details" />
       <field name="sequence">160</field>
       <field name="slim4_field">ExcludeFromAM</field>
       <field name="field_type">char</field>

@@ -3,12 +3,15 @@
   <record id="product_product_view_form" model="ir.ui.view">
     <field name="name">product.product.view.form.inherit.slim4</field>
     <field name="model">product.product</field>
-    <field name="inherit_id" ref="stock.product_form_view_procurement_button"/>
+    <field name="inherit_id" ref="stock.product_form_view_procurement_button" />
     <field name="arch" type="xml">
       <xpath expr="//page[@name='inventory']" position="inside">
-        <field name="slim4_show_warehouse_ids" invisible="1"/>
+        <field name="slim4_show_warehouse_ids" invisible="1" />
         <group string="Slim4" invisible="not slim4_show_warehouse_ids">
-          <field name="warehouse_ids" widget="many2many_tags"/>
+          <field name="warehouse_ids" widget="many2many_tags" />
+
+          <field name="slim4_moq" />
+          <field name="slim4_ioq" />
         </group>
       </xpath>
     </field>

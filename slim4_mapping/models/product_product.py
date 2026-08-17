@@ -18,6 +18,9 @@ class ProductProduct(models.Model):
         compute='_compute_slim4_show_warehouse_ids',
     )
 
+    slim4_moq = fields.Float(string='MOQ', help='Minimum Order Quantity')
+    slim4_ioq = fields.Float(string='IOQ', help='Incremental Order Quantity')
+
     def _compute_slim4_show_warehouse_ids(self):
         is_visible = (
             'product.product.warehouse_ids'
