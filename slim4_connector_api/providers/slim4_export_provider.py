@@ -237,7 +237,7 @@ class Slim4ExportProvider(models.AbstractModel):
                 % line.slim4_field,
             )
 
-        return eval_context['result']
+        return self._normalize_mapping_value(line, eval_context['result'])
 
     # ruff: ignore[too-many-return-statements]
     def _normalize_mapping_value(self, line, value):
