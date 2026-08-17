@@ -789,8 +789,8 @@
       <field name="mapping_type">rule</field>
       <field name="specific_rule">
 target_currency = (
-    self.property_purchase_currency_id
-    or self.env.company.currency_id
+    record.partner_id.property_purchase_currency_id
+    or record.env.company.currency_id
 )
 
 supplierinfo = record
@@ -799,14 +799,13 @@ if supplierinfo and target_currency:
     source_currency = supplierinfo.currency_id
     price = supplierinfo.price
 
-    buying_price = source_currency._convert(
+    result = source_currency._convert(
         from_amount=price,
         to_currency=target_currency,
-        company=self.env.company,
-        date=fields.Date.context_today(self),
+        company=record.env.company
     )
 else:
-    buying_price = 0.0
+    result = 0.0
       </field>
       <field name="status">validated</field>
     </record>

@@ -20,5 +20,5 @@ class Slim4SpecificRuleWizard(models.TransientModel):
         self.ensure_one()
         self.mapping_id.specific_rule = self.code or False
         if self.code:
-            self.mapping_id.rule_key = False
+            self.mapping_id.rule_key = self.code
         return {'type': 'ir.actions.act_window_close'}
