@@ -90,13 +90,13 @@ class Slim4ExportProvider(models.AbstractModel):
         }
 
     def _get_source_records(
-            self,
-            interface,
-            page_size=20,
-            offset=0,
-            skiptoken=None,
-            **params,
-        ):
+        self,
+        interface,
+        page_size=20,
+        offset=0,
+        skiptoken=None,
+        **params,
+    ):
         domain = self._get_source_domain(interface)
 
         if skiptoken is not None:
@@ -122,18 +122,16 @@ class Slim4ExportProvider(models.AbstractModel):
         )
 
         return [
-        (
-            line,
             (
-                methodcaller('mapped', line.field_path)
-                if line.split_records
-                else attrgetter(line.field_path)
+                line,
+                (
+                    methodcaller('mapped', line.field_path)
+                    if line.split_records
+                    else attrgetter(line.field_path)
+                ),
             )
-            if line.mapping_type == 'field'
-            else None,
-        )
-        for line in mapping_lines
-    ]
+            for line in mapping_lines
+        ]
 
     def _iter_export_rows(
         self,
