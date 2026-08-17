@@ -552,7 +552,7 @@
       <field name="field_type">char</field>
       <field name="max_length">20</field>
       <field name="mapping_type">rule</field>
-      <field name="field_path">order_id.picking_type_id.warehouse_id.code</field>
+      <field name="field_path">product_id.warehouse_ids.code</field>
       <field name="split_records">True</field>
       <field name="status">validated</field>
     </record>
