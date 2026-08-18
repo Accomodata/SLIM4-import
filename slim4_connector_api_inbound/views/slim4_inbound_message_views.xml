@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="slim4_inbound_message_view_list" model="ir.ui.view">
+    <field name="name">slim4.inbound.message.view.list</field>
+    <field name="model">slim4.inbound.message</field>
+    <field name="arch" type="xml">
+      <list string="Inbound Messages" create="0">
+        <field name="create_date"/>
+        <field name="operation"/>
+        <field name="batch_reference"/>
+        <field name="item_index"/>
+        <field name="supplier_id"/>
+        <field name="product_id"/>
+        <field name="status" widget="badge" decoration-success="status == 'processed'" decoration-danger="status == 'error'"  decoration-info="status == 'received'"/>
+        <field name="company_id" groups="base.group_multi_company"/>
+      </list>
+    </field>
+  </record>
+  <record id="slim4_inbound_message_view_form" model="ir.ui.view">
+    <field name="name">slim4.inbound.message.view.form</field>
+    <field name="model">slim4.inbound.message</field>
+    <field name="arch" type="xml">
+      <form string="Inbound Message" create="0" delete="0">
+        <sheet>
+          <group>
+            <group>
+              <field name="create_date"/>
+              <field name="operation"/>
+              <field name="status" widget="badge" decoration-success="status == 'processed'" decoration-danger="status == 'error'"  decoration-info="status == 'received'"/>
+            </group>
+            <group>
+              <field name="batch_reference"/>
+              <field name="item_index"/>
+              <field name="supplier_id"/>
+              <field name="product_id"/>
+              <field name="company_id" groups="base.group_multi_company"/>
+              <field name="processed_at" invisible="not processed_at"/>
+            </group>
+          </group>
+          <group string="Error" invisible="not error_message">
+            <field name="error_message" nolabel="1"/>
+          </group>
+          <group string="Payload">
+            <group>
+              <field name="payload_display" nolabel="1" widget="code" options="{'mode': 'python'}"/>
+            </group>
+          </group>
+        </sheet>
+      </form>
+    </field>
+  </record>
+  <record id="slim4_inbound_message_view_search" model="ir.ui.view">
+    <field name="name">slim4.inbound.message.view.search</field>
+    <field name="model">slim4.inbound.message</field>
+    <field name="arch" type="xml">
+      <search>
+        <field name="batch_reference"/>
+        <field name="operation"/>
+        <filter string="Received" name="received" domain="[('status', '=', 'received')]"/>
+        <filter string="Processed" name="processed" domain="[('status', '=', 'processed')]"/>
+        <filter string="Errors" name="error" domain="[('status', '=', 'error')]"/>
+        <filter string="Date" name="create_date" date="create_date"/>
+        <group>
+          <filter string="Operation" name="groupby_operation" context="{'group_by': 'operation'}"/>
+          <filter string="Status" name="groupby_status" context="{'group_by': 'status'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+  <record id="action_slim4_inbound_message" model="ir.actions.act_window">
+    <field name="name">Inbound Messages</field>
+    <field name="res_model">slim4.inbound.message</field>
+    <field name="view_mode">list,form</field>
+    <field name="context">{'search_default_received': 1}</field>
+  </record>
+
+  <record id="action_process_slim4_received_orders" model="ir.actions.server">
+    <field name="name">Process Received Orders</field>
+    <field name="model_id" ref="model_slim4_inbound_message"/>
+    <field name="binding_model_id" ref="model_slim4_inbound_message"/>
+    <field name="binding_view_types">list</field>
+    <field name="state">code</field>
+    <field name="code">env['slim4.inbound.handler.orders'].process_received_messages()</field>
+  </record>
+</odoo>
