@@ -31,8 +31,7 @@
       <field name="name">Stock Details</field>
       <field name="technical_name">S4Import_StockDetails</field>
       <field name="source_model_id" ref="stock.model_stock_quant"/>
-      <field name="source_domain"><![CDATA[[('quantity', '!=', 0), ('product_id.default_code', '!=', False)]]]></field>
-      <field name="active">False</field>
+      <field name="source_domain"><![CDATA[[('location_id.usage', '=', 'internal'), ('quantity', '!=', 0), ('product_id.default_code', '!=', False)]]]></field>
     </record>
     <record id="slim4_interface_transactions" model="slim4.interface">
       <field name="name">Transactions</field>
