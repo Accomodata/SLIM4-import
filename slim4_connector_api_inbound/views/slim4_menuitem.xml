@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <menuitem id="menu_slim4_inbound_messages" name="Inbound Messages" parent="slim4_mapping.menu_slim4_root" action="action_slim4_inbound_message" sequence="20" groups="base.group_system"/>
+</odoo>
