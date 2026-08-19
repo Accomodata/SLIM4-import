@@ -798,7 +798,7 @@
       <field name="field_type">char</field>
       <field name="max_length">20</field>
       <field name="mapping_type">rule</field>
-      <field name="field_path">warehouse_ids.code</field>
+      <field name="field_path">product_id.warehouse_ids.code</field>
       <field name="split_records">True</field>
       <field name="status">validated</field>
     </record>
@@ -829,7 +829,7 @@
       <field name="sequence">50</field>
       <field name="slim4_field">requiredDate</field>
       <field name="field_type">date</field>
-      <field name="mapping_type">field</field>
+      <field name="mapping_type">rule</field>
       <field name="field_path">order_id.commitment_date</field>
       <field name="status">validated</field>
     </record>
@@ -838,8 +838,8 @@
       <field name="sequence">60</field>
       <field name="slim4_field">requiredQuantity</field>
       <field name="field_type">integer</field>
-      <field name="mapping_type">rule</field>
-      <field name="rule_key">required_quantity</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">qty_to_deliver</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_confirmed_demand_exceptionlevel" model="slim4.interface.mapping">
