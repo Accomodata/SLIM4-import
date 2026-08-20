@@ -2,7 +2,8 @@ DEFAULT_EXPORT_PROVIDER = 'slim4.export.provider'
 
 # Add an entry only when an interface actually needs its own provider.
 PROVIDER_BY_INTERFACE = {
-
+    'S4Import_PurchaseOrder': 'slim4.export.provider.purchase.order',
+    'S4Import_ConfirmedDemand': 'slim4.export.provider.confirmed.demand',
 }
 
 
