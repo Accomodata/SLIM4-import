@@ -117,8 +117,13 @@ class Slim4ExportProvider(models.AbstractModel):
         )
 
     def _get_mapping_plan(self, interface):
+        user = self.env.user
         mapping_lines = interface.mapping_line_ids.filtered(
-            lambda line: line.status == 'validated',
+            lambda line: line.status == 'validated' and (
+                not line.group_id or user.has_group(
+                    line.group_id.get_external_id().get(line.group_id.id),
+                )
+            ),
         )
 
         return [
