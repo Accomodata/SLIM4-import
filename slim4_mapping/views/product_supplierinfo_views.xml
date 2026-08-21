@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="product_supplierinfo_tree_view" model="ir.ui.view">
+    <field name="name">product.supplierinfo.tree.view.inherit</field>
+    <field name="model">product.supplierinfo</field>
+    <field name="inherit_id" ref="product.product_supplierinfo_tree_view" />
+    <field name="arch" type="xml">
+      <xpath expr="//list//field[@name='sequence']" position="after">
+        <field name="slim4_is_primary" groups="slim4_mapping.primary_supplier_field" optional="hide" />
+      </xpath>
+
+      <xpath expr="//list//field[@name='product_uom_id']" position="after">
+        <field name="slim4_ioq" groups="slim4_mapping.ioq_field" />
+      </xpath>
+    </field>
+  </record>
+</odoo>

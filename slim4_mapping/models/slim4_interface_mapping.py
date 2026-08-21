@@ -1,5 +1,5 @@
 import re
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 from odoo.tools.safe_eval import test_python_expr
 
@@ -112,8 +112,8 @@ class Slim4InterfaceMapping(models.Model):
     )
 
     _unique_interface_mapping = models.Constraint(
-        'unique(interface_id, slim4_field)',
-        'Each Slim4 field can only be mapped once per interface.',
+        'unique(interface_id, slim4_field, group_id)',
+        'Each Slim4 field can only be mapped once per group on the same interface.',
     )
 
     split_records = fields.Boolean(
@@ -122,6 +122,8 @@ class Slim4InterfaceMapping(models.Model):
             'Create one JSON record for each value returned by this mapping.'
         ),
     )
+
+    group_id = fields.Many2one('res.groups', string='Security Group')
 
     @api.constrains('specific_rule')
     def _check_specific_rule(self):
@@ -142,7 +144,7 @@ class Slim4InterfaceMapping(models.Model):
             ], limit=1)
             if other_mapping:
                 raise ValidationError(
-                    _('Only one mapping can split records for interface %s.')
+                    self.env._('Only one mapping can split records for interface %s.')
                     % mapping.interface_id.display_name,
                 )
 
@@ -216,7 +218,7 @@ class Slim4InterfaceMapping(models.Model):
         self.ensure_one()
         return {
             'type': 'ir.actions.act_window',
-            'name': _('Python Rule'),
+            'name': self.env._('Python Rule'),
             'res_model': 'slim4.specific.rule.wizard',
             'view_mode': 'form',
             'target': 'new',
@@ -231,7 +233,7 @@ class Slim4InterfaceMapping(models.Model):
         self.ensure_one()
 
         errors = []
-        line_name = _('%s / %s') % (
+        line_name = self.env._('%s / %s') % (
             self.interface_id.display_name,
             self.slim4_field,
         )
@@ -242,7 +244,7 @@ class Slim4InterfaceMapping(models.Model):
 
         if required_field and not self[required_field]:
             errors.append(
-                _('%s: missing %s') % (
+                self.env._('%s: missing %s') % (
                     line_name,
                     required_field,
                 ),
@@ -250,7 +252,7 @@ class Slim4InterfaceMapping(models.Model):
 
         if self._has_invalid_field_path():
             errors.append(
-                _('%s: invalid field path "%s" on model %s') % (
+                self.env._('%s: invalid field path "%s" on model %s') % (
                     line_name,
                     self.field_path,
                     self.source_model,
