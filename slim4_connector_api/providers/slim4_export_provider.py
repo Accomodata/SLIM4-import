@@ -280,7 +280,6 @@ class Slim4ExportProvider(models.AbstractModel):
             eval_context['result'],
         )
 
-    # ruff: ignore[too-many-return-statements]
     def _normalize_mapping_value(self, line, value):
         """Normalize a resolved value to the type expected by Slim4."""
         if value is False:
