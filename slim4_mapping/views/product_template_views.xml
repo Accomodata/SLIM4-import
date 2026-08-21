@@ -9,17 +9,10 @@
 
       <xpath expr="//page[@name='purchase']//field[@name='seller_ids']" position="before">
         <group>
-          <field name="slim4_primary_supplier_ids" widget="many2many_tags" />
-        </group>
-      </xpath>
-
-      <xpath expr="//page[@name='sales']" position="inside">
-        <field name="slim4_show_moq" invisible="1" />
-        <field name="slim4_show_ioq" invisible="1" />
-
-        <group string="Slim4" invisible="product_variant_count != 1">
-          <field name="slim4_moq" invisible="not slim4_show_moq" />
-          <field name="slim4_ioq" invisible="not slim4_show_ioq" />
+          <field name="slim4_primary_supplier_ids"
+            widget="many2many_tags"
+            readonly="True"
+            groups="slim4_mapping.primary_supplier_field" />
         </group>
       </xpath>
 

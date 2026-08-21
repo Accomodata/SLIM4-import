@@ -7,12 +7,18 @@
     <field name="arch" type="xml">
       <xpath expr="//form" position="inside">
         <app string="Slim4" name="slim4_mapping">
-          <block title="Slim4">
-            <setting string="Visible Slim4 Features"
-              help="Select features to display associated fields in Slim4. This setting does not affect exports.">
-              <field name="slim4_feature_tag_ids"
-                widget="many2many_tags"
-                options="{'no_create': True, 'no_open': True}" />
+          <block title="Slim4 Integration Features">
+            <setting string="Warehouse" help="Enables the warehouse functionality on products.s">
+              <field name="group_slim4_warehouse_field" />
+            </setting>
+
+            <setting string="Primary Supplier" help="Enables the primary supplier functionality on suppliers.">
+              <field name="group_slim4_primary_supplier_field" />
+            </setting>
+
+            <setting string="Incremental Order Quantity (IOQ)"
+              help="Enables the ability to register an incremental order of quantity on suppliers.">
+              <field name="group_slim4_ioq_field" />
             </setting>
           </block>
         </app>

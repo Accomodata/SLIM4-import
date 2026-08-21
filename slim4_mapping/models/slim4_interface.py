@@ -1,4 +1,4 @@
-from odoo import fields, models, _
+from odoo import fields, models
 from odoo.exceptions import UserError
 
 
@@ -44,9 +44,26 @@ class Slim4Interface(models.Model):
     )
 
     _interface_unique_technical_name = models.Constraint(
-            'unique(technical_name)',
-            'The technical name must be unique.',
-        )
+        'unique(technical_name)',
+        'The technical name must be unique.',
+    )
+
+    mapping_line_domain = fields.Binary(
+        compute='_compute_mapping_line_domain',
+        readonly=True,
+    )
+
+    def _compute_mapping_line_domain(self):
+        user_group_ids = self.env.user.group_ids.ids
+
+        domain = [
+            '|',
+            ('group_id', '=', False),
+            ('group_id', 'in', user_group_ids),
+        ]
+
+        for record in self:
+            record.mapping_line_domain = domain
 
     def action_reset_mapping_to_default(self):
         """Restore the default values of the interface mappings."""
@@ -62,13 +79,15 @@ class Slim4Interface(models.Model):
         self.ensure_one()
         if not self.source_model:
             raise UserError(
-                _('No source model configured for interface %s.') % self.display_name,
+                self.env._(
+                    'No source model configured for interface %s.',
+                ) % self.display_name,
             )
         try:
             return self.env[self.source_model]
         except KeyError as error:
             raise UserError(
-                _('The source model %s is not installed.') % self.source_model,
+                self.env._('The source model %s is not installed.') % self.source_model,
             ) from error
 
     def action_validate_mapping_config(self):
@@ -80,8 +99,8 @@ class Slim4Interface(models.Model):
                 'type': 'ir.actions.client',
                 'tag': 'display_notification',
                 'params': {
-                    'title': _('Mapping configuration not valid'),
-                    'message': _(
+                    'title': self.env._('Mapping configuration not valid'),
+                    'message': self.env._(
                         'The mapping configuration is structurally invalid:\n%s',
                     ) % '\n'.join(errors),
                     'type': 'danger',
@@ -93,8 +112,8 @@ class Slim4Interface(models.Model):
             'type': 'ir.actions.client',
             'tag': 'display_notification',
             'params': {
-                'title': _('Mapping configuration validated'),
-                'message': _(
+                'title': self.env._('Mapping configuration validated'),
+                'message': self.env._(
                     'The mapping configuration is structurally valid.',
                 ),
                 'type': 'success',
@@ -106,7 +125,7 @@ class Slim4Interface(models.Model):
         """Aggregate interface and mapping-line configuration errors."""
         self.ensure_one()
         source_errors = [
-            _('%s: %s') % (
+            self.env._('%s: %s') % (
                 self.display_name,
                 error,
             )
@@ -124,11 +143,11 @@ class Slim4Interface(models.Model):
         errors = []
 
         if not self.source_model:
-            errors.append(_('No source model configured.'))
+            errors.append(self.env._('No source model configured.'))
 
         if self.source_model not in self.env:
             errors.append(
-                _('The source model %s is not installed.') % self.source_model,
+                self.env._('The source model %s is not installed.') % self.source_model,
             )
 
         return errors
