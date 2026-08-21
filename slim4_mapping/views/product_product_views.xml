@@ -6,15 +6,10 @@
     <field name="inherit_id" ref="stock.product_form_view_procurement_button" />
     <field name="arch" type="xml">
       <xpath expr="//page[@name='inventory']" position="inside">
-        <field name="slim4_show_warehouse_ids" invisible="1" />
-        <field name="slim4_show_moq" invisible="1" />
-        <field name="slim4_show_ioq" invisible="1" />
-
         <group string="Slim4">
-          <field name="warehouse_ids" invisible="not slim4_show_warehouse_ids" widget="many2many_tags" />
-
-          <field name="slim4_moq" invisible="not slim4_show_moq" />
-          <field name="slim4_ioq" invisible="not slim4_show_ioq" />
+          <field name="warehouse_ids"
+            groups="slim4_mapping.group_slim4_warehouse_field"
+            widget="many2many_tags" />
         </group>
       </xpath>
     </field>

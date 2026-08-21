@@ -1,7 +1,5 @@
 from odoo import models, fields, api
 
-from .res_config_settings import get_slim4_visible_field_keys
-
 
 class ProductTemplate(models.Model):
     _inherit = 'product.template'
@@ -12,71 +10,55 @@ class ProductTemplate(models.Model):
         column1='product_tmpl_id',
         column2='partner_id',
         string='Primary Supplier',
+        compute='_compute_slim4_primary_supplier_ids',
+        store=True,
+        groups='slim4_mapping.primary_supplier_field',
+        help="Primary suppliers calculated from the product's vendor list.",
     )
 
-    slim4_moq = fields.Float(
-        string='MOQ',
-        compute='_compute_slim4_moq',
-        inverse='_inverse_slim4_moq',
-        help='Minimum Order Quantity',
+    def _recompute_primary_suppliers(self):
+        """Calculate primary supplier lines across template and individual variants."""
+        for tmpl in self:
+            primary_records = self.env['product.supplierinfo']
+
+            # 1. Template-level Primary (sequence takes priority over min_qty)
+            tmpl_lines = tmpl.seller_ids.filtered(lambda line: not line.product_id)
+            if tmpl_lines:
+                sorted_tmpl_lines = tmpl_lines.sorted(
+                    key=lambda line: (line.sequence, line.min_qty, line.id or 0))
+                primary_records |= sorted_tmpl_lines[0]
+
+            # 2. Variant-level Primary (one per variant if specific lines exist)
+            for variant in tmpl.product_variant_ids:
+                variant_lines = tmpl.seller_ids.filtered(
+                    lambda line, variant=variant: line.product_id == variant,
+                )
+                if variant_lines:
+                    sorted_variant_lines = variant_lines.sorted(
+                        key=lambda line: (line.sequence, line.min_qty, line.id or 0))
+                    primary_records |= sorted_variant_lines[0]
+
+            # Direct update without triggering re-entrancy loops
+            for line in tmpl.seller_ids:
+                is_primary = (line in primary_records)
+                if line.slim4_is_primary != is_primary:
+                    super(models.Model, line).write({'slim4_is_primary': is_primary})
+
+    @api.depends(
+        'seller_ids.sequence',
+        'seller_ids.min_qty',
+        'seller_ids.partner_id',
+        'seller_ids.product_id',
+        'product_variant_ids.seller_ids.sequence',
+        'product_variant_ids.seller_ids.min_qty',
+        'product_variant_ids.seller_ids.partner_id',
     )
-    slim4_ioq = fields.Float(
-        string='IOQ',
-        compute='_compute_slim4_ioq',
-        inverse='_inverse_slim4_ioq',
-        help='Incremental Order Quantity',
-    )
-
-    # Visibility compute flags
-    slim4_show_moq = fields.Boolean(
-        compute='_compute_slim4_show_fields',
-    )
-    slim4_show_ioq = fields.Boolean(
-        compute='_compute_slim4_show_fields',
-    )
-
-    @api.depends('product_variant_ids.slim4_moq', 'product_variant_count')
-    def _compute_slim4_moq(self):
+    def _compute_slim4_primary_supplier_ids(self):
         for template in self:
-            if template.product_variant_count == 1:
-                template.slim4_moq = template.product_variant_id.slim4_moq
-            else:
-                template.slim4_moq = 0.0
+            primary_sellers = template.seller_ids.filtered(lambda s: s.slim4_is_primary)
+            variant_sellers = template.product_variant_ids.seller_ids.filtered(
+                lambda s: s.slim4_is_primary)
 
-    def _inverse_slim4_moq(self):
-        for template in self:
-            if template.product_variant_count == 1:
-                template.product_variant_id.slim4_moq = template.slim4_moq
-
-    @api.depends('product_variant_ids.slim4_ioq', 'product_variant_count')
-    def _compute_slim4_ioq(self):
-        for template in self:
-            if template.product_variant_count == 1:
-                template.slim4_ioq = template.product_variant_id.slim4_ioq
-            else:
-                template.slim4_ioq = 0.0
-
-    def _inverse_slim4_ioq(self):
-        for template in self:
-            if template.product_variant_count == 1:
-                template.product_variant_id.slim4_ioq = template.slim4_ioq
-
-    def _compute_slim4_show_fields(self):
-        visible_keys = set(get_slim4_visible_field_keys(self.env))
-
-        show_moq = bool(
-            visible_keys & {
-                'product.template.slim4_moq',
-                'product.product.slim4_moq',
-            },
-        )
-        show_ioq = bool(
-            visible_keys & {
-                'product.template.slim4_ioq',
-                'product.product.slim4_ioq',
-            },
-        )
-
-        for template in self:
-            template.slim4_show_moq = show_moq
-            template.slim4_show_ioq = show_ioq
+            all_primary_partners = (
+                primary_sellers | variant_sellers).mapped('partner_id')
+            template.slim4_primary_supplier_ids = all_primary_partners.ids
