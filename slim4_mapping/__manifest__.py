@@ -55,7 +55,6 @@
         'views/slim4_interface_views.xml',
         'views/slim4_interface_mapping_views.xml',
         'views/product_supplierinfo_views.xml',
-        'views/product_product_views.xml',
         'views/product_template_views.xml',
         'views/res_config_settings_views.xml',
         'views/slim4_menuitem.xml',
