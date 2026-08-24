@@ -283,7 +283,24 @@
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
       <field name="mapping_type">rule</field>
-      <field name="status">to_validate</field>
+      <field name="specific_rule">
+target_currency = (
+    record.partner_id.property_purchase_currency_id
+    or record.env.company.currency_id
+)
+
+supplierinfo = record
+
+if supplierinfo and target_currency:
+    source_currency = supplierinfo.currency_id
+    price = supplierinfo.price
+
+    result = source_currency._convert( from_amount=price, to_currency=target_currency, company=record.env.company
+    )
+else:
+    result = 0.0
+      </field>
+      <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_logistics_msq" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_logistics" />
@@ -755,27 +772,8 @@
       <field name="slim4_field">buyingPrice</field>
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
-      <field name="mapping_type">rule</field>
-      <field name="specific_rule">
-target_currency = (
-    record.partner_id.property_purchase_currency_id
-    or record.env.company.currency_id
-)
-
-supplierinfo = record
-
-if supplierinfo and target_currency:
-    source_currency = supplierinfo.currency_id
-    price = supplierinfo.price
-
-    result = source_currency._convert(
-        from_amount=price,
-        to_currency=target_currency,
-        company=record.env.company
-    )
-else:
-    result = 0.0
-      </field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">price_unit</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_purchase_order_orderdate" model="slim4.interface.mapping">
