@@ -56,7 +56,7 @@
                   <field name="sequence" widget="handle" />
                   <field name="slim4_field" readonly="1" />
                   <field name="mapping_type" optional="show" />
-                  <field name="field_path" optional="hide" />
+                  <field name="field_path" optional="show" />
                   <field name="constant_value" />
                   <field name="rule_key" readonly="0" />
                   <button name="action_open_specific_rule_wizard" type="object" icon="fa-code" title="Edit Python Rule"

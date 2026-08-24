@@ -16,7 +16,7 @@
     <field name="comment">Controls access and visibility for Slim4 Incremental Order Quantity fields.</field>
   </record>
   <!-- Enable the Slim4 field groups by default on installation.
-     noupdate prevents module upgrades from re-enabling options disabled-->
+  noupdate prevents module upgrades from re-enabling options disabled-->
   <data noupdate="1">
     <record id="base.group_user" model="res.groups">
       <field name="implied_ids" eval="[

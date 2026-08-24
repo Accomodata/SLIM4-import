@@ -23,7 +23,8 @@ class ProductTemplate(models.Model):
         compute='_compute_slim4_primary_supplier_ids',
         store=True,
         groups='slim4_mapping.primary_supplier_field',
-        help="Primary suppliers calculated from the product's vendor list.",
+        help="Primary suppliers determined from the product's vendor list. "
+        "Suppliers with the highest priority (lowest sequence value) are selected.",
     )
 
     def _recompute_primary_suppliers(self):
