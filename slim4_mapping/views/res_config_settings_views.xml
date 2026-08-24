@@ -8,7 +8,7 @@
       <xpath expr="//form" position="inside">
         <app string="Slim4" name="slim4_mapping">
           <block title="Slim4 Integration Features">
-            <setting string="Warehouse" help="Enables the warehouse functionality on products.s">
+            <setting string="Warehouse" help="Enables the warehouse functionality on products">
               <field name="group_slim4_warehouse_field" />
             </setting>
 

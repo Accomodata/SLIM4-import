@@ -1,4 +1,4 @@
-from odoo import api, fields, models
+from odoo import fields, models
 
 
 class ResConfigSettings(models.TransientModel):
@@ -25,13 +25,3 @@ class ResConfigSettings(models.TransientModel):
         help='Enables the ability to register an incremental order'
         ' of quantity on suppliers.',
     )
-
-    # Settings that should be enabled by default
-    @api.model
-    def default_get(self, fields_list):
-        res = super().default_get(fields_list)
-        if 'group_slim4_primary_supplier_field' in fields_list and (
-            'group_slim4_primary_supplier_field' not in res
-        ):
-            res['group_slim4_primary_supplier_field'] = True
-        return res
