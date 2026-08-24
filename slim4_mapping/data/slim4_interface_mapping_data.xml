@@ -501,8 +501,7 @@
       <field name="field_type">decimal</field>
       <field name="max_length">38</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_crit_x</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_article_code_master_groupcode1" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_article_code_master" />
@@ -511,8 +510,7 @@
       <field name="field_type">char</field>
       <field name="max_length">255</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_analysis_code_x</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_article_code_master_ud1" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_article_code_master" />
@@ -531,8 +529,7 @@
       <field name="field_type">char</field>
       <field name="max_length">255</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_user_defined_x</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_article_code_master_articlestatus" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_article_code_master" />
@@ -541,8 +538,7 @@
       <field name="field_type">char</field>
       <field name="max_length">100</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_article_status</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_article_code_master_barcode" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_article_code_master" />
@@ -561,8 +557,7 @@
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_fefo_percentage</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_purchase_order_warehouse" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_purchase_order" />
@@ -660,8 +655,7 @@
       <field name="field_type">char</field>
       <field name="max_length">255</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_purchase_order_free_text_1</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_purchase_order_freenumber1" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_purchase_order" />
@@ -670,8 +664,7 @@
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_purchase_order_free_number_1</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_purchase_order_ordertypenumber" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_purchase_order" />
@@ -699,8 +692,7 @@
       <field name="field_type">integer</field>
       <field name="max_length">1</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_exclude_setting</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_purchase_order_excludedate" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_purchase_order" />
@@ -708,8 +700,7 @@
       <field name="slim4_field">excludeDate</field>
       <field name="field_type">date</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_exclude_before_date</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_purchase_order_excludefromam" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_purchase_order" />
@@ -717,8 +708,7 @@
       <field name="slim4_field">excludeFromAM</field>
       <field name="field_type">integer</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_exclude_from_am</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_purchase_order_suppliernumber" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_purchase_order" />
@@ -757,8 +747,7 @@
       <field name="field_type">integer</field>
       <field name="max_length">1</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_default_contract</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_purchase_order_buyingprice" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_purchase_order" />
@@ -816,8 +805,7 @@ else:
       <field name="field_type">integer</field>
       <field name="max_length">1</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_exclude_from_pp</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_purchase_order_supplierarticlecode" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_purchase_order" />
@@ -887,8 +875,7 @@ else:
       <field name="field_type">integer</field>
       <field name="max_length">4</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_exception_level</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_confirmed_demand_ordertype" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_confirmed_demand" />
@@ -927,7 +914,7 @@ else:
       <field name="max_length">4000</field>
       <field name="mapping_type">field</field>
       <field name="field_path">order_id.note</field>
-      <field name="status">to_validate</field>
+      <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_confirmed_demand_originalquantity" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_confirmed_demand" />
@@ -953,8 +940,7 @@ else:
       <field name="field_type">char</field>
       <field name="max_length">255</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_confirmed_order_free_text_1</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_confirmed_demand_freenumber1" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_confirmed_demand" />
@@ -963,8 +949,7 @@ else:
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_confirmed_order_free_number_1</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_confirmed_demand_type" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_confirmed_demand" />
@@ -1225,8 +1210,7 @@ else:
       <field name="field_type">char</field>
       <field name="max_length">255</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_transaction_free_field_1</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_transactions_issuetime" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
@@ -1244,8 +1228,7 @@ else:
       <field name="field_type">char</field>
       <field name="max_length">50</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_return_transaction_number</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_transactions_demandchannel" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
@@ -1254,8 +1237,7 @@ else:
       <field name="field_type">char</field>
       <field name="max_length">100</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_transaction_demand_channel</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_transactions_demandregion" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
@@ -1264,8 +1246,7 @@ else:
       <field name="field_type">char</field>
       <field name="max_length">100</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_transaction_demand_region</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_stock_details_warehouse" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_stock_details" />
@@ -1315,8 +1296,7 @@ else:
       <field name="field_type">char</field>
       <field name="max_length">100</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_stock_type</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_stock_details_excludesetting" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_stock_details" />
@@ -1324,8 +1304,7 @@ else:
       <field name="slim4_field">excludeSetting</field>
       <field name="field_type">integer</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_exclude_setting_stock</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_stock_details_excludetilldate" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_stock_details" />
@@ -1333,8 +1312,7 @@ else:
       <field name="slim4_field">excludeTillDate</field>
       <field name="field_type">date</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_exclude_till_date_stock</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_stock_details_excludefromdate" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_stock_details" />
@@ -1342,8 +1320,7 @@ else:
       <field name="slim4_field">excludeFromDate</field>
       <field name="field_type">date</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_exclude_from_date_stock</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_stock_details_initialshelflife" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_stock_details" />
@@ -1352,8 +1329,7 @@ else:
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_initial_shelf_life</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_stock_details_remainingshelflife" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_stock_details" />
@@ -1362,8 +1338,7 @@ else:
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_remaining_shelf_life</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_stock_details_ud1" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_stock_details" />
@@ -1372,8 +1347,7 @@ else:
       <field name="field_type">char</field>
       <field name="max_length">255</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_user_defined_1_stock</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_stock_details_excludefromam" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_stock_details" />
@@ -1382,8 +1356,7 @@ else:
       <field name="field_type">char</field>
       <field name="max_length">25</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">x_exclude_from_batch_allocation</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <function model="slim4.interface.mapping" name="create_default_values_snapshots" eval="['slim4_mapping']" />
   </data>
