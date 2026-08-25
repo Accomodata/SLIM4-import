@@ -28,48 +28,75 @@ class ProductTemplate(models.Model):
     )
 
     def _recompute_primary_suppliers(self):
-        """Calculate primary supplier lines across template and individual variants."""
+        """Calculate primary supplier lines for templates and variants."""
         for tmpl in self:
             primary_records = self.env['product.supplierinfo']
+            variants = tmpl.product_variant_ids
 
-            # 1. Template-level Primary (sequence takes priority over min_qty)
-            tmpl_lines = tmpl.seller_ids.filtered(lambda line: not line.product_id)
-            if tmpl_lines:
-                sorted_tmpl_lines = tmpl_lines.sorted(
-                    key=lambda line: (line.sequence, line.min_qty, line.id or 0))
-                primary_records |= sorted_tmpl_lines[0]
+            # A template with more then 1 variant has no template primary.
+            if len(variants) == 1:
+                primary_records |= tmpl._get_slim4_primary_seller()
 
-            # 2. Variant-level Primary (one per variant if specific lines exist)
-            for variant in tmpl.product_variant_ids:
-                variant_lines = tmpl.seller_ids.filtered(
-                    lambda line, variant=variant: line.product_id == variant,
-                )
-                if variant_lines:
-                    sorted_variant_lines = variant_lines.sorted(
-                        key=lambda line: (line.sequence, line.min_qty, line.id or 0))
-                    primary_records |= sorted_variant_lines[0]
+            # One primary per variant.
+            # Generic and variant-specific lines compete by sequence/min_qty.
+            for variant in variants:
+                primary_records |= tmpl._get_slim4_primary_seller(variant)
 
             # Direct update without triggering re-entrancy loops
             for line in tmpl.seller_ids:
-                is_primary = (line in primary_records)
+                is_primary = line in primary_records
                 if line.slim4_is_primary != is_primary:
-                    super(models.Model, line).write({'slim4_is_primary': is_primary})
+                    super(models.Model, line).write({
+                        'slim4_is_primary': is_primary,
+                    })
+
+    def _get_slim4_primary_seller(self, variant=None):
+        """Return the first applicable supplier line.
+
+        Template:
+            Only lines without product_id.
+
+        Variant:
+            Lines for this variant or generic lines without product_id.
+        """
+        self.ensure_one()
+
+        if variant:
+            seller_lines = self.seller_ids.filtered(
+                lambda line: (
+                    not line.product_id
+                    or line.product_id == variant
+                ),
+            )
+        else:
+            seller_lines = self.seller_ids.filtered(
+                lambda line: not line.product_id,
+            )
+
+        return seller_lines.sorted(
+            key=lambda line: (
+                line.sequence,
+                line.min_qty,
+                line.id or 0,
+            ),
+        )[:1]
 
     @api.depends(
         'seller_ids.sequence',
         'seller_ids.min_qty',
         'seller_ids.partner_id',
         'seller_ids.product_id',
-        'product_variant_ids.seller_ids.sequence',
-        'product_variant_ids.seller_ids.min_qty',
-        'product_variant_ids.seller_ids.partner_id',
+        'product_variant_ids',
+        'product_variant_ids.active',
     )
     def _compute_slim4_primary_supplier_ids(self):
         for template in self:
-            primary_sellers = template.seller_ids.filtered(lambda s: s.slim4_is_primary)
-            variant_sellers = template.product_variant_ids.seller_ids.filtered(
-                lambda s: s.slim4_is_primary)
+            # No primary supplier if multiple variants
+            if len(template.product_variant_ids) > 1:
+                template.slim4_primary_supplier_ids = False
+                continue
 
-            all_primary_partners = (
-                primary_sellers | variant_sellers).mapped('partner_id')
-            template.slim4_primary_supplier_ids = all_primary_partners.ids
+            primary_seller = template._get_slim4_primary_seller()
+            template.slim4_primary_supplier_ids = (
+                primary_seller.partner_id.ids
+            )

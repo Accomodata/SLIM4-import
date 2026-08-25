@@ -9,7 +9,7 @@ class ProductSupplierinfo(models.Model):
         string='Primary',
         compute='_compute_slim4_is_primary',
         store=True,
-        readonly=False,
+        readonly=True,
         groups='slim4_mapping.primary_supplier_field',
         help='Indicates if this supplier is the primary supplier for the product.',
     )
