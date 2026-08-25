@@ -86,20 +86,20 @@
       <field name="field_path"></field>
       <field name="status">ignored</field>
     </record>
-    <record id="slim4_mapping_logistics_supplierreliability" model="slim4.interface.mapping">
+    <record id="slim4_mapping_logistics_supplierreliabilitytype" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">80</field>
-      <field name="slim4_field">supplierReliability</field>
+      <field name="slim4_field">supplierReliabilityType</field>
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
       <field name="mapping_type">field</field>
       <field name="field_path"></field>
       <field name="status">ignored</field>
     </record>
-    <record id="slim4_mapping_logistics_supplierreliabilitysetting" model="slim4.interface.mapping">
+    <record id="slim4_mapping_logistics_supplierreliabilitytype" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">90</field>
-      <field name="slim4_field">supplierReliabilitySetting</field>
+      <field name="slim4_field">supplierReliabilityType</field>
       <field name="field_type">integer</field>
       <field name="max_length">1</field>
       <field name="mapping_type">field</field>
@@ -119,27 +119,18 @@
     <record id="slim4_mapping_logistics_minimumorderquantity" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">110</field>
-      <field name="slim4_field">minimumOrderQuantity</field>
+      <field name="slim4_field">MOQ</field>
       <field name="field_type">integer</field>
       <field name="mapping_type">field</field>
       <field name="mapping_type">rule</field>
       <field name="specific_rule">result = record.min_qty * record.product_uom_id.relative_factor</field>
       <field name="status">validated</field>
     </record>
-    <record id="slim4_mapping_logistics_incrementelorderquantity_base" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics" />
-      <field name="sequence">120</field>
-      <field name="slim4_field">incrementelOrderQuantity</field>
-      <field name="field_type">integer</field>
-      <field name="mapping_type">field</field>
-      <field name="specific_rule"></field>
-      <field name="status">ignored</field>
-    </record>
-    <record id="slim4_mapping_logistics_incrementelorderquantity_extra" model="slim4.interface.mapping">
+    <record id="slim4_mapping_logistics_incrementelorderquantity" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">120</field>
       <field name="group_id" ref="slim4_mapping.ioq_field" />
-      <field name="slim4_field">incrementelOrderQuantity</field>
+      <field name="slim4_field">IOQ</field>
       <field name="field_type">integer</field>
       <field name="mapping_type">field</field>
       <field name="field_path">slim4_ioq</field>
@@ -148,7 +139,7 @@
     <record id="slim4_mapping_logistics_economicorderquantity" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">130</field>
-      <field name="slim4_field">economicOrderQuantity</field>
+      <field name="slim4_field">EOQ</field>
       <field name="field_type">integer</field>
       <field name="mapping_type">field</field>
       <field name="field_path"></field>
@@ -436,7 +427,7 @@ else:
       <field name="field_type">char</field>
       <field name="max_length">20</field>
       <field name="mapping_type">rule</field>
-      <field name="field_path">warehouse_id.code</field>
+      <field name="field_path">warehouse_ids.code</field>
       <field name="split_records">True</field>
       <field name="status">validated</field>
     </record>
@@ -582,9 +573,9 @@ else:
       <field name="slim4_field">warehouse</field>
       <field name="field_type">char</field>
       <field name="max_length">20</field>
-      <field name="mapping_type">rule</field>
-      <field name="field_path">product_id.warehouse_ids.code</field>
-      <field name="split_records">True</field>
+      <field name="mapping_type">field</field>
+      <field name="split_records">False</field>
+      <field name="field_path">product_id.warehouse_id.code</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_purchase_order_code" model="slim4.interface.mapping">
@@ -601,7 +592,7 @@ else:
     <record id="slim4_mapping_purchase_order_ponumber" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">40</field>
-      <field name="slim4_field">poNumber</field>
+      <field name="slim4_field">number</field>
       <field name="field_type">char</field>
       <field name="max_length">100</field>
       <field name="slim4_required">1</field>
@@ -627,20 +618,20 @@ else:
       <field name="rule_key">open_quantity</field>
       <field name="status">validated</field>
     </record>
-    <record id="slim4_mapping_purchase_order_supplierdetails" model="slim4.interface.mapping">
+    <record id="slim4_mapping_purchase_order_supplier" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">70</field>
-      <field name="slim4_field">supplierDetails</field>
+      <field name="slim4_field">supplier</field>
       <field name="field_type">char</field>
       <field name="max_length">100</field>
       <field name="mapping_type">field</field>
       <field name="field_path">order_id.partner_id.name</field>
       <field name="status">to_validate</field>
     </record>
-    <record id="slim4_mapping_purchase_order_pocomment" model="slim4.interface.mapping">
+    <record id="slim4_mapping_purchase_order_comment" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">80</field>
-      <field name="slim4_field">poComment</field>
+      <field name="slim4_field">comment</field>
       <field name="field_type">char</field>
       <field name="max_length">4000</field>
       <field name="mapping_type">field</field>
@@ -686,7 +677,7 @@ else:
     <record id="slim4_mapping_purchase_order_ordertypenumber" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">150</field>
-      <field name="slim4_field">orderTypeNumber</field>
+      <field name="slim4_field">type</field>
       <field name="field_type">integer</field>
       <field name="max_length">1</field>
       <field name="mapping_type">constant</field>
@@ -727,10 +718,10 @@ else:
       <field name="mapping_type">field</field>
       <field name="status">ignored</field>
     </record>
-    <record id="slim4_mapping_purchase_order_suppliernumber" model="slim4.interface.mapping">
+    <record id="slim4_mapping_purchase_order_supplier" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">200</field>
-      <field name="slim4_field">supplierNumber</field>
+      <field name="slim4_field">supplier</field>
       <field name="field_type">char</field>
       <field name="max_length">60</field>
       <field name="mapping_type">field</field>
@@ -821,9 +812,9 @@ else:
       <field name="slim4_field">warehouse</field>
       <field name="field_type">char</field>
       <field name="max_length">20</field>
-      <field name="mapping_type">rule</field>
-      <field name="field_path">product_id.warehouse_ids.code</field>
-      <field name="split_records">True</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">warehouse_id.code</field>
+      <field name="split_records">False</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_confirmed_demand_code" model="slim4.interface.mapping">
@@ -1015,8 +1006,8 @@ else:
       <field name="field_type">char</field>
       <field name="max_length">20</field>
       <field name="mapping_type">rule</field>
-      <field name="field_path">warehouse_ids.code</field>
-      <field name="split_records">True</field>
+      <field name="field_path">warehouse_id.code</field>
+      <field name="split_records">False</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_code" model="slim4.interface.mapping">
@@ -1146,10 +1137,10 @@ else:
       <field name="field_path">picking_id.partner_id.display_name</field>
       <field name="status">validated</field>
     </record>
-    <record id="slim4_mapping_transactions_supplier" model="slim4.interface.mapping">
+    <record id="slim4_mapping_transactions_suppliernumber" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">200</field>
-      <field name="slim4_field">supplier</field>
+      <field name="slim4_field">supplierNumber</field>
       <field name="field_type">char</field>
       <field name="max_length">25</field>
       <field name="mapping_type">rule</field>
@@ -1253,8 +1244,8 @@ else:
       <field name="field_type">char</field>
       <field name="max_length">20</field>
       <field name="mapping_type">rule</field>
-      <field name="field_path">product_id.warehouse_ids.code</field>
-      <field name="split_records">True</field>
+      <field name="field_path">warehouse_id.code</field>
+      <field name="split_records">False</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_stock_details_code" model="slim4.interface.mapping">
