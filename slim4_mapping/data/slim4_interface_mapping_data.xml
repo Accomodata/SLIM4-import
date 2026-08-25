@@ -436,7 +436,7 @@ else:
       <field name="field_type">char</field>
       <field name="max_length">20</field>
       <field name="mapping_type">rule</field>
-      <field name="field_path">warehouse_id.code</field>
+      <field name="field_path">warehouse_ids.code</field>
       <field name="split_records">True</field>
       <field name="status">validated</field>
     </record>
@@ -583,8 +583,7 @@ else:
       <field name="field_type">char</field>
       <field name="max_length">20</field>
       <field name="mapping_type">rule</field>
-      <field name="field_path">product_id.warehouse_ids.code</field>
-      <field name="split_records">True</field>
+      <field name="field_path">warehouse_id.code</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_purchase_order_code" model="slim4.interface.mapping">
@@ -821,9 +820,9 @@ else:
       <field name="slim4_field">warehouse</field>
       <field name="field_type">char</field>
       <field name="max_length">20</field>
-      <field name="mapping_type">rule</field>
-      <field name="field_path">product_id.warehouse_ids.code</field>
-      <field name="split_records">True</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">warehouse_id.code</field>
+      <field name="split_records">False</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_confirmed_demand_code" model="slim4.interface.mapping">
@@ -1015,8 +1014,8 @@ else:
       <field name="field_type">char</field>
       <field name="max_length">20</field>
       <field name="mapping_type">rule</field>
-      <field name="field_path">warehouse_ids.code</field>
-      <field name="split_records">True</field>
+      <field name="field_path">warehouse_id.code</field>
+      <field name="split_records">False</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_code" model="slim4.interface.mapping">
@@ -1253,8 +1252,8 @@ else:
       <field name="field_type">char</field>
       <field name="max_length">20</field>
       <field name="mapping_type">rule</field>
-      <field name="field_path">product_id.warehouse_ids.code</field>
-      <field name="split_records">True</field>
+      <field name="field_path">warehouse_id.code</field>
+      <field name="split_records">False</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_stock_details_code" model="slim4.interface.mapping">
