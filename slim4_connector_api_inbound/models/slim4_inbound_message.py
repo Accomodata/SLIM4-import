@@ -42,6 +42,11 @@ class Slim4InboundMessage(models.Model):
         readonly=True,
         index=True,
     )
+    picking_type_id = fields.Many2one(
+        comodel_name='stock.picking.type',
+        readonly=True,
+        index=True,
+    )
     status = fields.Selection(
         selection=[
             ('received', 'Received'),
