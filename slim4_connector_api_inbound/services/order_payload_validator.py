@@ -1,4 +1,5 @@
 from .errors import PayloadValidationError
+from datetime import datetime
 
 
 def validate_order_payload(payload):
@@ -31,14 +32,7 @@ def _validate_order(order, item_index):
             'articleCode': order['code'],
         }
 
-    missing_fields = []
-    to_order = order.get('toOrder')
-    if not order.get('supplierNumber'):
-        missing_fields.append('supplierNumber')
-    if not order.get('articleCode'):
-        missing_fields.append('articleCode/code')
-    if to_order is None:
-        missing_fields.append('toOrder')
+    missing_fields = _get_missing_fields(order)
 
     if missing_fields:
         raise PayloadValidationError(
@@ -48,6 +42,9 @@ def _validate_order(order, item_index):
                 'missing_fields': missing_fields,
             },
         )
+
+    to_order = order.get('toOrder')
+    expected_date = order.get('expectedDate')
 
     try:
         quantity = float(to_order) if isinstance(to_order, str) else to_order
@@ -68,4 +65,36 @@ def _validate_order(order, item_index):
             context={'item_index': item_index},
         )
 
+    if expected_date:
+        if not isinstance(expected_date, str):
+            raise PayloadValidationError(
+                'The "expectedDate" value must be a string in YYYYMMDD format.',
+                context={'item_index': item_index},
+            )
+
+        try:
+            order['expectedDate'] = datetime.strptime(
+                expected_date,
+                '%Y%m%d',
+            ).date()
+        except ValueError as error:
+            raise PayloadValidationError(
+                'The "expectedDate" value must be a valid date in YYYYMMDD format.',
+                context={
+                    'item_index': item_index,
+                    'expected_date': expected_date,
+                },
+            ) from error
+
     return order
+
+
+def _get_missing_fields(order):
+    missing_fields = []
+    if not order.get('supplierNumber'):
+        missing_fields.append('supplierNumber')
+    if not order.get('articleCode'):
+        missing_fields.append('articleCode/code')
+    if not order.get('toOrder'):
+        missing_fields.append('toOrder')
+    return missing_fields
