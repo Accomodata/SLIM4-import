@@ -967,6 +967,7 @@ else:
       <field name="max_length">50</field>
       <field name="mapping_type">field</field>
       <field name="field_path">picking_id.name</field>
+      <field name="slim4_required">True</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_transactiontype" model="slim4.interface.mapping">
@@ -1005,8 +1006,9 @@ else:
       <field name="slim4_field">warehouse</field>
       <field name="field_type">char</field>
       <field name="max_length">20</field>
-      <field name="mapping_type">rule</field>
+      <field name="mapping_type">field</field>
       <field name="field_path">warehouse_id.code</field>
+      <field name="slim4_required">True</field>
       <field name="split_records">False</field>
       <field name="status">validated</field>
     </record>
@@ -1019,6 +1021,7 @@ else:
       <field name="slim4_required">1</field>
       <field name="mapping_type">field</field>
       <field name="field_path">product_id.default_code</field>
+      <field name="slim4_required">True</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_issuedate" model="slim4.interface.mapping">
@@ -1046,7 +1049,7 @@ else:
       <field name="field_type">date</field>
       <field name="mapping_type">field</field>
       <field name="field_path">picking_id.scheduled_date</field>
-      <field name="status">validated</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_transactions_issuequantity" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
@@ -1055,7 +1058,7 @@ else:
       <field name="field_type">decimal</field>
       <field name="max_length">38</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">quantity</field>
+      <field name="field_path">sale_line_id.qty_delivered</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_linenumber" model="slim4.interface.mapping">
@@ -1066,6 +1069,7 @@ else:
       <field name="max_length">50</field>
       <field name="mapping_type">field</field>
       <field name="field_path">sequence</field>
+      <field name="slim4_required">True</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_confirmedquantity" model="slim4.interface.mapping">
@@ -1075,7 +1079,7 @@ else:
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">product_uom_qty</field>
+      <field name="field_path">quantity</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_requestedquantity" model="slim4.interface.mapping">
@@ -1085,7 +1089,7 @@ else:
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">quantity</field>
+      <field name="field_path">product_uom_qty</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_customernumber" model="slim4.interface.mapping">
@@ -1105,7 +1109,7 @@ else:
       <field name="field_type">char</field>
       <field name="max_length">50</field>
       <field name="mapping_type">rule</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_transactions_customername" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
@@ -1134,7 +1138,7 @@ else:
       <field name="field_type">char</field>
       <field name="max_length">255</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">picking_id.partner_id.display_name</field>
+      <field name="field_path">sale_line_id.order_id.partner_shipping_id.contact_address</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_transactions_suppliernumber" model="slim4.interface.mapping">
@@ -1144,7 +1148,7 @@ else:
       <field name="field_type">char</field>
       <field name="max_length">25</field>
       <field name="mapping_type">rule</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_transactions_suppliertype" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
@@ -1153,7 +1157,7 @@ else:
       <field name="field_type">char</field>
       <field name="max_length">50</field>
       <field name="mapping_type">rule</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_transactions_suppliername" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
@@ -1162,7 +1166,7 @@ else:
       <field name="field_type">char</field>
       <field name="max_length">100</field>
       <field name="mapping_type">rule</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_transactions_buyingprice" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
@@ -1171,7 +1175,7 @@ else:
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
       <field name="mapping_type">rule</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_transactions_supplyinglocation" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
@@ -1180,7 +1184,7 @@ else:
       <field name="field_type">char</field>
       <field name="max_length">255</field>
       <field name="mapping_type">rule</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_transactions_conversionfactor" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
@@ -1190,7 +1194,7 @@ else:
       <field name="max_length">38</field>
       <field name="mapping_type">field</field>
       <field name="field_path">product_uom.factor</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_transactions_ud1" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
@@ -1208,7 +1212,7 @@ else:
       <field name="field_type">char</field>
       <field name="max_length">5</field>
       <field name="mapping_type">rule</field>
-      <field name="status">to_validate</field>
+      <field name="status">ignored</field>
     </record>
     <record id="slim4_mapping_transactions_linkedtransactionnumber" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
