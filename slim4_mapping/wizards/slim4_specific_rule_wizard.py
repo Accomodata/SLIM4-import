@@ -16,6 +16,11 @@ class Slim4SpecificRuleWizard(models.TransientModel):
         string='Python Code',
     )
 
+    source_model = fields.Char(
+        related='mapping_id.source_model',
+        readonly=True,
+    )
+
     def action_save(self):
         self.ensure_one()
         self.mapping_id.specific_rule = self.code or False
