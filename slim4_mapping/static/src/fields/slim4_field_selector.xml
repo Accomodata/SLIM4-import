@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+  <t t-name="slim4_mapping.FieldSelectorReadonly" t-inherit="web.FieldSelectorField" t-inherit-mode="extension">
+    <!-- Show translated field labels instead of the technical dot notation -->
+    <xpath expr="//t[@t-if='props.readonly']" position="replace">
+      <t t-if="props.readonly">
+        <ModelFieldSelector t-props="selectorProps"/>
+      </t>
+    </xpath>
+  </t>
+</templates>

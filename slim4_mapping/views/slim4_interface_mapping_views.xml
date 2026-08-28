@@ -15,7 +15,7 @@
         <field name="sequence"/>
         <field name="slim4_field"/>
         <field name="mapping_type" optional="show"/>
-        <field name="field_path"/>
+        <field name="field_path" optional="show" widget="field_selector" invisible="mapping_type not in ['field', 'rule']" options="{'model': 'source_model', 'follow_relations': true, 'allow_properties': false}" />
         <field name="split_records" optional="hide" groups="base.group_no_one"/>
         <field name="slim4_required" optional="show"/>
         <field name="field_type" optional="hide"/>
@@ -47,7 +47,7 @@
             <group>
               <field name="mapping_type"/>
               <field name="field_type"/>
-              <field name="field_path" invisible="mapping_type != 'field'" />
+              <field name="field_path" invisible="mapping_type not in ['field', 'rule']" groups="base.group_no_one"/>
               <field name="constant_value" invisible="mapping_type != 'constant'" />
               <field name="split_records" groups="base.group_no_one"/>
               <field name="status"/>

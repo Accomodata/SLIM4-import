@@ -61,6 +61,12 @@
 
         'wizards/slim4_specific_rule_wizard.xml',
     ],
+
+    'assets': {
+        'web.assets_backend': [
+            'slim4_mapping/static/src/fields/slim4_field_selector.xml',
+        ],
+    },
     'installable': True,
     'application': False,
     'module_type': 'official',
