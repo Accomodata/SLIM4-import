@@ -29,9 +29,9 @@
       <field name="slim4_field">warehouse</field>
       <field name="field_type">char</field>
       <field name="max_length">20</field>
-      <field name="mapping_type">rule</field>
-      <field name="specific_rule">result = record.product_id.warehouse_id.code or record.product_tmpl_id.warehouse_id.code</field>
-      <field name="split_records">True</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">warehouse_id.code</field>
+      <field name="split_records">False</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_logistics_code" model="slim4.interface.mapping">
@@ -40,10 +40,9 @@
       <field name="slim4_field">code</field>
       <field name="field_type">char</field>
       <field name="max_length">40</field>
-      <field name="field_path">product_id.default_code</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">default_code</field>
       <field name="slim4_required">1</field>
-      <field name="mapping_type">rule</field>
-      <field name="specific_rule">result = record.product_id.default_code or record.product_tmpl_id.default_code</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_logistics_suppliernumber" model="slim4.interface.mapping">
@@ -53,7 +52,7 @@
       <field name="field_type">char</field>
       <field name="max_length">60</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">partner_id.ref</field>
+      <field name="field_path">slim4_primary_supplier_line.partner_id.ref</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_logistics_suppliername" model="slim4.interface.mapping">
@@ -63,7 +62,7 @@
       <field name="field_type">char</field>
       <field name="max_length">100</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">partner_id.name</field>
+      <field name="field_path">slim4_primary_supplier_line.partner_id.name</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_logistics_leadtime" model="slim4.interface.mapping">
@@ -73,7 +72,7 @@
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">delay</field>
+      <field name="field_path">slim4_primary_supplier_line.delay</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_logistics_reviewtime" model="slim4.interface.mapping">
@@ -123,7 +122,7 @@
       <field name="field_type">integer</field>
       <field name="mapping_type">field</field>
       <field name="mapping_type">rule</field>
-      <field name="specific_rule">result = record.min_qty * record.product_uom_id.relative_factor</field>
+      <field name="specific_rule">result = record.slim4_primary_supplier_line.min_qty * record.slim4_primary_supplier_line.product_uom_id.relative_factor</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_logistics_incrementelorderquantity" model="slim4.interface.mapping">
@@ -276,11 +275,11 @@
       <field name="mapping_type">rule</field>
       <field name="specific_rule">
 target_currency = (
-    record.partner_id.property_purchase_currency_id
+    record.slim4_primary_supplier_line.partner_id.property_purchase_currency_id
     or record.env.company.currency_id
 )
 
-supplierinfo = record
+supplierinfo = record.slim4_primary_supplier_line
 
 if supplierinfo and target_currency:
     source_currency = supplierinfo.currency_id
@@ -347,7 +346,7 @@ else:
       <field name="field_type">char</field>
       <field name="max_length">65</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">product_code</field>
+      <field name="field_path">slim4_primary_supplier_line.product_code</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_logistics_replenishmentscheduleid" model="slim4.interface.mapping">
