@@ -27,6 +27,34 @@ class ProductTemplate(models.Model):
         "Suppliers with the highest priority (lowest sequence value) are selected.",
     )
 
+    slim4_primary_supplier_id = fields.Many2one(
+        comodel_name='product.supplierinfo',
+        store=True,
+        compute='_compute_slim4_primary_supplier_ids',
+        groups='slim4_mapping.primary_supplier_field',
+    )
+
+    @api.depends(
+        'seller_ids.sequence',
+        'seller_ids.min_qty',
+        'seller_ids.partner_id',
+        'seller_ids.product_id',
+        'product_variant_ids',
+        'product_variant_ids.active',
+    )
+    def _compute_slim4_primary_supplier_ids(self):
+        for template in self:
+            # No primary supplier if multiple variants
+            if len(template.product_variant_ids) > 1:
+                template.slim4_primary_supplier_ids = False
+                continue
+
+            primary_seller = template._get_slim4_primary_seller()
+            template.slim4_primary_supplier_ids = (
+                primary_seller.partner_id.ids
+            )
+            template.slim4_primary_supplier_id = primary_seller
+
     def _recompute_primary_suppliers(self):
         """Calculate primary supplier lines for templates and variants."""
         for tmpl in self:
@@ -80,23 +108,3 @@ class ProductTemplate(models.Model):
                 line.id or 0,
             ),
         )[:1]
-
-    @api.depends(
-        'seller_ids.sequence',
-        'seller_ids.min_qty',
-        'seller_ids.partner_id',
-        'seller_ids.product_id',
-        'product_variant_ids',
-        'product_variant_ids.active',
-    )
-    def _compute_slim4_primary_supplier_ids(self):
-        for template in self:
-            # No primary supplier if multiple variants
-            if len(template.product_variant_ids) > 1:
-                template.slim4_primary_supplier_ids = False
-                continue
-
-            primary_seller = template._get_slim4_primary_seller()
-            template.slim4_primary_supplier_ids = (
-                primary_seller.partner_id.ids
-            )
