@@ -575,7 +575,7 @@ else:
       <field name="max_length">20</field>
       <field name="mapping_type">field</field>
       <field name="split_records">False</field>
-      <field name="field_path">product_id.warehouse_id.code</field>
+      <field name="field_path">order_id.picking_type_id.warehouse_id.code</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_purchase_order_code" model="slim4.interface.mapping">
@@ -654,7 +654,7 @@ else:
       <field name="field_type">integer</field>
       <field name="mapping_type">field</field>
       <field name="field_path">qty_received</field>
-      <field name="status">to_validate</field>
+      <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_purchase_order_freetext1" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_purchase_order" />
