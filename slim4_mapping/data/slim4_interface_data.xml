@@ -16,8 +16,8 @@
     <record id="slim4_interface_logistics" model="slim4.interface">
       <field name="name">Logistics</field>
       <field name="technical_name">S4Import_Logistics</field>
-      <field name="source_model_id" ref="product.model_product_supplierinfo" />
-      <field name="source_domain"><![CDATA[[('product_tmpl_id.active', '=', True),('slim4_is_primary', '=', True), ('product_id.default_code', '!=', False)]]]></field>
+      <field name="source_model_id" ref="product.model_product_product" />
+      <field name="source_domain"><![CDATA[[('default_code', '!=', False), ('active', '=', True), ('slim4_primary_supplier_line', '!=', False)]]]></field>
     </record>
     <record id="slim4_interface_purchase_order" model="slim4.interface">
       <field name="name">Purchase Order</field>
