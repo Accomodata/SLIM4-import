@@ -5,4 +5,5 @@ from . import slim4_confirmed_demand
 from . import slim4_logistics
 from . import slim4_purchase_order
 from . import slim4_stock_details
+from . import slim4_suppliers
 from . import slim4_transactions
