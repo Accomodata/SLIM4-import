@@ -34,6 +34,17 @@
       <field name="split_records">True</field>
       <field name="status">validated</field>
     </record>
+    <record id="slim4_mapping_suppliers_warehouse" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">20</field>
+      <field name="slim4_field">warehouse</field>
+      <field name="field_type">char</field>
+      <field name="max_length">20</field>
+      <field name="mapping_type">rule</field>
+      <field name="field_path">product_id.warehouse_ids.code</field>
+      <field name="split_records">True</field>
+      <field name="status">validated</field>
+    </record>
     <record id="slim4_mapping_logistics_code" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">30</field>
@@ -42,6 +53,17 @@
       <field name="max_length">40</field>
       <field name="mapping_type">field</field>
       <field name="field_path">default_code</field>
+      <field name="slim4_required">1</field>
+      <field name="status">validated</field>
+    </record>
+    <record id="slim4_mapping_supplier_code" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">30</field>
+      <field name="slim4_field">code</field>
+      <field name="field_type">char</field>
+      <field name="max_length">40</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">product_id.default_code</field>
       <field name="slim4_required">1</field>
       <field name="status">validated</field>
     </record>
@@ -55,6 +77,16 @@
       <field name="field_path">slim4_primary_supplier_id.partner_id.ref</field>
       <field name="status">validated</field>
     </record>
+    <record id="slim4_mapping_suppliers_suppliernumber" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">40</field>
+      <field name="slim4_field">supplierNumber</field>
+      <field name="field_type">char</field>
+      <field name="max_length">60</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">partner_id.ref</field>
+      <field name="status">validated</field>
+    </record>
     <record id="slim4_mapping_logistics_suppliername" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">50</field>
@@ -65,6 +97,16 @@
       <field name="field_path">slim4_primary_supplier_id.partner_id.name</field>
       <field name="status">validated</field>
     </record>
+    <record id="slim4_mapping_suppliers_suppliername" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">50</field>
+      <field name="slim4_field">supplierName</field>
+      <field name="field_type">char</field>
+      <field name="max_length">100</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">partner_id.name</field>
+      <field name="status">validated</field>
+    </record>
     <record id="slim4_mapping_logistics_leadtime" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">60</field>
@@ -73,6 +115,16 @@
       <field name="max_length">15</field>
       <field name="mapping_type">field</field>
       <field name="field_path">slim4_primary_supplier_id.delay</field>
+      <field name="status">validated</field>
+    </record>
+    <record id="slim4_mapping_suppliers_leadtime" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">60</field>
+      <field name="slim4_field">leadTime</field>
+      <field name="field_type">decimal</field>
+      <field name="max_length">15</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">delay</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_logistics_reviewtime" model="slim4.interface.mapping">
@@ -125,8 +177,28 @@
       <field name="specific_rule">result = record.slim4_primary_supplier_id.min_qty * record.slim4_primary_supplier_id.product_uom_id.relative_factor</field>
       <field name="status">validated</field>
     </record>
+    <record id="slim4_mapping_suppliers_minimumorderquantity" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">110</field>
+      <field name="slim4_field">MOQ</field>
+      <field name="field_type">integer</field>
+      <field name="mapping_type">field</field>
+      <field name="mapping_type">rule</field>
+      <field name="specific_rule">result = record.min_qty * record.product_uom_id.relative_factor</field>
+      <field name="status">validated</field>
+    </record>
     <record id="slim4_mapping_logistics_incrementelorderquantity" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_logistics" />
+      <field name="sequence">120</field>
+      <field name="group_id" ref="slim4_mapping.ioq_field" />
+      <field name="slim4_field">IOQ</field>
+      <field name="field_type">integer</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">slim4_primary_supplier_id.slim4_ioq</field>
+      <field name="status">validated</field>
+    </record>
+    <record id="slim4_mapping_suppliers_incrementelorderquantity" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
       <field name="sequence">120</field>
       <field name="group_id" ref="slim4_mapping.ioq_field" />
       <field name="slim4_field">IOQ</field>
@@ -292,6 +364,32 @@ else:
       </field>
       <field name="status">validated</field>
     </record>
+    <record id="slim4_mapping_suppliers_buyingprice" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">270</field>
+      <field name="slim4_field">buyingPrice</field>
+      <field name="field_type">decimal</field>
+      <field name="max_length">15</field>
+      <field name="mapping_type">rule</field>
+      <field name="specific_rule">
+target_currency = (
+    record.partner_id.property_purchase_currency_id
+    or record.env.company.currency_id
+)
+
+supplierinfo = record
+
+if supplierinfo and target_currency:
+    source_currency = supplierinfo.currency_id
+    price = supplierinfo.price
+
+    result = source_currency._convert( from_amount=price, to_currency=target_currency, company=record.env.company
+    )
+else:
+    result = 0.0
+      </field>
+      <field name="status">validated</field>
+    </record>
     <record id="slim4_mapping_logistics_msq" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">280</field>
@@ -347,6 +445,16 @@ else:
       <field name="max_length">65</field>
       <field name="mapping_type">field</field>
       <field name="field_path">slim4_primary_supplier_id.product_code</field>
+      <field name="status">validated</field>
+    </record>
+    <record id="slim4_mapping_suppliers_supplierarticlecode" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">330</field>
+      <field name="slim4_field">supplierArticleCode</field>
+      <field name="field_type">char</field>
+      <field name="max_length">65</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">product_code</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_mapping_logistics_replenishmentscheduleid" model="slim4.interface.mapping">
