@@ -16,6 +16,14 @@ class ProductProduct(models.Model):
         help='Primary supplier selected by sequence and minimum quantity.',
     )
 
+    slim4_primary_supplier_id = fields.Many2one(
+        comodel_name='product.supplierinfo',
+        index=True,
+        store=True,
+        groups='slim4_mapping.primary_supplier_field',
+        compute='_compute_slim4_primary_supplier_ids',
+    )
+
     @api.depends(
         'product_tmpl_id',
         'product_tmpl_id.seller_ids.sequence',
@@ -31,3 +39,4 @@ class ProductProduct(models.Model):
             product.slim4_primary_supplier_ids = (
                 primary_seller.partner_id.ids
             )
+            product.slim4_primary_supplier_id = primary_seller[:1]
