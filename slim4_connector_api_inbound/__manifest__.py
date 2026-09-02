@@ -39,7 +39,7 @@
     'license': 'OPL-1',
     'depends': [
         'slim4_connector_api',
-        'slim4_mapping',
+        'slim4_connector_base',
     ],
     'data': [
         'security/ir.model.access.csv',
