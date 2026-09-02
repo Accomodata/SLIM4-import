@@ -29,7 +29,7 @@
       <field name="name">Purchase Order</field>
       <field name="technical_name">S4Import_PurchaseOrder</field>
       <field name="source_model_id" ref="purchase.model_purchase_order_line" />
-      <field name="source_domain"><![CDATA[[('order_id.state', '=', 'purchase'), ('product_qty', '>', 0), ('product_id.default_code', '!=', False)]]]></field>
+      <field name="source_domain"><![CDATA[["&", "&", "&", ("order_id.state", "=", "purchase"), ("product_qty", ">", 0), ("product_id.default_code", "!=", False), ("move_ids.state", "!=", "done")]]]></field>
     </record>
     <record id="slim4_interface_stock_details" model="slim4.interface">
       <field name="name">Stock Details</field>
@@ -47,7 +47,7 @@
       <field name="name">Confirmed Demand</field>
       <field name="technical_name">S4Import_ConfirmedDemand</field>
       <field name="source_model_id" ref="sale.model_sale_order_line" />
-      <field name="source_domain"><![CDATA[[('order_id.state', 'in', ['sale', 'done']), ('product_uom_qty', '>', 0), ('product_id.default_code', '!=', False)]]]></field>
+      <field name="source_domain"><![CDATA[["&", "&", "&", ("order_id.state", "in", ["sale", "done"]), ("product_uom_qty", ">", 0), ("product_id.default_code", "!=", False), ("move_ids.state", "!=", "done")]]]></field>
     </record>
   </data>
 </odoo>
