@@ -38,7 +38,7 @@
     'website': 'https://www.accomodata.be',
     'license': 'OPL-1',
     'depends': [
-        'slim4_mapping',
+        'slim4_connector_base',
     ],
     'data': [
         'views/slim4_interface_views.xml',

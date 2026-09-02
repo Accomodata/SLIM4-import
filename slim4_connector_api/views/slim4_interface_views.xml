@@ -3,7 +3,7 @@
   <record id="slim4_interface_view_form_api" model="ir.ui.view">
     <field name="name">slim4.interface.view.form.api</field>
     <field name="model">slim4.interface</field>
-    <field name="inherit_id" ref="slim4_mapping.slim4_interface_view_form"/>
+    <field name="inherit_id" ref="slim4_connector_base.slim4_interface_view_form"/>
     <field name="arch" type="xml">
       <xpath expr="//header" position="inside">
         <button name="action_open_json_preview" type="object" string="Preview JSON" class="btn btn-secondary"/>
