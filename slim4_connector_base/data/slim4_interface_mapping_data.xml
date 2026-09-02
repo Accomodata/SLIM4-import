@@ -1017,8 +1017,9 @@ else:
       <field name="sequence">120</field>
       <field name="slim4_field">originalQuantity</field>
       <field name="field_type">integer</field>
-      <field name="mapping_type">rule</field>
-      <field name="status">to_validate</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">product_uom_qty</field>
+      <field name="status">validated</field>
     </record>
     <record id="slim4_connector_base_confirmed_demand_suppliedquantity" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_confirmed_demand" />
