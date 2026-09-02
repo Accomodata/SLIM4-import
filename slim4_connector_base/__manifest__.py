@@ -30,7 +30,7 @@
 #
 #
 {
-    'name': 'Slim4 Mapping Configuration',
+    'name': 'Slim4 Connector Base',
     'summary': 'Configure Slim4 interfaces and Odoo field mappings',
     'version': '19.0.1.0.0',
     'category': 'Inventory/Configuration',
