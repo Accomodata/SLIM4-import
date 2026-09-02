@@ -64,7 +64,7 @@
 
     'assets': {
         'web.assets_backend': [
-            'slim4_mapping/static/src/fields/slim4_field_selector.xml',
+            'slim4_connector_base/static/src/fields/slim4_field_selector.xml',
         ],
     },
     'installable': True,

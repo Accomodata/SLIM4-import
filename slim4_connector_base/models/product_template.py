@@ -11,7 +11,7 @@ class ProductTemplate(models.Model):
         column2='warehouse_id',
         string='Slim4 Warehouses',
         help='Warehouses used by Slim4 for this product.',
-        groups='slim4_mapping.warehouse_field',
+        groups='slim4_connector_base.warehouse_field',
     )
 
     slim4_primary_supplier_ids = fields.Many2many(
@@ -22,7 +22,7 @@ class ProductTemplate(models.Model):
         string='Primary Supplier',
         compute='_compute_slim4_primary_supplier_ids',
         store=True,
-        groups='slim4_mapping.primary_supplier_field',
+        groups='slim4_connector_base.primary_supplier_field',
         help="Primary suppliers determined from the product's vendor list. "
         "Suppliers with the highest priority (lowest sequence value) are selected.",
     )
@@ -31,7 +31,7 @@ class ProductTemplate(models.Model):
         comodel_name='product.supplierinfo',
         store=True,
         compute='_compute_slim4_primary_supplier_ids',
-        groups='slim4_mapping.primary_supplier_field',
+        groups='slim4_connector_base.primary_supplier_field',
     )
 
     @api.depends(

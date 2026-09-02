@@ -20,8 +20,8 @@
   <data noupdate="1">
     <record id="base.group_user" model="res.groups">
       <field name="implied_ids" eval="[
-            Command.link(ref('slim4_mapping.warehouse_field')),
-            Command.link(ref('slim4_mapping.primary_supplier_field')),
+            Command.link(ref('slim4_connector_base.warehouse_field')),
+            Command.link(ref('slim4_connector_base.primary_supplier_field')),
         ]"/>
     </record>
   </data>

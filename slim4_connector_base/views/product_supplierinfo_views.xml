@@ -6,11 +6,11 @@
     <field name="inherit_id" ref="product.product_supplierinfo_tree_view" />
     <field name="arch" type="xml">
       <xpath expr="//list//field[@name='sequence']" position="after">
-        <field name="slim4_is_primary" column_invisible="True" groups="slim4_mapping.primary_supplier_field" />
+        <field name="slim4_is_primary" column_invisible="True" groups="slim4_connector_base.primary_supplier_field" />
       </xpath>
 
       <xpath expr="//list//field[@name='product_uom_id']" position="after">
-        <field name="slim4_ioq" groups="slim4_mapping.ioq_field" />
+        <field name="slim4_ioq" groups="slim4_connector_base.ioq_field" />
       </xpath>
     </field>
   </record>

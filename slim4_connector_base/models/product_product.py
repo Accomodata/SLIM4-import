@@ -12,7 +12,7 @@ class ProductProduct(models.Model):
         string='Primary Supplier',
         compute='_compute_slim4_primary_supplier_ids',
         store=True,
-        groups='slim4_mapping.primary_supplier_field',
+        groups='slim4_connector_base.primary_supplier_field',
         help='Primary supplier selected by sequence and minimum quantity.',
     )
 
@@ -20,7 +20,7 @@ class ProductProduct(models.Model):
         comodel_name='product.supplierinfo',
         index=True,
         store=True,
-        groups='slim4_mapping.primary_supplier_field',
+        groups='slim4_connector_base.primary_supplier_field',
         compute='_compute_slim4_primary_supplier_ids',
     )
 

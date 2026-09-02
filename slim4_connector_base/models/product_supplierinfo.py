@@ -10,18 +10,18 @@ class ProductSupplierinfo(models.Model):
         compute='_compute_slim4_is_primary',
         store=True,
         readonly=True,
-        groups='slim4_mapping.primary_supplier_field',
+        groups='slim4_connector_base.primary_supplier_field',
         help='Indicates if this supplier is the primary supplier for the product.',
     )
 
     slim4_ioq = fields.Float(
         string='IOQ',
         help='Incremental Order Quantity',
-        groups='slim4_mapping.ioq_field',
+        groups='slim4_connector_base.ioq_field',
     )
 
     def _is_primary_supplier_enabled(self):
-        return self.env.user.has_group('slim4_mapping.primary_supplier_field')
+        return self.env.user.has_group('slim4_connector_base.primary_supplier_field')
 
     @api.depends('sequence', 'min_qty', 'product_tmpl_id', 'product_id')
     def _compute_slim4_is_primary(self):
