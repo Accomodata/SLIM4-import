@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- LISTS -->
+  <record id="slim4_interface_view_list" model="ir.ui.view">
+    <field name="name">slim4.interface.view.list</field>
+    <field name="model">slim4.interface</field>
+    <field name="arch" type="xml">
+      <list string="Slim4 Interfaces" decoration-muted="not active" create="0" delete="0">
+        <field name="name" />
+        <field name="technical_name" groups="base.group_no_one" />
+        <field name="source_model_id" />
+        <field name="active" />
+      </list>
+    </field>
+  </record>
+  <!-- FORMS -->
+  <record id="slim4_interface_view_form" model="ir.ui.view">
+    <field name="name">slim4.interface.view.form</field>
+    <field name="model">slim4.interface</field>
+    <field name="arch" type="xml">
+      <form string="Slim4 Interface">
+        <header>
+          <button name="action_validate_mapping_config" type="object" string="Validate Mapping" groups="base.group_system" />
+          <button name="action_reset_mapping_to_default" type="object" string="Reset Mapping" groups="base.group_system" />
+        </header>
+        <sheet>
+          <group>
+            <group colspan="2">
+              <div class="oe_title">
+                <h1>
+                  <field name="name" />
+                </h1>
+              </div>
+            </group>
+            <group>
+              <field name="technical_name" readonly="1" groups="base.group_no_one" />
+              <field name="source_model_id" readonly="1" />
+              <field name="source_model" readonly="1" groups="base.group_no_one" />
+            </group>
+            <group>
+              <field name="active" widget="boolean_toggle" />
+            </group>
+          </group>
+          <group string="Source Preview">
+            <field name="source_domain" widget="domain" colspan="2" readonly="not source_model_id" options="{'model': 'source_model', 'foldable': true, 'in_dialog': true}" />
+          </group>
+          <notebook>
+            <page string="Field Mapping">
+              <field name="mapping_line_ids" domain="mapping_line_domain">
+                <list editable="bottom" create="0" delete="0" decoration-success="status == 'validated' and not mapping_error" decoration-warning="status == 'to_validate'" decoration-muted="status == 'ignored'" decoration-danger="status == 'validated' and mapping_error ">
+                  <field name="sequence" widget="handle" />
+                  <field name="slim4_field" readonly="1" />
+                  <field name="mapping_type" optional="show" />
+                  <field name="source_model" column_invisible="1"/>
+                  <field name="field_path" optional="show" widget="field_selector" invisible="mapping_type not in ['field', 'rule']" options="{'model': 'source_model', 'follow_relations': true, 'allow_properties': false}" />
+                  <field name="constant_value" />
+                  <field name="rule_key" readonly="0" />
+                  <button name="action_open_specific_rule_wizard" type="object" icon="fa-code" title="Edit Python Rule" invisible="mapping_type != 'rule'" />
+                  <field name="slim4_required" optional="show" />
+                  <field name="field_type" optional="hide" />
+                  <field name="max_length" optional="hide" />
+                  <field name="status" optional="hide" />
+                  <field name="notes" optional="hide" />
+                  <field name="split_records" optional="hide" groups="base.group_no_one" />
+                  <field name="mapping_error" optional="hide" />
+                </list>
+              </field>
+            </page>
+            <page string="Notes">
+              <field name="notes" />
+            </page>
+          </notebook>
+        </sheet>
+      </form>
+    </field>
+  </record>
+  <!-- ACTIONS -->
+  <record id="action_slim4_interface" model="ir.actions.act_window">
+    <field name="name">Interfaces</field>
+    <field name="res_model">slim4.interface</field>
+    <field name="view_mode">list,form</field>
+  </record>
+</odoo>
