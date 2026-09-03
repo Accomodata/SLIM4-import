@@ -203,7 +203,6 @@ class Slim4InterfaceMapping(models.Model):
             self.rule_key = False
             self.convert_html_field = False
 
-
     @api.depends('interface_technical_name', 'slim4_field')
     def _compute_name(self):
         for line in self:
