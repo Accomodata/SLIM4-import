@@ -6,6 +6,7 @@ from operator import attrgetter, methodcaller
 from odoo import _, api, models
 from odoo.exceptions import UserError
 from odoo.tools.safe_eval import safe_eval
+from odoo.tools import html2plaintext
 
 
 def encode_skiptoken(write_date, record_id):
@@ -285,34 +286,37 @@ class Slim4ExportProvider(models.AbstractModel):
         if value is False:
             value = None
 
-        elif isinstance(value, list):
+        if line.convert_html_field:
+            return html2plaintext(value)
+
+        if isinstance(value, list):
             normalized_values = [
                 self._normalize_mapping_value(line, item)
                 for item in value
             ]
-            value = (
+            return (
                 normalized_values[0]
                 if len(normalized_values) == 1
                 else normalized_values or None
             )
 
-        elif value is not None:
-            if line.field_type == 'date' and isinstance(value, (date, datetime)):
-                value = value.strftime('%Y%m%d')
-            else:
-                if line.max_length and isinstance(value, str):
-                    value = value[:line.max_length]
+        if value is None:
+            return None
 
-                if line.field_type == 'integer':
-                    value = int(value)
-                elif line.field_type == 'decimal':
-                    value = float(value)
-                elif line.field_type == 'boolean':
-                    value = bool(value)
-                elif line.field_type == 'char':
-                    value = str(value if value else '')
+        if line.field_type == 'date' and isinstance(value, (date, datetime)):
+            return value.strftime('%Y%m%d')
 
-        return value
+        if line.max_length and isinstance(value, str):
+            value = value[:line.max_length]
+
+        converter = {
+            'integer': int,
+            'decimal': float,
+            'boolean': bool,
+            'char': str,
+        }.get(line.field_type)
+
+        return converter(value) if converter else value
 
     def _rule_warehouse(self, line, record, field_getter=None, rule_context=None):
         """Return the record's warehouse value,
