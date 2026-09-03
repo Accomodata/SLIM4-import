@@ -12,6 +12,7 @@ and this module adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.
 ### Changed
 
 - improvement res.config.settings
+- Refactor logistics - make primary supplier configurable
 
 ## 19.0.1.0.0 - 2026-08-03
 
