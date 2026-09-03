@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="res_config_settings_view_form" model="ir.ui.view">
+    <field name="name">res.config.settings.view.form.inherit.slim4</field>
+    <field name="model">res.config.settings</field>
+    <field name="inherit_id" ref="base.res_config_settings_view_form" />
+    <field name="arch" type="xml">
+      <xpath expr="//form" position="inside">
+        <app string="Slim4" name="slim4_connector_base">
+          <block title="Slim4 Integration Features">
+            <setting string="Warehouse" help="Enables the warehouse functionality on products">
+              <field name="group_slim4_warehouse_field" />
+            </setting>
+
+            <setting string="Primary Supplier" help="Enables the primary supplier functionality on suppliers.">
+              <field name="group_slim4_primary_supplier_field" />
+            </setting>
+
+            <setting string="Incremental Order Quantity (IOQ)"
+              help="Enables the ability to register an incremental order of quantity on suppliers.">
+              <field name="group_slim4_ioq_field" />
+            </setting>
+          </block>
+        </app>
+      </xpath>
+    </field>
+  </record>
+
+  <record id="action_slim4_settings" model="ir.actions.act_window">
+    <field name="name">Settings</field>
+    <field name="res_model">res.config.settings</field>
+    <field name="view_mode">form</field>
+    <field name="context">{'module': 'slim4_connector_base'}</field>
+  </record>
+</odoo>

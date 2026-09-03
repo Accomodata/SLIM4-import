@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="slim4_specific_rule_wizard_view_form" model="ir.ui.view">
+    <field name="name">slim4.specific.rule.wizard.form</field>
+    <field name="model">slim4.specific.rule.wizard</field>
+    <field name="arch" type="xml">
+      <form string="Python Rule">
+        <group>
+          <field name="mapping_id" options="{'no_open': true}" />
+          <field name="source_model"/>
+        </group>
+
+        <notebook>
+          <page string="Code">
+            <field name="code" widget="code" options="{'mode': 'python'}" nolabel="1" placeholder="Assign the exported value to result. See the Help tab for available variables." />
+          </page>
+
+          <page string="Help">
+            <p>
+              The rule is executed once for each source record.
+              The exported value must be assigned to <code>result</code>.
+            </p>
+
+            <p>
+              <strong>Available variables:</strong>
+            </p>
+            <ul>
+              <li>
+                <code>record</code>: current Odoo source record.
+              </li>
+              <li>
+                <code>rule_context</code>: reusable values prepared by
+                the export provider.
+              </li>
+              <li>
+                <code>result</code>: value returned to Slim4.
+              </li>
+            </ul>
+
+            <p>
+              <strong>Available rule context:</strong>
+            </p>
+            <ul>
+              <li>
+                <code>warehouse</code>: warehouse codes available to
+                the export.
+              </li>
+              <li>
+                <code>requiredDate</code>: fallback field path for
+                Confirmed Demand.
+              </li>
+            </ul>
+
+            <p>
+              <strong>Examples:</strong>
+            </p>
+            <pre style="white-space: pre-wrap"># Use a record field
+result = record.product_qty - record.qty_received
+
+# Use a value prepared by the export provider
+result = rule_context.get('warehouse', [])
+            </pre>
+          </page>
+        </notebook>
+
+        <footer>
+          <button name="action_save" type="object" string="Apply" class="btn-primary" data-hotkey="s" />
+          <button string="Cancel" special="cancel" class="btn-secondary" />
+        </footer>
+      </form>
+    </field>
+  </record>
+</odoo>
