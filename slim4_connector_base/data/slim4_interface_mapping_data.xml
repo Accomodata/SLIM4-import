@@ -743,6 +743,7 @@ else:
       <field name="max_length">4000</field>
       <field name="mapping_type">field</field>
       <field name="field_path">order_id.note</field>
+      <field name="convert_html_field">True</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_connector_base_purchase_order_originalquantity" model="slim4.interface.mapping">
@@ -1010,6 +1011,7 @@ else:
       <field name="max_length">4000</field>
       <field name="mapping_type">field</field>
       <field name="field_path">order_id.note</field>
+      <field name="convert_html_field">True</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_connector_base_confirmed_demand_originalquantity" model="slim4.interface.mapping">

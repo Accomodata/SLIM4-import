@@ -53,6 +53,7 @@
                   <field name="mapping_type" optional="show" />
                   <field name="source_model" column_invisible="1"/>
                   <field name="field_path" optional="show" widget="field_selector" invisible="mapping_type not in ['field', 'rule']" options="{'model': 'source_model', 'follow_relations': true, 'allow_properties': false}" />
+                  <field name="convert_html_field" optional="hide" invisible="mapping_type != 'field'"/>
                   <field name="constant_value" />
                   <field name="rule_key" readonly="0" />
                   <button name="action_open_specific_rule_wizard" type="object" icon="fa-code" title="Edit Python Rule" invisible="mapping_type != 'rule'" />
