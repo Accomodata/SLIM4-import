@@ -46,6 +46,11 @@ class ProductProduct(models.Model):
         ),
     )
 
+    _default_code_unique = models.Constraint(
+        'unique(default_code)',
+        'The Internal Reference must be unique.',
+    )
+
     @api.depends(
         'product_tmpl_id',
         'product_tmpl_id.seller_ids',
