@@ -6,7 +6,7 @@ from odoo.exceptions import AccessError, UserError
 from odoo.http import request
 
 from ..helpers.provider_mapping import get_export_provider
-from ..providers.slim4_export_provider import decode_skiptoken
+from ..helpers.skiptoken import decode_skiptoken
 
 API_PREFIX = '/slim4/api/v1'
 DEFAULT_PAGE_SIZE = 20
