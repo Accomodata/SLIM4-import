@@ -61,12 +61,12 @@
 
         'wizards/slim4_specific_rule_wizard.xml',
     ],
-
     'assets': {
         'web.assets_backend': [
             'slim4_connector_base/static/src/fields/slim4_field_selector.xml',
         ],
     },
+    'pre_init_hook': 'pre_init_hook',
     'installable': True,
     'application': False,
     'module_type': 'official',
