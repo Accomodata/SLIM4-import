@@ -1,5 +1,6 @@
 from .errors import PayloadValidationError
 from datetime import datetime
+from math import isfinite
 
 
 def validate_order_payload(payload):
@@ -20,20 +21,20 @@ def validate_order_payload(payload):
 
 
 def _validate_order(order, item_index):
+    """Validate and normalize one inbound order."""
     if not isinstance(order, dict):
         raise PayloadValidationError(
             'Each order must be a JSON object.',
             context={'item_index': item_index},
         )
 
-    if not order.get('articleCode') and order.get('code'):
-        order = {
-            **order,
-            'articleCode': order['code'],
-        }
+    normalized_order = dict(order)
 
-    missing_fields = _get_missing_fields(order)
+    # Slim4 may send the article reference under either key.
+    if not normalized_order.get('articleCode') and normalized_order.get('code'):
+        normalized_order['articleCode'] = normalized_order['code']
 
+    missing_fields = _get_missing_fields(normalized_order)
     if missing_fields:
         raise PayloadValidationError(
             f"Missing required order fields: {', '.join(missing_fields)}",
@@ -43,50 +44,64 @@ def _validate_order(order, item_index):
             },
         )
 
-    to_order = order.get('toOrder')
-    expected_date = order.get('expectedDate')
+    normalized_order['toOrder'] = _normalize_quantity(
+        normalized_order['toOrder'],
+        item_index,
+    )
+
+    expected_date = normalized_order.get('expectedDate')
+    if expected_date not in {None, ''}:
+        normalized_order['expectedDate'] = _normalize_expected_date(
+            expected_date,
+            item_index,
+        )
+
+    return normalized_order
+
+
+def _normalize_quantity(value, item_index):
+    """Return a strictly positive finite quantity."""
+    if isinstance(value, bool):
+        raise PayloadValidationError(
+            'The "toOrder" value must be numeric.',
+            context={'item_index': item_index},
+        )
 
     try:
-        quantity = float(to_order) if isinstance(to_order, str) else to_order
-    except (TypeError, ValueError) as error:
+        quantity = float(value)
+    except (TypeError, ValueError, OverflowError) as error:
         raise PayloadValidationError(
             'The "toOrder" value must be numeric.',
             context={'item_index': item_index},
         ) from error
 
-    if isinstance(to_order, bool):
+    if not isfinite(quantity) or quantity <= 0:
         raise PayloadValidationError(
-            'The "toOrder value cannot be empty.',
-            context={'item_index': item_index},
-        )
-    if isinstance(quantity, float) and quantity <= 0:
-        raise PayloadValidationError(
-            'The "toOrder" value must be strictly positive.',
+            'The "toOrder" value must be a strictly positive finite number.',
             context={'item_index': item_index},
         )
 
-    if expected_date:
-        if not isinstance(expected_date, str):
-            raise PayloadValidationError(
-                'The "expectedDate" value must be a string in YYYYMMDD format.',
-                context={'item_index': item_index},
-            )
+    return quantity
 
-        try:
-            order['expectedDate'] = datetime.strptime(
-                expected_date,
-                '%Y%m%d',
-            ).date()
-        except ValueError as error:
-            raise PayloadValidationError(
-                'The "expectedDate" value must be a valid date in YYYYMMDD format.',
-                context={
-                    'item_index': item_index,
-                    'expected_date': expected_date,
-                },
-            ) from error
 
-    return order
+def _normalize_expected_date(value, item_index):
+    """Convert a Slim4 YYYYMMDD date to an Odoo-compatible ISO string."""
+    if not isinstance(value, str):
+        raise PayloadValidationError(
+            'The "expectedDate" value must be a string in YYYYMMDD format.',
+            context={'item_index': item_index},
+        )
+
+    try:
+        return datetime.strptime(value, '%Y%m%d').date().isoformat()
+    except ValueError as error:
+        raise PayloadValidationError(
+            'The "expectedDate" value must be a valid date in YYYYMMDD format.',
+            context={
+                'item_index': item_index,
+                'expected_date': value,
+            },
+        ) from error
 
 
 def _get_missing_fields(order):
