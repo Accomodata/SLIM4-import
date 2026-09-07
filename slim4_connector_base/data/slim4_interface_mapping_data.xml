@@ -41,7 +41,7 @@
       <field name="field_type">char</field>
       <field name="max_length">20</field>
       <field name="mapping_type">rule</field>
-      <field name="field_path">warehouse_ids.code</field>
+      <field name="field_path">product_id.warehouse_ids.code</field>
       <field name="split_records">True</field>
       <field name="status">validated</field>
     </record>
@@ -63,7 +63,7 @@
         <field name="field_type">char</field>
         <field name="max_length">40</field>
         <field name="mapping_type">field</field>
-        <field name="field_path">default_code</field>
+        <field name="field_path">product_id.default_code</field>
         <field name="slim4_required">1</field>
         <field name="status">validated</field>
     </record>
@@ -84,7 +84,7 @@
       <field name="field_type">char</field>
       <field name="max_length">60</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">slim4_primary_supplier_id.partner_id.ref</field>
+      <field name="field_path">partner_id.ref</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_connector_base_logistics_suppliername" model="slim4.interface.mapping">
@@ -104,7 +104,7 @@
       <field name="field_type">char</field>
       <field name="max_length">100</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">slim4_primary_supplier_id.partner_id.name</field>
+      <field name="field_path">partner_id.name</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_connector_base_logistics_leadtime" model="slim4.interface.mapping">
@@ -124,7 +124,7 @@
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">slim4_primary_supplier_id.delay</field>
+      <field name="field_path">delay</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_connector_base_logistics_reviewtime" model="slim4.interface.mapping">
@@ -202,7 +202,7 @@
       <field name="slim4_field">IOQ</field>
       <field name="field_type">integer</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">slim4_primary_supplier_id.slim4_ioq</field>
+      <field name="field_path">slim4_ioq</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_connector_base_logistics_economicorderquantity" model="slim4.interface.mapping">
@@ -410,7 +410,7 @@
       <field name="field_type">char</field>
       <field name="max_length">65</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">slim4_primary_supplier_id.product_code</field>
+      <field name="field_path">product_code</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_connector_base_suppliers_supplierarticlecode" model="slim4.interface.mapping">
@@ -420,7 +420,7 @@
       <field name="field_type">char</field>
       <field name="max_length">65</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">slim4_primary_supplier_id.product_code</field>
+      <field name="field_path">product_code</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_connector_base_logistics_replenishmentscheduleid" model="slim4.interface.mapping">
