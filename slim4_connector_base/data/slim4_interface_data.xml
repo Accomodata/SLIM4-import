@@ -41,7 +41,7 @@
       <field name="name">Transactions</field>
       <field name="technical_name">S4Import_Transactions</field>
       <field name="source_model_id" ref="stock.model_stock_move" />
-      <field name="source_domain"><![CDATA[[('state', '=', 'done'), ('product_id.default_code', '!=', False), ('warehouse_id.code', '!=', False), ('picking_id.name', '!=', False)]]]></field>
+      <field name="source_domain"><![CDATA[[('state', '=', 'done'), ('product_id.default_code', '!=', False), ('warehouse_id.code', '!=', False)]]]></field>
     </record>
     <record id="slim4_interface_confirmed_demand" model="slim4.interface">
       <field name="name">Confirmed Demand</field>

@@ -410,7 +410,7 @@
       <field name="field_type">char</field>
       <field name="max_length">65</field>
       <field name="mapping_type">field</field>
-      <field name="field_path">product_code</field>
+      <field name="field_path">slim4_primary_supplier_id.product_code</field>
       <field name="status">validated</field>
     </record>
     <record id="slim4_connector_base_suppliers_supplierarticlecode" model="slim4.interface.mapping">

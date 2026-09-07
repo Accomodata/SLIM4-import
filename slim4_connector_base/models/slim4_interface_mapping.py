@@ -133,10 +133,10 @@ class Slim4InterfaceMapping(models.Model):
 
     convert_html_field = fields.Boolean(
         string='Convert HTML to text',
-        default=False,
+        compute='_compute_convert_html_field',
         help=(
-            'Convert the HTML value returned by this mapping to plain text '
-            'before adding it to the JSON export.'
+            'Indicates that the mapped Odoo field contains HTML that must be '
+            'converted to plain text before export.'
         ),
     )
 
@@ -224,6 +224,31 @@ class Slim4InterfaceMapping(models.Model):
                 )
         other_mappings.rule_key = False
         other_mappings.generic_key = False
+
+    @api.depends_context('uid')
+    @api.depends(
+        'status',
+        'mapping_type',
+        'field_path',
+        'source_model',
+    )
+    def _compute_convert_html_field(self):
+        field_mappings = self.filtered(
+            lambda line: (
+                line.status == 'validated'
+                and line.mapping_type == 'field'
+                and line.field_path
+            ),
+        )
+
+        (self - field_mappings).convert_html_field = False
+
+        for line in field_mappings:
+            field_info = line._get_field_path_info()
+            line.convert_html_field = bool(
+                field_info
+                and field_info.get('type') == 'html',
+            )
 
     @api.depends_context('uid')
     @api.depends(
@@ -349,22 +374,36 @@ class Slim4InterfaceMapping(models.Model):
         if not self.field_path or not self.source_model:
             return True
 
+        return bool(self._get_field_path_info())
+
+    def _get_field_path_info(self):
+        """Return the final field metadata when the field path is valid."""
+        self.ensure_one()
+
+        if (
+            not self.field_path
+            or not self.source_model
+            or self.source_model not in self.env
+        ):
+            return None
+
         model_env = self.env[self.source_model]
-        parts = [part for part in self.field_path.split('.') if part]
+        field_names = self.field_path.split('.')
+        field_info = None
 
-        for index, part in enumerate(parts):
-            field_info = model_env.fields_get([part]).get(part)
+        for index, field_name in enumerate(field_names):
+            field_info = model_env.fields_get([field_name]).get(field_name)
             if not field_info:
-                return False
+                return None
 
-            if index < len(parts) - 1:
+            if index < len(field_names) - 1:
                 comodel_name = field_info.get('relation')
                 if not comodel_name:
-                    return False
+                    return None
 
                 model_env = self.env[comodel_name]
 
-        return True
+        return field_info
 
     def _restore_default_values(self):
         """Restore the mapping values from the initial snapshot."""
