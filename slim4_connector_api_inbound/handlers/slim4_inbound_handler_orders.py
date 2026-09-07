@@ -4,6 +4,8 @@ from odoo import api, fields, models
 
 from ..services.order_payload_validator import validate_order_payload
 
+ORDER_GROUP_BATCH_SIZE = 50
+
 
 class Slim4OrdersInboundHandler(models.AbstractModel):
     _name = 'slim4.inbound.handler.orders'
@@ -117,21 +119,18 @@ class Slim4OrdersInboundHandler(models.AbstractModel):
         return result
 
     @api.model
-    def process_received_messages(self):
+    def process_received_messages(self, limit=ORDER_GROUP_BATCH_SIZE):
         """Create draft purchase orders from resolved inbound messages."""
         grouped_messages = self.env['slim4.inbound.message']._read_group(
-            domain=[
-                ('operation', '=', 'orders'),
-                ('status', '=', 'received'),
-                ('supplier_id', '!=', False),
-                ('product_id', '!=', False),
-            ],
+            domain=self._get_processable_message_domain(),
             groupby=['batch_reference', 'supplier_id', 'picking_type_id'],
             aggregates=['id:recordset'],
+             limit=limit,
         )
 
         processed_count = 0
         processed_at = fields.Datetime.now()
+
         for _batch_reference, supplier, picking_type_id, messages in grouped_messages:
             company = messages[0].company_id
             po_create_vals = {
@@ -162,3 +161,28 @@ class Slim4OrdersInboundHandler(models.AbstractModel):
             processed_count += len(messages)
 
         return processed_count
+
+    @api.model
+    def _cron_process_received_messages(self):
+        """Process one inbound order batch and report remaining work."""
+        processed_count = self.process_received_messages()
+
+        remaining_count = self.env[
+            'slim4.inbound.message'
+        ].search_count(
+            self._get_processable_message_domain(),
+        )
+
+        self.env['ir.cron']._commit_progress(
+            processed_count,
+            remaining=remaining_count,
+        )
+
+    def _get_processable_message_domain(self):
+        """Return inbound order messages ready for processing."""
+        return [
+            ('operation', '=', 'orders'),
+            ('status', '=', 'received'),
+            ('supplier_id', '!=', False),
+            ('product_id', '!=', False),
+        ]
