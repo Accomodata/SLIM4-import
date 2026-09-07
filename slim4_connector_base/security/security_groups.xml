@@ -22,7 +22,7 @@
       <field name="implied_ids" eval="[
             Command.link(ref('slim4_connector_base.warehouse_field')),
             Command.link(ref('slim4_connector_base.primary_supplier_field')),
-            Command.link(ref('slim4_connector_base.primary_supplier_field')),
+            Command.link(ref('slim4_connector_base.ioq_field')),
         ]"/>
     </record>
   </data>

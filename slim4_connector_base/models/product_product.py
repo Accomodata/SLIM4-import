@@ -24,7 +24,7 @@ class ProductProduct(models.Model):
         relation='product_product_slim4_primary_supplierinfo_rel',
         column1='product_id',
         column2='supplierinfo_id',
-        string='Primary Suppliers',
+        string='Primary Supplier',
         domain="[('id', 'in', slim4_matching_supplier_ids)]",
         copy=False,
         groups='slim4_connector_base.primary_supplier_field',
