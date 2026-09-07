@@ -23,7 +23,7 @@ class ProductTemplate(models.Model):
 
     slim4_primary_supplier_ids = fields.Many2many(
         comodel_name='product.supplierinfo',
-        string='Primary Suppliers',
+        string='Primary Supplier',
         compute='_compute_slim4_supplier_fields',
         inverse='_inverse_slim4_primary_supplier_ids',
         readonly=False,
