@@ -7,15 +7,43 @@ class Slim4SuppliersExportProvider(models.AbstractModel):
     _inherit = 'slim4.export.provider.logistics'
     _description = 'Slim4 Suppliers Export Provider'
 
-    def _iter_export_occurrences(self, record):
-        """Yield one occurrence per supplier when the feature is enabled."""
-        if not self._is_primary_supplier_feature_enabled():
-            yield from super()._iter_export_occurrences(record)
+    def _get_supplierinfo(self, record, rule_context=None):
+        """Return the supplier line currently exported. To be able to reuse
+        _rule_moq ,_rule_buying_price,.. from logistics.
+        """
+        return record
+
+    def _suppliers_warehouse(
+        self,
+        line,
+        record,
+        field_getter=None,
+        rule_context=None,
+    ):
+        """Return the product warehouses, or all warehouses as fallback."""
+        product = self._get_product(record, rule_context)
+        warehouse_codes = product.mapped('warehouse_ids.code')
+
+        return warehouse_codes or rule_context.get('warehouse')
+
+    def _get_product(self, record, rule_context=None):
+        """Return the variant linked to or generated for the supplier line."""
+        occurrence = (rule_context or {}).get('occurrence', {})
+        return occurrence.get('product_id') or record.product_id
+
+    def _iter_export_occurrences(self, supplierinfo):
+        """Yield one occurrence for each product using this supplier line."""
+        if supplierinfo.product_id:
+            # The supplier line already targets the correct variant.
+            yield {}
             return
 
-        for supplierinfo in record.slim4_primary_supplier_ids:
+        # A template-level supplier line applies to every active variant.
+        for product in supplierinfo.product_tmpl_id.product_variant_ids.filtered(
+            lambda product: product.active and product.default_code,
+        ):
             yield {
-                'slim4_primary_supplier_id': supplierinfo,
+                'product_id': product,
             }
 
     def _get_field_path_value(

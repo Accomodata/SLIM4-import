@@ -6,19 +6,8 @@ class Slim4LogisticsExportProvider(models.AbstractModel):
     _inherit = 'slim4.export.provider'
     _description = 'Slim4 Logistics Export Provider'
 
-    def _is_primary_supplier_feature_enabled(self):
-        """Return whether the export user can use Slim4 supplier fields."""
-        return self.env.user.has_group(
-            'slim4_connector_base.primary_supplier_field',
-        )
-
     def _get_supplierinfo(self, record, rule_context=None):
         """Return the supplierinfo used to evaluate the current row."""
-        occurrence = (rule_context or {}).get('occurrence', {})
-
-        if 'slim4_primary_supplier_id' in occurrence:
-            return occurrence['slim4_primary_supplier_id']
-
         return record.slim4_primary_supplier_id
 
     def _rule_moq(
