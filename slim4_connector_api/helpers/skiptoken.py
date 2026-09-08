@@ -19,7 +19,8 @@ def decode_skiptoken(skiptoken):
         payload = json.loads(
             base64.b64decode(skiptoken, validate=True).decode('utf-8'),
         )
-        last_write_date = datetime.fromisoformat(payload['write_date'])
+
+        last_write_date = datetime.datetime.fromisoformat(payload['write_date'])
         last_id = payload['id']
 
         if isinstance(last_id, bool) or not isinstance(last_id, int):

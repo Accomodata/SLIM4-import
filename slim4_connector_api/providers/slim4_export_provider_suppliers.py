@@ -13,7 +13,7 @@ class Slim4SuppliersExportProvider(models.AbstractModel):
         """
         return record
 
-    def _suppliers_warehouse(
+    def _rule_suppliers_warehouse(
         self,
         line,
         record,
