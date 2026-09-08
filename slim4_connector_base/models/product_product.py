@@ -66,11 +66,18 @@ class ProductProduct(models.Model):
         'slim4_primary_supplier_ids',
         'slim4_primary_supplier_ids.sequence',
         'slim4_primary_supplier_ids.min_qty',
+        'slim4_matching_supplier_ids',
     )
     def _compute_slim4_primary_supplier_id(self):
         for product in self:
+            # Check if primary supplier is still relevant after change
+            matching_selected_suppliers = (
+                product.slim4_primary_supplier_ids
+                & product.slim4_matching_supplier_ids
+            )
+
             product.slim4_primary_supplier_id = (
-                product.slim4_primary_supplier_ids.sorted(
+                matching_selected_suppliers.sorted(
                     key=lambda line: (
                         line.sequence,
                         line.min_qty,
