@@ -54,7 +54,6 @@ class Slim4InterfaceMapping(models.Model):
             ('char', 'Char'),
             ('date', 'Date'),
             ('time', 'Time'),
-            ('boolean', 'Boolean'),
         ],
     )
     field_path = fields.Char(
