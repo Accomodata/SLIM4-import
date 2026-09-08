@@ -691,16 +691,6 @@
       <field name="rule_key">open_quantity</field>
       <field name="status">validated</field>
     </record>
-    <record id="slim4_connector_base_purchase_order_supplier" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_purchase_order" />
-      <field name="sequence">70</field>
-      <field name="slim4_field">supplier</field>
-      <field name="field_type">char</field>
-      <field name="max_length">100</field>
-      <field name="mapping_type">field</field>
-      <field name="field_path">order_id.partner_id.name</field>
-      <field name="status">to_validate</field>
-    </record>
     <record id="slim4_connector_base_purchase_order_comment" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_purchase_order" />
       <field name="sequence">80</field>
