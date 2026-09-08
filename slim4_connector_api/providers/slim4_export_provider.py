@@ -218,15 +218,23 @@ class Slim4ExportProvider(models.AbstractModel):
         rule_context=None,
     ):
         if line.mapping_type == 'field':
-            return self._resolve_field_path(record, line, field_getter, rule_context)
+            value = self._resolve_field_path(record, line, field_getter, rule_context)
 
         if line.mapping_type == 'constant':
-            return self._normalize_mapping_value(line, line.constant_value)
+            value = self._normalize_mapping_value(line, line.constant_value)
 
         if line.mapping_type == 'rule':
-            return self._resolve_rule_value(line, record, field_getter, rule_context)
+            value = self._resolve_rule_value(line, record, field_getter, rule_context)
 
-        return None
+        if line.slim4_required and value in (None, '', []):
+            raise UserError(
+                _(
+                    'Required Slim4 field "%(field)s" is empty for %(record)s.',
+                    field=line.slim4_field,
+                    record=record.display_name,
+                ),
+            )
+        return value
 
     def _resolve_field_path(
         self,
@@ -271,7 +279,14 @@ class Slim4ExportProvider(models.AbstractModel):
 
         rule_method = self._get_rule_method(line)
         if not rule_method:
-            return None
+            raise UserError(
+                _(
+                    'No Python rule implements "%(rule)s" for Slim4 field '
+                    '"%(field)s".',
+                    rule=line.rule_key,
+                    field=line.slim4_field,
+                ),
+            )
 
         value = rule_method(
             line,
