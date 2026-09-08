@@ -21,22 +21,16 @@ class Slim4OrdersInboundHandler(models.AbstractModel):
         """Stage a validated batch."""
         batch_reference = str(uuid.uuid4())
 
-        article_codes = {
-            str(order['articleCode'])
-            for order in validated_payload
-        }
-        supplier_numbers = {
-            str(order['supplierNumber'])
-            for order in validated_payload
-        }
-
         warehouse_codes = {
             str(order.get('warehouse'))
             for order in validated_payload
         }
 
-        product_by_code = self._get_products_by_code(article_codes)
-        suppliers_by_ref = self._get_suppliers_by_ref(supplier_numbers)
+        product_by_code = self._get_products_by_code(validated_payload)
+        suppliers_by_ref, ambiguous_supplier_refs = self._get_suppliers_by_ref(
+            validated_payload,
+        )
+
         if warehouse_codes:
             picking_type_by_warehouse = self._get_picking_types_by_warehouse(
                 warehouse_codes,
@@ -57,7 +51,13 @@ class Slim4OrdersInboundHandler(models.AbstractModel):
                 resolution_errors.append(
                     f'Product with article code "{article_code}" was not found.',
                 )
-            if not supplier:
+
+            if supplier_number in ambiguous_supplier_refs:
+                resolution_errors.append(
+                    f'Supplier number "{supplier_number}" is ambiguous in Odoo.',
+                )
+
+            elif not supplier:
                 resolution_errors.append(
                     f'Supplier with number "{supplier_number}" was not found.',
                 )
@@ -81,7 +81,11 @@ class Slim4OrdersInboundHandler(models.AbstractModel):
             'message': 'Orders received successfully',
         }
 
-    def _get_products_by_code(self, article_codes):
+    def _get_products_by_code(self, validated_payload):
+        article_codes = {
+            str(order['articleCode'])
+            for order in validated_payload
+        }
         products = self.env['product.product'].search_fetch([
             ('default_code', 'in', list(set(article_codes))),
         ], ['default_code'])
@@ -91,15 +95,26 @@ class Slim4OrdersInboundHandler(models.AbstractModel):
             for product in products
         }
 
-    def _get_suppliers_by_ref(self, supplier_numbers):
+    def _get_suppliers_by_ref(self, validated_payload):
+        supplier_numbers = {
+            str(order['supplierNumber'])
+            for order in validated_payload
+        }
+
         suppliers = self.env['res.partner'].search_fetch([
             ('ref', 'in', list(set(supplier_numbers))),
         ], ['ref'])
 
-        return {
-            supplier.ref: supplier
-            for supplier in suppliers
-        }
+        suppliers_by_ref = {}
+        ambiguous_supplier_refs = set()
+
+        for supplier in suppliers:
+            if supplier.ref in suppliers_by_ref:
+                ambiguous_supplier_refs.add(supplier.ref)
+            else:
+                suppliers_by_ref[supplier.ref] = supplier
+
+        return suppliers_by_ref, ambiguous_supplier_refs
 
     def _get_picking_types_by_warehouse(self, warehouse_codes):
         picking_types = self.env['stock.picking.type'].search_fetch([
