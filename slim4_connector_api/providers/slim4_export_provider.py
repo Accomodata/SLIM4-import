@@ -382,7 +382,6 @@ class Slim4ExportProvider(models.AbstractModel):
         converter = {
             'integer': int,
             'decimal': float,
-            'boolean': bool,
             'char': str,
         }.get(line.field_type)
 
