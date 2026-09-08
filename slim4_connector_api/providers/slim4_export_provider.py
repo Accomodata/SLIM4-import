@@ -1,42 +1,11 @@
-import base64
-import json
 from datetime import date, datetime
 from operator import attrgetter, methodcaller
 
 from odoo import _, api, models
 from odoo.exceptions import UserError
 from odoo.tools.safe_eval import safe_eval
-
-
-def encode_skiptoken(write_date, record_id):
-    """Encode keyset pagination values as a Base64 JSON token."""
-    payload = {
-        'write_date': write_date.isoformat(),
-        'id': record_id,
-    }
-    token_json = json.dumps(payload, separators=(',', ':'))
-    return base64.b64encode(token_json.encode('utf-8')).decode('ascii')
-
-
-def decode_skiptoken(skiptoken):
-    """Decode and validate a Base64 JSON keyset pagination token."""
-    try:
-        payload = json.loads(
-            base64.b64decode(skiptoken, validate=True).decode('utf-8'),
-        )
-        last_write_date = datetime.fromisoformat(payload['write_date'])
-        last_id = payload['id']
-
-        if isinstance(last_id, bool) or not isinstance(last_id, int):
-            raise ValueError('id must be an integer')
-
-    except Exception as error:
-        raise ValueError(
-            'Invalid $skiptoken: expected Base64 JSON with an ISO write_date '
-            'and an integer id.',
-        ) from error
-
-    return last_write_date, last_id
+from odoo.tools import html2plaintext
+from ..helpers.skiptoken import encode_skiptoken, decode_skiptoken
 
 
 class Slim4ExportProvider(models.AbstractModel):
@@ -54,29 +23,33 @@ class Slim4ExportProvider(models.AbstractModel):
     ):
         """Export one Slim4 interface as JSON-serializable dictionaries."""
         interface.ensure_one()
-        source_records = self._get_source_records(
+
+        fetched_records = self._get_source_records(
             interface,
             page_size=page_size,
             offset=offset,
             skiptoken=skiptoken,
             **params,
         )
-        # overfetching limit = limit + 1 in search()
-        has_more = len(source_records) > page_size
-        source_records = source_records[:page_size]
+        # Keep the overfetched record only to detect whether another page exists.
+        has_more = len(fetched_records) > page_size
+        source_records = fetched_records[:page_size]
 
-        mapping_plan = self._get_mapping_plan(interface)
+        mapping_lines = self._get_available_mapping_lines(interface)
+        mapping_plan = self._get_mapping_plan(mapping_lines)
 
+        split_mapping = mapping_lines.filtered('split_records')
+        split_key = split_mapping.slim4_field if split_mapping else None
+
+        # Prepare export-wide values shared by mapping rules.
         rule_context = self._get_rule_context()
-
-        split_mapping = interface.mapping_line_ids.filtered('split_records')
 
         rows = list(
             self._iter_export_rows(
                 source_records,
                 mapping_plan,
-                split_mapping.slim4_field if split_mapping else None,
-                rule_context=rule_context,
+                split_key,
+                rule_context,
             ),
         )
 
@@ -84,11 +57,9 @@ class Slim4ExportProvider(models.AbstractModel):
             'data': rows,
             'has_more': has_more,
             'next_skiptoken': (
-                encode_skiptoken(
-                    source_records[-1].write_date,
-                    source_records[-1].id,
-                )
-                if has_more else None
+                self._get_next_skiptoken(source_records)
+                if has_more
+                else None
             ),
         }
 
@@ -119,30 +90,42 @@ class Slim4ExportProvider(models.AbstractModel):
             order='write_date ASC, id ASC',
         )
 
-    def _get_mapping_plan(self, interface):
-        user = self.env.user
-        mapping_lines = interface.mapping_line_ids.filtered(
-            lambda line: line.status == 'validated' and (
-                not line.group_id or user.has_group(
-                    line.group_id.get_external_id().get(line.group_id.id),
+    def _get_available_mapping_lines(self, interface):
+        """Return validated mappings available to the export user."""
+        user_group_ids = set(self.env.user.group_ids.ids)
+
+        return interface.mapping_line_ids.filtered(
+            lambda line: (
+                line.status == 'validated'
+                and (
+                    not line.group_id
+                    or line.group_id.id in user_group_ids
                 )
             ),
         )
 
+    def _get_mapping_plan(self, mapping_lines):
+        """Return the active mapping lines and their compiled field getters."""
         return [
             (
                 line,
-                (
-                    methodcaller('mapped', line.field_path)
-                    if line.split_records
-                    else attrgetter(line.field_path)
-                )
-                if line.mapping_type in {'field', 'rule'}
-                and line.field_path
-                else None,
+                self._get_mapping_field_getter(line),
             )
             for line in mapping_lines
         ]
+
+    def _get_mapping_field_getter(self, line):
+        """Compile the configured field path when the mapping requires one."""
+        if (
+            line.mapping_type not in {'field', 'rule'}
+            or not line.field_path
+        ):
+            return None
+
+        if line.split_records:
+            return methodcaller('mapped', line.field_path)
+
+        return attrgetter(line.field_path)
 
     def _get_rule_context(self):
         """Prepare reusable values required by configured rules."""
@@ -155,7 +138,8 @@ class Slim4ExportProvider(models.AbstractModel):
     def _get_rule_context_warehouse(self):
         """Return all warehouse codes available to the export user."""
         company = self.env.company
-        warehouses = self.env['stock.warehouse'].with_company(company.id).search([])
+        warehouses = self.env['stock.warehouse'].with_company(
+            company.id).search([])
         return list(set(warehouses.mapped('code')))
 
     def _iter_export_rows(
@@ -165,20 +149,50 @@ class Slim4ExportProvider(models.AbstractModel):
         split_key=None,
         rule_context=None,
     ):
-        """Yield normalized rows, applying the configured split if present."""
+        """Yield normalized rows for every export occurrence."""
         for record in source_records:
-            row = self._prepare_record_row(record, mapping_plan, rule_context)
+            for occurrence in self._iter_export_occurrences(record):
+                current_context = dict(rule_context or {})
+                current_context['occurrence'] = occurrence
 
-            split_values = row.get(split_key) if split_key else None
+                row = self._prepare_record_row(
+                    record,
+                    mapping_plan,
+                    current_context,
+                )
 
-            if not isinstance(split_values, list):
-                yield row
-                continue
+                yield from self._iter_split_rows(row, split_key)
 
-            for split_value in split_values:
-                split_row = row.copy()
-                split_row[split_key] = split_value
-                yield split_row
+    def _iter_export_occurrences(self, record):
+        """Yield the row-level contexts generated from one source record.
+        A source record controls search and pagination, while an occurrence
+        represents one complete evaluation of its mapping.
+
+        Providers may yield multiple contexts when several business occurrences
+        must be exported from the same source record. Each yielded context is
+        exposed through ``rule_context['occurrence']`` while preparing the row.
+
+        The default implementation yields one empty context, preserving one
+        mapping evaluation per source record. Any configured mapping-level split
+        is applied afterwards.
+
+        Overrides should use prefetched relations from ``record`` and avoid
+        performing ORM searches inside this iterator.
+        """
+        yield {}
+
+    def _iter_split_rows(self, row, split_key=None):
+        """Yield rows produced by the configured mapping split."""
+        split_values = row.get(split_key) if split_key else None
+
+        if not isinstance(split_values, list):
+            yield row
+            return
+
+        for split_value in split_values:
+            split_row = row.copy()
+            split_row[split_key] = split_value
+            yield split_row
 
     def _get_source_domain(self, interface, **params):
         """Parse the configured source domain."""
@@ -204,42 +218,83 @@ class Slim4ExportProvider(models.AbstractModel):
         rule_context=None,
     ):
         if line.mapping_type == 'field':
-            return self._resolve_field_path(record, line, field_getter)
+            value = self._resolve_field_path(record, line, field_getter, rule_context)
 
         if line.mapping_type == 'constant':
-            return self._normalize_mapping_value(line, line.constant_value)
+            value = self._normalize_mapping_value(line, line.constant_value)
 
         if line.mapping_type == 'rule':
-            return self._resolve_rule_value(line, record, field_getter, rule_context)
+            value = self._resolve_rule_value(line, record, field_getter, rule_context)
 
-        return None
+        if line.slim4_required and value in (None, '', []):
+            raise UserError(
+                _(
+                    'Required Slim4 field "%(field)s" is empty for %(record)s.',
+                    field=line.slim4_field,
+                    record=record.display_name,
+                ),
+            )
+        return value
 
-    def _resolve_field_path(self, record, line, field_getter):
-        """Resolve a dotted Odoo field path."""
-        return self._normalize_mapping_value(
+    def _resolve_field_path(
+        self,
+        record,
+        line,
+        field_getter,
+        rule_context=None,
+    ):
+        """Resolve and normalize a configured field path."""
+        raw_value = self._get_field_path_value(
+            record,
             line,
-            field_getter(record),
+            field_getter,
+            rule_context,
         )
+        return self._normalize_mapping_value(line, raw_value)
 
-    def _resolve_rule_value(self, line, record, field_getter=None, rule_context=None):
-        """Resolve a mapping value using the Python rule linked to the rule key."""
+    def _get_field_path_value(
+        self,
+        record,
+        line,
+        field_getter,
+        rule_context=None,
+    ):
+        """Return the raw value produced by a field-path mapping."""
+        return field_getter(record)
+
+    def _resolve_rule_value(
+        self,
+        line,
+        record,
+        field_getter=None,
+        rule_context=None,
+    ):
+        """Resolve a value using the Python rule configured on the mapping."""
         if line.specific_rule:
             return self._resolve_specific_rule_value(
                 line,
                 record,
                 rule_context,
             )
-        specific_method = getattr(self, f'_rule_{line.rule_key}', None)
-        # try to fall back on a generic method if a specific was not found or
-        # implemented in the specific interface
-        generic_method = getattr(self, f'_rule_{line.generic_key}', None)
-        method = specific_method or generic_method
-        if not method:
-            return None
-        return self._normalize_mapping_value(
+
+        rule_method = self._get_rule_method(line)
+        if not rule_method:
+            raise UserError(
+                _(
+                    'No Python rule implements "%(rule)s" for Slim4 field '
+                    '"%(field)s".',
+                    rule=line.rule_key,
+                    field=line.slim4_field,
+                ),
+            )
+
+        value = rule_method(
             line,
-            method(line, record, field_getter=field_getter, rule_context=rule_context),
+            record,
+            field_getter=field_getter,
+            rule_context=rule_context,
         )
+        return self._normalize_mapping_value(line, value)
 
     def _resolve_specific_rule_value(
         self,
@@ -280,39 +335,57 @@ class Slim4ExportProvider(models.AbstractModel):
             eval_context['result'],
         )
 
+    def _get_rule_method(self, line):
+        """Return the interface rule method, falling back to the generic one."""
+        interface_method = getattr(
+            self,
+            f'_rule_{line.rule_key}',
+            None,
+        )
+        if interface_method:
+            return interface_method
+
+        return getattr(
+            self,
+            f'_rule_{line.generic_key}',
+            None,
+        )
+
     def _normalize_mapping_value(self, line, value):
         """Normalize a resolved value to the type expected by Slim4."""
         if value is False:
             value = None
 
-        elif isinstance(value, list):
+        if line.convert_html_field:
+            return html2plaintext(value)
+
+        if isinstance(value, list):
             normalized_values = [
                 self._normalize_mapping_value(line, item)
                 for item in value
             ]
-            value = (
+            return (
                 normalized_values[0]
                 if len(normalized_values) == 1
-                else normalized_values or None
+                else normalized_values
             )
 
-        elif value is not None:
-            if line.field_type == 'date' and isinstance(value, (date, datetime)):
-                value = value.strftime('%Y%m%d')
-            else:
-                if line.max_length and isinstance(value, str):
-                    value = value[:line.max_length]
+        if value is None:
+            return None
 
-                if line.field_type == 'integer':
-                    value = int(value)
-                elif line.field_type == 'decimal':
-                    value = float(value)
-                elif line.field_type == 'boolean':
-                    value = bool(value)
-                elif line.field_type == 'char':
-                    value = str(value if value else '')
+        if line.field_type == 'date' and isinstance(value, (date, datetime)):
+            return value.strftime('%Y%m%d')
 
-        return value
+        if line.max_length and isinstance(value, str):
+            value = value[:line.max_length]
+
+        converter = {
+            'integer': int,
+            'decimal': float,
+            'char': str,
+        }.get(line.field_type)
+
+        return converter(value) if converter else value
 
     def _rule_warehouse(self, line, record, field_getter=None, rule_context=None):
         """Return the record's warehouse value,
@@ -325,4 +398,13 @@ class Slim4ExportProvider(models.AbstractModel):
         return rule_context.get(
             line.slim4_field,
             None,
+        )
+
+    def _get_next_skiptoken(self, source_records):
+        """Return the keyset token following the last source record."""
+        last_record = source_records[-1]
+
+        return encode_skiptoken(
+            last_record.write_date,
+            last_record.id,
         )

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
   <record id="rule_slim_interface_mapping_group_access" model="ir.rule">
     <field name="name">Slim Interface Mapping: Filter by Group Access</field>
-    <field name="model_id" ref="model_slim4_interface_mapping" />
-    <field name="domain_force">['|', ('group_id', '=', False), ('group_id.user_ids', 'in', [user.id])]</field>
-    <field name="groups" eval="[(4, ref('base.group_user'))]" />
+    <field name="model_id" ref="model_slim4_interface_mapping"/>
+    <field name="domain_force">
+        ['|', ('group_id', '=', False), ('group_id', 'in', user.all_group_ids.ids)]
+    </field>
+    <field name="groups" eval="[Command.link(ref('base.group_user'))]"/>
   </record>
-
 </odoo>

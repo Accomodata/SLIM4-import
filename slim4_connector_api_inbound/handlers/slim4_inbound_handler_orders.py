@@ -4,6 +4,8 @@ from odoo import api, fields, models
 
 from ..services.order_payload_validator import validate_order_payload
 
+ORDER_GROUP_BATCH_SIZE = 200
+
 
 class Slim4OrdersInboundHandler(models.AbstractModel):
     _name = 'slim4.inbound.handler.orders'
@@ -19,22 +21,16 @@ class Slim4OrdersInboundHandler(models.AbstractModel):
         """Stage a validated batch."""
         batch_reference = str(uuid.uuid4())
 
-        article_codes = {
-            str(order['articleCode'])
-            for order in validated_payload
-        }
-        supplier_numbers = {
-            str(order['supplierNumber'])
-            for order in validated_payload
-        }
-
         warehouse_codes = {
             str(order.get('warehouse'))
             for order in validated_payload
         }
 
-        product_by_code = self._get_products_by_code(article_codes)
-        suppliers_by_ref = self._get_suppliers_by_ref(supplier_numbers)
+        product_by_code = self._get_products_by_code(validated_payload)
+        suppliers_by_ref, ambiguous_supplier_refs = self._get_suppliers_by_ref(
+            validated_payload,
+        )
+
         if warehouse_codes:
             picking_type_by_warehouse = self._get_picking_types_by_warehouse(
                 warehouse_codes,
@@ -55,7 +51,13 @@ class Slim4OrdersInboundHandler(models.AbstractModel):
                 resolution_errors.append(
                     f'Product with article code "{article_code}" was not found.',
                 )
-            if not supplier:
+
+            if supplier_number in ambiguous_supplier_refs:
+                resolution_errors.append(
+                    f'Supplier number "{supplier_number}" is ambiguous in Odoo.',
+                )
+
+            elif not supplier:
                 resolution_errors.append(
                     f'Supplier with number "{supplier_number}" was not found.',
                 )
@@ -79,7 +81,11 @@ class Slim4OrdersInboundHandler(models.AbstractModel):
             'message': 'Orders received successfully',
         }
 
-    def _get_products_by_code(self, article_codes):
+    def _get_products_by_code(self, validated_payload):
+        article_codes = {
+            str(order['articleCode'])
+            for order in validated_payload
+        }
         products = self.env['product.product'].search_fetch([
             ('default_code', 'in', list(set(article_codes))),
         ], ['default_code'])
@@ -89,15 +95,26 @@ class Slim4OrdersInboundHandler(models.AbstractModel):
             for product in products
         }
 
-    def _get_suppliers_by_ref(self, supplier_numbers):
+    def _get_suppliers_by_ref(self, validated_payload):
+        supplier_numbers = {
+            str(order['supplierNumber'])
+            for order in validated_payload
+        }
+
         suppliers = self.env['res.partner'].search_fetch([
             ('ref', 'in', list(set(supplier_numbers))),
         ], ['ref'])
 
-        return {
-            supplier.ref: supplier
-            for supplier in suppliers
-        }
+        suppliers_by_ref = {}
+        ambiguous_supplier_refs = set()
+
+        for supplier in suppliers:
+            if supplier.ref in suppliers_by_ref:
+                ambiguous_supplier_refs.add(supplier.ref)
+            else:
+                suppliers_by_ref[supplier.ref] = supplier
+
+        return suppliers_by_ref, ambiguous_supplier_refs
 
     def _get_picking_types_by_warehouse(self, warehouse_codes):
         picking_types = self.env['stock.picking.type'].search_fetch([
@@ -117,21 +134,18 @@ class Slim4OrdersInboundHandler(models.AbstractModel):
         return result
 
     @api.model
-    def process_received_messages(self):
+    def process_received_messages(self, limit=ORDER_GROUP_BATCH_SIZE):
         """Create draft purchase orders from resolved inbound messages."""
         grouped_messages = self.env['slim4.inbound.message']._read_group(
-            domain=[
-                ('operation', '=', 'orders'),
-                ('status', '=', 'received'),
-                ('supplier_id', '!=', False),
-                ('product_id', '!=', False),
-            ],
+            domain=self._get_processable_message_domain(),
             groupby=['batch_reference', 'supplier_id', 'picking_type_id'],
             aggregates=['id:recordset'],
+             limit=limit,
         )
 
         processed_count = 0
         processed_at = fields.Datetime.now()
+
         for _batch_reference, supplier, picking_type_id, messages in grouped_messages:
             company = messages[0].company_id
             po_create_vals = {
@@ -162,3 +176,37 @@ class Slim4OrdersInboundHandler(models.AbstractModel):
             processed_count += len(messages)
 
         return processed_count
+
+    @api.model
+    def _cron_process_received_messages(self, batch_size=ORDER_GROUP_BATCH_SIZE):
+        """Process one bounded batch of received order groups."""
+        max_batch_size = 500
+
+        if (
+            isinstance(batch_size, bool)
+            or not isinstance(batch_size, int)
+            or not 1 <= batch_size <= max_batch_size
+        ):
+            raise ValueError('The cron batch size must be between 1 and 500.')
+
+        processed_count = self.process_received_messages(
+            limit=batch_size,
+        )
+
+        remaining_count = self.env['slim4.inbound.message'].search_count(
+            self._get_processable_message_domain(),
+        )
+
+        self.env['ir.cron']._commit_progress(
+            processed_count,
+            remaining=remaining_count,
+        )
+
+    def _get_processable_message_domain(self):
+        """Return inbound order messages ready for processing."""
+        return [
+            ('operation', '=', 'orders'),
+            ('status', '=', 'received'),
+            ('supplier_id', '!=', False),
+            ('product_id', '!=', False),
+        ]

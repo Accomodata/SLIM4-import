@@ -19,6 +19,7 @@ class Slim4InterfaceMapping(models.Model):
         'status',
         'specific_rule',
         'split_records',
+        'group_id',
     )
 
     name = fields.Char(
@@ -53,7 +54,6 @@ class Slim4InterfaceMapping(models.Model):
             ('char', 'Char'),
             ('date', 'Date'),
             ('time', 'Time'),
-            ('boolean', 'Boolean'),
         ],
     )
     field_path = fields.Char(
@@ -118,11 +118,6 @@ class Slim4InterfaceMapping(models.Model):
         string='Specific Python Rule',
     )
 
-    _unique_interface_mapping = models.Constraint(
-        'unique(interface_id, slim4_field, group_id)',
-        'Each Slim4 field can only be mapped once per group on the same interface.',
-    )
-
     split_records = fields.Boolean(
         string='Split Records',
         help=(
@@ -130,7 +125,24 @@ class Slim4InterfaceMapping(models.Model):
         ),
     )
 
-    group_id = fields.Many2one('res.groups', string='Security Group')
+    group_id = fields.Many2one(
+        comodel_name='res.groups',
+        string='Security Group',
+    )
+
+    convert_html_field = fields.Boolean(
+        string='Convert HTML to text',
+        compute='_compute_convert_html_field',
+        help=(
+            'Indicates that the mapped Odoo field contains HTML that must be '
+            'converted to plain text before export.'
+        ),
+    )
+
+    _unique_interface_mapping = models.Constraint(
+        'unique(interface_id, slim4_field, group_id)',
+        'Each Slim4 field can only be mapped once per group on the same interface.',
+    )
 
     @api.constrains('specific_rule')
     def _check_specific_rule(self):
@@ -166,9 +178,17 @@ class Slim4InterfaceMapping(models.Model):
         mappings = self.browse(xml_data.mapped('res_id')).exists()
         for mapping in mappings:
             mapping.default_values_json = {
-                field_name: mapping[field_name]
+                field_name: mapping._get_default_snapshot_value(field_name)
                 for field_name in self._DEFAULT_VALUE_FIELDS
             }
+
+    def _get_default_snapshot_value(self, field_name):
+        value = self[field_name]
+
+        if self._fields[field_name].type == 'many2one':
+            return value.id or False
+
+        return value
 
     @api.onchange('mapping_type', 'constant_value', 'rule_key')
     def _onchange_mapping_type(self):
@@ -180,6 +200,7 @@ class Slim4InterfaceMapping(models.Model):
 
         if self.mapping_type != 'rule':
             self.rule_key = False
+            self.convert_html_field = False
 
     @api.depends('interface_technical_name', 'slim4_field')
     def _compute_name(self):
@@ -203,17 +224,44 @@ class Slim4InterfaceMapping(models.Model):
         other_mappings.rule_key = False
         other_mappings.generic_key = False
 
+    @api.depends_context('uid')
+    @api.depends(
+        'status',
+        'mapping_type',
+        'field_path',
+        'source_model',
+    )
+    def _compute_convert_html_field(self):
+        field_mappings = self.filtered(
+            lambda line: (
+                line.status == 'validated'
+                and line.mapping_type == 'field'
+                and line.field_path
+            ),
+        )
+
+        (self - field_mappings).convert_html_field = False
+
+        for line in field_mappings:
+            field_info = line._get_field_path_info()
+            line.convert_html_field = bool(
+                field_info
+                and field_info.get('type') == 'html',
+            )
+
+    @api.depends_context('uid')
     @api.depends(
         'status',
         'mapping_type',
         'field_path',
         'constant_value',
         'rule_key',
+        'group_id',
         'interface_id.source_model',
     )
     def _compute_mapping_error(self):
         validated_lines = self.filtered(
-            lambda line: line.status in {'validated', 'error'},
+            lambda line: line.status == 'validated',
         )
         for line in validated_lines:
             if errors := line._get_mapping_errors():
@@ -262,12 +310,15 @@ class Slim4InterfaceMapping(models.Model):
 
         if self._has_invalid_field_path():
             errors.append(
-                self.env._('%s: invalid field path "%s" on model %s') % (
+                self.env._(
+                    '%s: field path "%s" is invalid or unavailable. '
+                    'Enable the required feature or configure a replacement.',
+                ) % (
                     line_name,
                     self.field_path,
-                    self.source_model,
                 ),
             )
+
         return errors
 
     def _get_required_fields_by_mapping_type(self):
@@ -316,24 +367,42 @@ class Slim4InterfaceMapping(models.Model):
         return self._to_snake_name(slim4_field) or False
 
     def _field_path_is_valid(self):
-        """Check whether the field path exists on the configured source model."""
+        """Check whether the field path exists and is available."""
         self.ensure_one()
+
         if not self.field_path or not self.source_model:
             return True
 
-        model_env = self.env[self.source_model]
-        parts = [part for part in self.field_path.split('.') if part]
-        for index, part in enumerate(parts):
-            field = model_env._fields.get(part)
-            if not field:
-                return False
+        return bool(self._get_field_path_info())
 
-            is_last_part = index == len(parts) - 1
-            if not is_last_part:
-                if not getattr(field, 'comodel_name', False):
-                    return False
-                model_env = self.env[field.comodel_name]
-        return True
+    def _get_field_path_info(self):
+        """Return the final field metadata when the field path is valid."""
+        self.ensure_one()
+
+        if (
+            not self.field_path
+            or not self.source_model
+            or self.source_model not in self.env
+        ):
+            return None
+
+        model_env = self.env[self.source_model]
+        field_names = self.field_path.split('.')
+        field_info = None
+
+        for index, field_name in enumerate(field_names):
+            field_info = model_env.fields_get([field_name]).get(field_name)
+            if not field_info:
+                return None
+
+            if index < len(field_names) - 1:
+                comodel_name = field_info.get('relation')
+                if not comodel_name:
+                    return None
+
+                model_env = self.env[comodel_name]
+
+        return field_info
 
     def _restore_default_values(self):
         """Restore the mapping values from the initial snapshot."""
