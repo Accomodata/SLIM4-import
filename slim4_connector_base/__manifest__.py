@@ -57,6 +57,7 @@
         'views/product_supplierinfo_views.xml',
         'views/product_template_views.xml',
         'views/res_config_settings_views.xml',
+        'views/res_partner_views.xml',
         'views/slim4_menuitem.xml',
 
         'wizards/slim4_specific_rule_wizard.xml',

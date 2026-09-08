@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="view_partner_form_slim4_reference_warning" model="ir.ui.view">
+    <field name="name">res.partner.form.slim4.reference.warning</field>
+    <field name="model">res.partner</field>
+    <field name="inherit_id" ref="base.view_partner_form"/>
+    <field name="arch" type="xml">
+      <xpath expr="//div[@name='warning_tax']" position="after">
+        <div class="alert alert-warning oe_edit_only" role="alert" name="warning_slim4_reference" invisible="not same_ref_partner_id">
+          Potential duplicate:
+          <field name="same_ref_partner_id" context="{'show_address': False, 'show_vat': False}"/>
+          (Same Reference)
+        </div>
+      </xpath>
+    </field>
+  </record>
+</odoo>
