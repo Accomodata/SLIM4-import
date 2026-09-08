@@ -367,7 +367,7 @@ class Slim4ExportProvider(models.AbstractModel):
             return (
                 normalized_values[0]
                 if len(normalized_values) == 1
-                else normalized_values or None
+                else normalized_values
             )
 
         if value is None:
