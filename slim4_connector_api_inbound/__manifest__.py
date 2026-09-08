@@ -43,6 +43,7 @@
     ],
     'data': [
         'security/ir.model.access.csv',
+        'security/security_groups.xml',
         'security/slim4_inbound_message_security.xml',
 
         'data/slim4_inbound_cron.xml',

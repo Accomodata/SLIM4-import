@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="group_slim4_inbound_api_user" model="res.groups">
+    <field name="name">Slim4: Receive Inbound API Data</field>
+    <field name="comment">Allows a bearer-authenticated integration user to stage validated Slim4 inbound messages.</field>
+  </record>
+</odoo>
