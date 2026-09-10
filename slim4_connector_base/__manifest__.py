@@ -32,7 +32,7 @@
 {
     'name': 'Slim4 Connector Base',
     'summary': 'Configure Slim4 interfaces and Odoo field mappings',
-    'version': '19.0.1.0.0',
+    'version': '19.0.1.0.1',
     'category': 'Inventory/Configuration',
     'author': 'Accomodata',
     'website': 'https://www.accomodata.be',
@@ -57,16 +57,17 @@
         'views/product_supplierinfo_views.xml',
         'views/product_template_views.xml',
         'views/res_config_settings_views.xml',
+        'views/res_partner_views.xml',
         'views/slim4_menuitem.xml',
 
         'wizards/slim4_specific_rule_wizard.xml',
     ],
-
     'assets': {
         'web.assets_backend': [
             'slim4_connector_base/static/src/fields/slim4_field_selector.xml',
         ],
     },
+    'pre_init_hook': 'pre_init_hook',
     'installable': True,
     'application': False,
     'module_type': 'official',

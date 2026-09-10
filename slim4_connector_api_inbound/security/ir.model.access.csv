@@ -1,3 +1,3 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_slim4_inbound_message_user,slim4.inbound.message user,model_slim4_inbound_message,base.group_user,1,0,1,0
+access_slim4_inbound_message_api_user,slim4.inbound.message API user,model_slim4_inbound_message,slim4_connector_api_inbound.group_slim4_inbound_api_user,1,0,1,0
 access_slim4_inbound_message_admin,slim4.inbound.message admin,model_slim4_inbound_message,base.group_system,1,1,1,1

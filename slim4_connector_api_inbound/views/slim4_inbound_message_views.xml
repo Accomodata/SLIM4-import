@@ -62,6 +62,7 @@
         <filter string="Date" name="create_date" date="create_date"/>
         <group>
           <filter string="Operation" name="groupby_operation" context="{'group_by': 'operation'}"/>
+          <filter string="Batch" name="groupby_status" context="{'group_by': 'batch_reference'}"/>
           <filter string="Status" name="groupby_status" context="{'group_by': 'status'}"/>
         </group>
       </search>
@@ -80,6 +81,9 @@
     <field name="binding_model_id" ref="model_slim4_inbound_message"/>
     <field name="binding_view_types">list</field>
     <field name="state">code</field>
-    <field name="code">env['slim4.inbound.handler.orders'].process_received_messages()</field>
+    <field name="code">
+      env.ref('slim4_connector_api_inbound.ir_cron_process_slim4_received_orders'
+      ).method_direct_trigger()
+  </field>
   </record>
 </odoo>
