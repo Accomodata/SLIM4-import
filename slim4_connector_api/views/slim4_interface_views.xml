@@ -6,7 +6,7 @@
     <field name="inherit_id" ref="slim4_connector_base.slim4_interface_view_form"/>
     <field name="arch" type="xml">
       <xpath expr="//header" position="inside">
-        <button name="action_open_json_preview" type="object" string="Preview JSON" class="btn btn-secondary"/>
+        <button name="action_open_json_preview_wizard" type="object" string="Preview JSON" class="btn btn-secondary"/>
       </xpath>
       <xpath expr="//notebook" position="inside">
         <page string="JSON Preview" invisible="not mapping_preview_json">

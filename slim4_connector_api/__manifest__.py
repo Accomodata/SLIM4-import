@@ -32,7 +32,7 @@
 {
     'name': 'Slim4 Connector API',
     'summary': 'Expose Slim4 integration interfaces through Odoo API endpoints',
-    'version': '19.0.1.0.1',
+    'version': '19.0.1.0.2',
     'category': 'Technical',
     'author': 'Accomodata',
     'website': 'https://www.accomodata.be',
@@ -41,7 +41,11 @@
         'slim4_connector_base',
     ],
     'data': [
+        'security/ir.model.access.csv',
+
         'views/slim4_interface_views.xml',
+
+        'wizards/slim4_json_preview_wizard.xml',
     ],
     'installable': True,
     'application': False,
