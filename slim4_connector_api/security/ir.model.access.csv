@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_slim4_json_preview_wizard_user,slim4.json.preview.wizard user,model_slim4_json_preview_wizard,base.group_user,1,0,0,0
+access_slim4_json_preview_wizard_admin,slim4.json.preview.wizard admin,model_slim4_json_preview_wizard,base.group_system,1,1,1,1
+
+
