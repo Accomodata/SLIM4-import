@@ -155,17 +155,26 @@ class Slim4InterfaceMapping(models.Model):
 
     @api.constrains('interface_id', 'split_records')
     def _check_single_split_mapping(self):
-        for mapping in self.filtered('split_records'):
-            other_mapping = self.search([
-                ('interface_id', '=', mapping.interface_id.id),
+        interfaces = self.filtered('split_records').interface_id
+        if not interfaces:
+            return
+
+        duplicate_interfaces = self._read_group(
+            domain=[
+                ('interface_id', 'in', interfaces.ids),
                 ('split_records', '=', True),
-                ('id', '!=', mapping.id),
-            ], limit=1)
-            if other_mapping:
-                raise ValidationError(
-                    self.env._('Only one mapping can split records for interface %s.')
-                    % mapping.interface_id.display_name,
-                )
+            ],
+            groupby=['interface_id'],
+            aggregates=['__count'],
+            having=[('__count', '>', 1)],
+            limit=1,
+        )
+        if duplicate_interfaces:
+            interface, _count = duplicate_interfaces[0]
+            raise ValidationError(
+                self.env._('Only one mapping can split records for interface %s.')
+                % interface.display_name,
+            )
 
     @api.model
     def create_default_values_snapshots(self, module_name):
