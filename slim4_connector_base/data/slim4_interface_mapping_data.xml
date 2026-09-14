@@ -423,6 +423,15 @@
       <field name="field_path">product_code</field>
       <field name="status">validated</field>
     </record>
+    <record id="slim4_connector_base_suppliers_primarysupplier" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">340</field>
+      <field name="slim4_field">primarySupplier</field>
+      <field name="field_type">integer</field>
+      <field name="max_length">10</field>
+      <field name="mapping_type">rule</field>
+      <field name="status">validated</field>
+    </record>
     <record id="slim4_connector_base_logistics_replenishmentscheduleid" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">340</field>
