@@ -71,7 +71,7 @@ class Slim4ExportProvider(models.AbstractModel):
         skiptoken=None,
         **params,
     ):
-        domain = self._get_source_domain(interface, **params)
+        domain = self._get_source_domain(interface)
 
         if skiptoken is not None:
             last_write_date, last_id = decode_skiptoken(skiptoken)
@@ -82,6 +82,10 @@ class Slim4ExportProvider(models.AbstractModel):
                 ('write_date', '=', last_write_date),
                 ('id', '>', last_id),
             ]
+
+        if filter_record := params.get('filter_record'):
+            domain.append(('id', '=', filter_record))
+            page_size = 1
 
         return self.env[interface.source_model].search(
             domain,
@@ -194,7 +198,7 @@ class Slim4ExportProvider(models.AbstractModel):
             split_row[split_key] = split_value
             yield split_row
 
-    def _get_source_domain(self, interface, **params):
+    def _get_source_domain(self, interface):
         """Parse the configured source domain."""
         return safe_eval(interface.source_domain)
 

@@ -13,7 +13,21 @@ class Slim4Interface(models.Model):
         copy=False,
     )
 
-    def action_open_json_preview(self):
+    def action_open_json_preview_wizard(self):
+        self.ensure_one()
+        return {
+            'type': 'ir.actions.act_window',
+            'name': self.env._('JSON Preview'),
+            'res_model': 'slim4.json.preview.wizard',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {
+                'default_interface_id': self.id,
+                'default_model_id': self.source_model_id.id,
+            },
+        }
+
+    def _create_json_preview(self, page_size, record=None):
         """Generate a preview through the same provider used by the API."""
         self.ensure_one()
 
@@ -25,7 +39,8 @@ class Slim4Interface(models.Model):
 
         try:
             provider = get_export_provider(self.env, self)
-            rows = provider.export_interface(self, page_size=5)
+            params = {'filter_record': record}
+            rows = provider.export_interface(self, page_size=page_size, params=params)
 
             self.mapping_preview_json = json.dumps(
                 rows,
