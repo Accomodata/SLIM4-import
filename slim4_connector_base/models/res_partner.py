@@ -13,10 +13,20 @@ class ResPartner(models.Model):
 
     @api.depends('ref', 'company_id')
     def _compute_same_ref_partner_id(self):
-        """Find another partner using the same reference."""
+        """Find partners with matching references in one batched lookup."""
+        self.same_ref_partner_id = False
+        partners = self.filtered('ref')
+        if not partners:
+            return
+
         partner_sudo = self.with_context(active_test=False).sudo()
-        for partner in self:
-            domain = [('ref', '=', partner.ref)]
+        partners_by_ref = partner_sudo.search_fetch(
+            [('ref', 'in', partners.mapped('ref'))],
+            ['ref', 'company_id'],
+        ).grouped('ref')
+
+        for partner in partners:
+            domain = []
 
             if partner.company_id:
                 domain.append(
@@ -28,7 +38,8 @@ class ResPartner(models.Model):
                     ('id', '!=', partner._origin.id),
                 )
 
-            partner.same_ref_partner_id = (
-                bool(partner.ref)
-                and partner_sudo.search(domain, limit=1)
+            candidates = partners_by_ref.get(
+                partner.ref,
+                partner_sudo.browse(),
             )
+            partner.same_ref_partner_id = candidates.filtered_domain(domain)[:1]
