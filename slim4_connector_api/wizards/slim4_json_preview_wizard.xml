@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <record id="slim4_specific_json_preview_view_form" model="ir.ui.view">
+    <field name="name">slim4.json.preview.wizard.form</field>
+    <field name="model">slim4.json.preview.wizard</field>
+    <field name="arch" type="xml">
+      <form string="JSON Preview">
+        <field name="model_name" invisible="1"/>
+        <group>
+          <group string="Interface">
+            <field name="interface_id" readonly="1" options="{'no_open': True}"/>
+            <field name="model_id" readonly="1" options="{'no_open': True}"/>
+          </group>
+          <group string="Preview Options">
+            <field name="source_domain" invisible="1"/>
+            <field name="record_id" string="Specific Record" invisible="not model_name" options="{'no_create': True, 'no_open': True}"/>
+            <field name="query_limit"/>
+          </group>
+        </group>
+        <p class="text-muted">
+          The generated preview will be available in the JSON Preview tab of the interface form.
+        </p>
+        <footer>
+          <button name="action_create_json_preview" type="object" string="Create JSON Preview" class="btn-primary"/>
+          <button string="Cancel" special="cancel" class="btn-secondary"/>
+        </footer>
+      </form>
+    </field>
+  </record>
+</odoo>
