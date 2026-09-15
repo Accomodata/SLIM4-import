@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="0">
+    <!-- Validated: field mappings. -->
+    <record id="slim4_connector_base_supplier_code" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">10</field>
+      <field name="slim4_field">code</field>
+      <field name="field_type">char</field>
+      <field name="max_length">40</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">product_id.default_code</field>
+      <field name="slim4_required">1</field>
+      <field name="status">validated</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_suppliernumber" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">20</field>
+      <field name="slim4_field">supplierNumber</field>
+      <field name="field_type">char</field>
+      <field name="max_length">60</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">partner_id.ref</field>
+      <field name="status">validated</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_suppliername" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">30</field>
+      <field name="slim4_field">supplierName</field>
+      <field name="field_type">char</field>
+      <field name="max_length">100</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">partner_id.name</field>
+      <field name="status">validated</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_leadtime" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">40</field>
+      <field name="slim4_field">leadTime</field>
+      <field name="field_type">decimal</field>
+      <field name="max_length">15</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">delay</field>
+      <field name="status">validated</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_incrementelorderquantity" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">50</field>
+      <field name="group_id" ref="slim4_connector_base.ioq_field" />
+      <field name="slim4_field">IOQ</field>
+      <field name="field_type">integer</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">slim4_ioq</field>
+      <field name="status">validated</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_supplierarticlecode" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">60</field>
+      <field name="slim4_field">supplierArticleCode</field>
+      <field name="field_type">char</field>
+      <field name="max_length">65</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">product_code</field>
+      <field name="status">validated</field>
+    </record>
+
+    <!-- Validated: rule mappings. -->
+    <record id="slim4_connector_base_suppliers_warehouse" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">70</field>
+      <field name="slim4_field">warehouse</field>
+      <field name="field_type">char</field>
+      <field name="max_length">20</field>
+      <field name="mapping_type">rule</field>
+      <field name="field_path">product_id.warehouse_ids.code</field>
+      <field name="split_records">True</field>
+      <field name="status">validated</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_minimumorderquantity" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">80</field>
+      <field name="slim4_field">MOQ</field>
+      <field name="field_type">integer</field>
+      <field name="mapping_type">rule</field>
+      <field name="specific_rule" eval="False" />
+      <field name="status">validated</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_buyingprice" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">90</field>
+      <field name="slim4_field">buyingPrice</field>
+      <field name="field_type">decimal</field>
+      <field name="max_length">15</field>
+      <field name="mapping_type">rule</field>
+      <field name="specific_rule" eval="False" />
+      <field name="status">validated</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_primarysupplier" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">100</field>
+      <field name="slim4_field">primarySupplier</field>
+      <field name="field_type">integer</field>
+      <field name="max_length">10</field>
+      <field name="mapping_type">rule</field>
+      <field name="status">validated</field>
+    </record>
+
+    <!-- Ignored: field mappings -->
+    <record id="slim4_connector_base_suppliers_preference" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">110</field>
+      <field name="slim4_field">preference</field>
+      <field name="field_type">integer</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">sequence</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_reviewtime" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">120</field>
+      <field name="slim4_field">reviewTime</field>
+      <field name="field_type">decimal</field>
+      <field name="max_length">15</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_currencycode" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">130</field>
+      <field name="slim4_field">currencyCode</field>
+      <field name="field_type">char</field>
+      <field name="max_length">3</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">currency_id.name</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_economicorderquantity" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">140</field>
+      <field name="slim4_field">EOQ</field>
+      <field name="field_type">integer</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_supplierreliability" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">150</field>
+      <field name="slim4_field">supplierReliability</field>
+      <field name="field_type">decimal</field>
+      <field name="max_length">15</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_supplierreliabilitytype" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">160</field>
+      <field name="slim4_field">supplierReliabilityType</field>
+      <field name="field_type">integer</field>
+      <field name="max_length">1</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_availableinventory" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">170</field>
+      <field name="slim4_field">availableInventory</field>
+      <field name="field_type">integer</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_desiredsplit" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">180</field>
+      <field name="slim4_field">desiredSplit</field>
+      <field name="field_type">decimal</field>
+      <field name="max_length">15</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_orderfromdate" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">190</field>
+      <field name="slim4_field">orderFromDate</field>
+      <field name="field_type">date</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">date_start</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_ordertodate" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">200</field>
+      <field name="slim4_field">orderToDate</field>
+      <field name="field_type">date</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">date_end</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_logisticunit1" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">210</field>
+      <field name="slim4_field">logisticUnit1</field>
+      <field name="field_type">integer</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_logisticunit2" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">220</field>
+      <field name="slim4_field">logisticUnit2</field>
+      <field name="field_type">integer</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_logisticunit3" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">230</field>
+      <field name="slim4_field">logisticUnit3</field>
+      <field name="field_type">integer</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_logisticunit4" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">240</field>
+      <field name="slim4_field">logisticUnit4</field>
+      <field name="field_type">integer</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_logisticunit5" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">250</field>
+      <field name="slim4_field">logisticUnit5</field>
+      <field name="field_type">integer</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_logisticunit6" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">260</field>
+      <field name="slim4_field">logisticUnit6</field>
+      <field name="field_type">integer</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_ud1" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">270</field>
+      <field name="slim4_field">uD1</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_ud2" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">280</field>
+      <field name="slim4_field">uD2</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_ud3" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">290</field>
+      <field name="slim4_field">uD3</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_ud4" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">300</field>
+      <field name="slim4_field">uD4</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_ud5" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">310</field>
+      <field name="slim4_field">uD5</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_replenishmentscheduleid" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">320</field>
+      <field name="slim4_field">replenishmentScheduleId</field>
+      <field name="field_type">char</field>
+      <field name="max_length">60</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_inboundguaranteedshelflife" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">330</field>
+      <field name="slim4_field">inboundGuaranteedShelfLife</field>
+      <field name="field_type">decimal</field>
+      <field name="max_length">15</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_outboundguaranteedshelflife" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">340</field>
+      <field name="slim4_field">outboundGuaranteedShelfLife</field>
+      <field name="field_type">decimal</field>
+      <field name="max_length">15</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_netshelflife" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">350</field>
+      <field name="slim4_field">netShelfLife</field>
+      <field name="field_type">decimal</field>
+      <field name="max_length">15</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_nonstocked" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">360</field>
+      <field name="slim4_field">nonStocked</field>
+      <field name="field_type">char</field>
+      <field name="max_length">25</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_totalinventory" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">370</field>
+      <field name="slim4_field">totalInventory</field>
+      <field name="field_type">char</field>
+      <field name="max_length">25</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_udnum1" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">380</field>
+      <field name="slim4_field">uDNum1</field>
+      <field name="field_type">char</field>
+      <field name="max_length">25</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_udnum2" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">390</field>
+      <field name="slim4_field">uDNum2</field>
+      <field name="field_type">char</field>
+      <field name="max_length">25</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_udnum3" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">400</field>
+      <field name="slim4_field">uDNum3</field>
+      <field name="field_type">char</field>
+      <field name="max_length">25</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_udnum4" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">410</field>
+      <field name="slim4_field">uDNum4</field>
+      <field name="field_type">char</field>
+      <field name="max_length">25</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_udnum5" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">420</field>
+      <field name="slim4_field">uDNum5</field>
+      <field name="field_type">char</field>
+      <field name="max_length">25</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+
+    <!-- Ignored: rule mappings -->
+    <record id="slim4_connector_base_suppliers_controlid" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">430</field>
+      <field name="slim4_field">controlID</field>
+      <field name="field_type">integer</field>
+      <field name="max_length">3</field>
+      <field name="mapping_type">rule</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_suppliers_suppliedquantity" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_suppliers" />
+      <field name="sequence">440</field>
+      <field name="slim4_field">suppliedQuantity</field>
+      <field name="field_type">integer</field>
+      <field name="mapping_type">rule</field>
+      <field name="status">ignored</field>
+    </record>
+  </data>
+</odoo>
