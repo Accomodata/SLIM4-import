@@ -50,7 +50,14 @@
         'security/ir_rule.xml',
 
         'data/slim4_interface_data.xml',
-        'data/slim4_interface_mapping_data.xml',
+        'data/slim4_interface_mapping_article_filter.xml',
+        'data/slim4_interface_mapping_article_code_master.xml',
+        'data/slim4_interface_mapping_logistics.xml',
+        'data/slim4_interface_mapping_suppliers.xml',
+        'data/slim4_interface_mapping_purchase_order.xml',
+        'data/slim4_interface_mapping_stock_details.xml',
+        'data/slim4_interface_mapping_transactions.xml',
+        'data/slim4_interface_mapping_confirmed_demand.xml',
 
         'views/slim4_interface_views.xml',
         'views/slim4_interface_mapping_views.xml',
@@ -61,6 +68,9 @@
         'views/slim4_menuitem.xml',
 
         'wizards/slim4_specific_rule_wizard.xml',
+
+        # Must be loaded last, after all interface mappings.
+        'data/slim4_interface_mapping_snapshots.xml',
     ],
     'assets': {
         'web.assets_backend': [
