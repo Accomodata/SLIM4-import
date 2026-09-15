@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="0">
+    <record id="slim4_connector_base_article_filter_code" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_filter" />
+      <field name="sequence">10</field>
+      <field name="slim4_field">code</field>
+      <field name="field_type">char</field>
+      <field name="max_length">40</field>
+      <field name="slim4_required">1</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">default_code</field>
+      <field name="status">validated</field>
+    </record>
+    <record id="slim4_connector_base_article_filter_warehouse" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_filter" />
+      <field name="sequence">20</field>
+      <field name="slim4_field">warehouse</field>
+      <field name="field_type">char</field>
+      <field name="max_length">20</field>
+      <field name="mapping_type">rule</field>
+      <field name="field_path">warehouse_ids.code</field>
+      <field name="split_records">True</field>
+      <field name="status">validated</field>
+    </record>
+  </data>
+</odoo>
