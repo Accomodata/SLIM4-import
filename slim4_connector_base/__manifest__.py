@@ -32,7 +32,7 @@
 {
     'name': 'Slim4 Connector Base',
     'summary': 'Configure Slim4 interfaces and Odoo field mappings',
-    'version': '19.0.1.0.1',
+    'version': '19.0.1.0.2',
     'category': 'Inventory/Configuration',
     'author': 'Accomodata',
     'website': 'https://www.accomodata.be',
@@ -41,6 +41,7 @@
         'base',
         'product',
         'stock',
+        'mrp',
         'purchase',
         'sale_management',
     ],
@@ -50,7 +51,17 @@
         'security/ir_rule.xml',
 
         'data/slim4_interface_data.xml',
-        'data/slim4_interface_mapping_data.xml',
+        'data/slim4_interface_mapping_article_filter.xml',
+        'data/slim4_interface_mapping_article_code_master.xml',
+        'data/slim4_interface_mapping_logistics.xml',
+        'data/slim4_interface_mapping_suppliers.xml',
+        'data/slim4_interface_mapping_purchase_order.xml',
+        'data/slim4_interface_mapping_stock_details.xml',
+        'data/slim4_interface_mapping_transactions.xml',
+        'data/slim4_interface_mapping_confirmed_demand.xml',
+        'data/slim4_interface_mapping_bill_of_material.xml',
+        'data/slim4_interface_mapping_variant_generic.xml',
+        'data/slim4_interface_mapping_historical_po.xml',
 
         'views/slim4_interface_views.xml',
         'views/slim4_interface_mapping_views.xml',
@@ -61,6 +72,9 @@
         'views/slim4_menuitem.xml',
 
         'wizards/slim4_specific_rule_wizard.xml',
+
+        # Must be loaded last, after all interface mappings.
+        'data/slim4_interface_mapping_znapshots.xml',
     ],
     'assets': {
         'web.assets_backend': [
