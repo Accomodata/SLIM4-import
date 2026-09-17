@@ -41,6 +41,7 @@
         'base',
         'product',
         'stock',
+        'mrp',
         'purchase',
         'sale_management',
     ],
@@ -58,6 +59,9 @@
         'data/slim4_interface_mapping_stock_details.xml',
         'data/slim4_interface_mapping_transactions.xml',
         'data/slim4_interface_mapping_confirmed_demand.xml',
+        'data/slim4_interface_mapping_bill_of_material.xml',
+        'data/slim4_interface_mapping_variant_generic.xml',
+        'data/slim4_interface_mapping_historical_po.xml',
 
         'views/slim4_interface_views.xml',
         'views/slim4_interface_mapping_views.xml',
@@ -70,7 +74,7 @@
         'wizards/slim4_specific_rule_wizard.xml',
 
         # Must be loaded last, after all interface mappings.
-        'data/slim4_interface_mapping_snapshots.xml',
+        'data/slim4_interface_mapping_znapshots.xml',
     ],
     'assets': {
         'web.assets_backend': [
