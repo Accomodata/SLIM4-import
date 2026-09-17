@@ -11,6 +11,7 @@
       <field name="mapping_type">field</field>
       <field name="field_path">warehouse_id.code</field>
       <field name="split_records">False</field>
+      <field name="slim4_required" eval="True" />
       <field name="status">validated</field>
     </record>
     <record id="slim4_connector_base_confirmed_demand_code" model="slim4.interface.mapping">
@@ -90,6 +91,7 @@
       <field name="field_type">integer</field>
       <field name="mapping_type">field</field>
       <field name="field_path">sequence</field>
+      <field name="slim4_required" eval="True" />
       <field name="status">validated</field>
     </record>
 
@@ -160,6 +162,35 @@
       <field name="interface_id" ref="slim4_interface_confirmed_demand" />
       <field name="sequence">160</field>
       <field name="slim4_field">freeNumber1</field>
+      <field name="field_type">decimal</field>
+      <field name="max_length">15</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+
+
+    <record id="slim4_connector_base_confirmed_demand_controlid" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_confirmed_demand" />
+      <field name="sequence">170</field>
+      <field name="slim4_field">controlID</field>
+      <field name="field_type">integer</field>
+      <field name="max_length">3</field>
+      <field name="mapping_type">rule</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_confirmed_demand_freetext2" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_confirmed_demand" />
+      <field name="sequence">180</field>
+      <field name="slim4_field">freeText2</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_confirmed_demand_freenumber2" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_confirmed_demand" />
+      <field name="sequence">190</field>
+      <field name="slim4_field">freeNumber2</field>
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
       <field name="mapping_type">field</field>
