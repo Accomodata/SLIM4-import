@@ -74,6 +74,7 @@
       <field name="mapping_type">rule</field>
       <field name="field_path">warehouse_ids.code</field>
       <field name="split_records">True</field>
+      <field name="slim4_required" eval="True" />
       <field name="status">validated</field>
     </record>
     <record id="slim4_connector_base_logistics_minimumorderquantity" model="slim4.interface.mapping">
@@ -373,6 +374,26 @@
       <field name="max_length">25</field>
       <field name="mapping_type">field</field>
       <field name="field_path"></field>
+      <field name="status">ignored</field>
+    </record>
+
+
+    <record id="slim4_connector_base_logistics_controlid" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_logistics" />
+      <field name="sequence">390</field>
+      <field name="slim4_field">controlID</field>
+      <field name="field_type">integer</field>
+      <field name="max_length">3</field>
+      <field name="mapping_type">rule</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_logistics_supplierreliability" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_logistics" />
+      <field name="sequence">400</field>
+      <field name="slim4_field">supplierReliability</field>
+      <field name="field_type">decimal</field>
+      <field name="max_length">15</field>
+      <field name="mapping_type">field</field>
       <field name="status">ignored</field>
     </record>
   </data>

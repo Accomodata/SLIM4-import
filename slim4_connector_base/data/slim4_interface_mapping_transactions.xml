@@ -198,9 +198,36 @@
       <field name="mapping_type">field</field>
       <field name="status">ignored</field>
     </record>
-    <record id="slim4_connector_base_transactions_linkedtransactionnumber" model="slim4.interface.mapping">
+    <record id="slim4_connector_base_transactions_ud2" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">200</field>
+      <field name="slim4_field">uD2</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_transactions_ud3" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_transactions" />
+      <field name="sequence">210</field>
+      <field name="slim4_field">uD3</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_transactions_ud4" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_transactions" />
+      <field name="sequence">220</field>
+      <field name="slim4_field">uD4</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_transactions_linkedtransactionnumber" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_transactions" />
+      <field name="sequence">230</field>
       <field name="slim4_field">linkedTransactionNumber</field>
       <field name="field_type">char</field>
       <field name="max_length">50</field>
@@ -209,7 +236,7 @@
     </record>
     <record id="slim4_connector_base_transactions_demandchannel" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
-      <field name="sequence">210</field>
+      <field name="sequence">240</field>
       <field name="slim4_field">demandChannel</field>
       <field name="field_type">char</field>
       <field name="max_length">100</field>
@@ -218,7 +245,7 @@
     </record>
     <record id="slim4_connector_base_transactions_demandregion" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
-      <field name="sequence">220</field>
+      <field name="sequence">250</field>
       <field name="slim4_field">demandRegion</field>
       <field name="field_type">char</field>
       <field name="max_length">100</field>
@@ -229,7 +256,7 @@
     <!-- Ignored: rule mappings. -->
     <record id="slim4_connector_base_transactions_customertype" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
-      <field name="sequence">230</field>
+      <field name="sequence">260</field>
       <field name="slim4_field">customerType</field>
       <field name="field_type">char</field>
       <field name="max_length">50</field>
@@ -238,7 +265,7 @@
     </record>
     <record id="slim4_connector_base_transactions_suppliernumber" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
-      <field name="sequence">240</field>
+      <field name="sequence">270</field>
       <field name="slim4_field">supplierNumber</field>
       <field name="field_type">char</field>
       <field name="max_length">25</field>
@@ -247,7 +274,7 @@
     </record>
     <record id="slim4_connector_base_transactions_suppliertype" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
-      <field name="sequence">250</field>
+      <field name="sequence">280</field>
       <field name="slim4_field">supplierType</field>
       <field name="field_type">char</field>
       <field name="max_length">50</field>
@@ -256,7 +283,7 @@
     </record>
     <record id="slim4_connector_base_transactions_suppliername" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
-      <field name="sequence">260</field>
+      <field name="sequence">290</field>
       <field name="slim4_field">supplierName</field>
       <field name="field_type">char</field>
       <field name="max_length">100</field>
@@ -265,7 +292,7 @@
     </record>
     <record id="slim4_connector_base_transactions_buyingprice" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
-      <field name="sequence">270</field>
+      <field name="sequence">300</field>
       <field name="slim4_field">buyingPrice</field>
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
@@ -274,7 +301,7 @@
     </record>
     <record id="slim4_connector_base_transactions_supplyinglocation" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
-      <field name="sequence">280</field>
+      <field name="sequence">310</field>
       <field name="slim4_field">supplyingLocation</field>
       <field name="field_type">char</field>
       <field name="max_length">255</field>
@@ -283,10 +310,21 @@
     </record>
     <record id="slim4_connector_base_transactions_issuetime" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
-      <field name="sequence">290</field>
+      <field name="sequence">320</field>
       <field name="slim4_field">issueTime</field>
       <field name="field_type">char</field>
       <field name="max_length">5</field>
+      <field name="mapping_type">rule</field>
+      <field name="status">ignored</field>
+    </record>
+
+
+    <record id="slim4_connector_base_transactions_controlid" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_transactions" />
+      <field name="sequence">330</field>
+      <field name="slim4_field">controlID</field>
+      <field name="field_type">integer</field>
+      <field name="max_length">3</field>
       <field name="mapping_type">rule</field>
       <field name="status">ignored</field>
     </record>
