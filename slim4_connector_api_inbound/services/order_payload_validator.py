@@ -1,6 +1,7 @@
 from .errors import PayloadValidationError
 from datetime import datetime
 from math import isfinite
+import re
 
 
 def validate_order_payload(payload):
@@ -50,7 +51,7 @@ def _validate_order(order, item_index):
     )
 
     expected_date = normalized_order.get('expectedDate')
-    if expected_date not in {None, ''}:
+    if expected_date not in (None, ''):  # noqa: PLR6201 - JSON values may be unhashable.
         normalized_order['expectedDate'] = _normalize_expected_date(
             expected_date,
             item_index,
@@ -86,7 +87,7 @@ def _normalize_quantity(value, item_index):
 
 def _normalize_expected_date(value, item_index):
     """Convert a Slim4 YYYYMMDD date to an Odoo-compatible ISO string."""
-    if not isinstance(value, str):
+    if not isinstance(value, str) or not re.fullmatch(r'[0-9]{8}', value):
         raise PayloadValidationError(
             'The "expectedDate" value must be a string in YYYYMMDD format.',
             context={'item_index': item_index},
