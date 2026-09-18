@@ -7,6 +7,20 @@ class Slim4SuppliersExportProvider(models.AbstractModel):
     _inherit = 'slim4.export.provider.logistics'
     _description = 'Slim4 Suppliers Export Provider'
 
+    def _rule_suppliers_minimum_order_quantity(
+        self,
+        line,
+        record,
+        field_getter=None,
+        rule_context=None,
+    ):
+        return self._rule_moq(
+            line,
+            record,
+            field_getter=field_getter,
+            rule_context=rule_context,
+        )
+
     def _rule_suppliers_primary_supplier(
             self,
             line,

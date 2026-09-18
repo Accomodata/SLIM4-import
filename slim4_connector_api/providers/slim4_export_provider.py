@@ -98,7 +98,7 @@ class Slim4ExportProvider(models.AbstractModel):
 
     def _get_available_mapping_lines(self, interface):
         """Return validated mappings available to the export user."""
-        user_group_ids = set(self.env.user.group_ids.ids)
+        user_group_ids = set(self.env.user.all_group_ids.ids)
 
         return interface.mapping_line_ids.filtered(
             lambda line: (
