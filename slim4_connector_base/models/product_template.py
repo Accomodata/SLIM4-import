@@ -14,6 +14,17 @@ class ProductTemplate(models.Model):
         groups='slim4_connector_base.warehouse_field',
     )
 
+    configure_stocked_item_warehouse_ids = fields.Many2many(
+        comodel_name='stock.warehouse',
+        relation='slim4_product_product_stock_warehouse_stock_item_rel',
+        column1='product_id',
+        column2='warehouse_id',
+        string='Slim4 Warehouses Config',
+        help='Configure Stock Item.',
+        compute='_compute_configure_stocked_item_warehouse_id',
+        groups='slim4_connector_base.warehouse_field',
+    )
+
     slim4_matching_supplier_ids = fields.Many2many(
         comodel_name='product.supplierinfo',
         string='Matching Suppliers',
@@ -59,6 +70,15 @@ class ProductTemplate(models.Model):
 
     def _inverse_slim4_primary_supplier_ids(self):
         self._set_product_variant_field('slim4_primary_supplier_ids')
+
+    @api.depends('warehouse_ids')
+    def _compute_configure_stocked_item_warehouse_id(self):
+        all_warehouses = self.env['stock.warehouse'].search([])
+        for product in self:
+            if product.warehouse_ids:
+                product.configure_stocked_item_warehouse_ids = product.warehouse_ids
+            else:
+                product.configure_stocked_item_warehouse_ids = all_warehouses
 
     def _get_slim4_matching_sellers(self, variant):
         """Return the generic and variant-specific vendor lines."""
