@@ -142,11 +142,16 @@ class Slim4ExportProvider(models.AbstractModel):
         return rule_context
 
     def _get_rule_context_warehouse(self):
-        """Return all warehouse codes available to the export user."""
-        company = self.env.company
-        warehouses = self.env['stock.warehouse'].with_company(
-            company.id).search([])
+        """Return all warehouse codes."""
+        warehouses = self._get_all_warehouses()
         return list(set(warehouses.mapped('code')))
+
+    def _get_all_warehouses(self):
+        """Return all warehouses."""
+        company = self.env.company
+        return self.env['stock.warehouse'].with_company(company.id).search([
+            ('company_id', '=', company.id),
+        ])
 
     def _iter_export_rows(
         self,
@@ -224,13 +229,15 @@ class Slim4ExportProvider(models.AbstractModel):
         rule_context=None,
     ):
         if line.mapping_type == 'field':
-            value = self._resolve_field_path(record, line, field_getter, rule_context)
+            value = self._resolve_field_path(
+                record, line, field_getter, rule_context)
 
         if line.mapping_type == 'constant':
             value = self._normalize_mapping_value(line, line.constant_value)
 
         if line.mapping_type == 'rule':
-            value = self._resolve_rule_value(line, record, field_getter, rule_context)
+            value = self._resolve_rule_value(
+                line, record, field_getter, rule_context)
 
         if line.slim4_required and value in (None, '', []):
             raise UserError(
