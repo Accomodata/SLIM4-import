@@ -63,11 +63,22 @@
       <field name="field_path">slim4_primary_supplier_id.product_code</field>
       <field name="status">validated</field>
     </record>
+    <record id="slim4_connector_base_logistics_stockeditem" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_logistics" />
+      <field name="sequence">70</field>
+      <field name="slim4_field">stockedItem</field>
+      <field name="group_id" ref="slim4_connector_base.stocked_item_field" />
+      <field name="field_type">char</field>
+      <field name="max_length">1</field>
+      <field name="mapping_type">rule</field>
+      <field name="field_path">warehouse_ids.slim4_stocked_item</field>
+      <field name="status">validated</field>
+    </record>
 
     <!-- Validated: rule mappings. -->
     <record id="slim4_connector_base_logistics_warehouse" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_logistics" />
-      <field name="sequence">70</field>
+      <field name="sequence">80</field>
       <field name="slim4_field">warehouse</field>
       <field name="field_type">char</field>
       <field name="max_length">20</field>
@@ -79,7 +90,7 @@
     </record>
     <record id="slim4_connector_base_logistics_minimumorderquantity" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_logistics" />
-      <field name="sequence">80</field>
+      <field name="sequence">90</field>
       <field name="slim4_field">MOQ</field>
       <field name="field_type">integer</field>
       <field name="mapping_type">rule</field>
@@ -88,7 +99,7 @@
     </record>
     <record id="slim4_connector_base_logistics_buyingprice" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_logistics" />
-      <field name="sequence">90</field>
+      <field name="sequence">100</field>
       <field name="slim4_field">buyingPrice</field>
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
@@ -100,7 +111,7 @@
     <!-- Ignored: field mappings. -->
     <record id="slim4_connector_base_logistics_reviewtime" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_logistics" />
-      <field name="sequence">100</field>
+      <field name="sequence">110</field>
       <field name="slim4_field">reviewTime</field>
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
@@ -110,19 +121,9 @@
     </record>
     <record id="slim4_connector_base_logistics_supplierreliabilitytype" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_logistics" />
-      <field name="sequence">110</field>
+      <field name="sequence">120</field>
       <field name="slim4_field">supplierReliabilityType</field>
       <field name="field_type">integer</field>
-      <field name="max_length">1</field>
-      <field name="mapping_type">field</field>
-      <field name="field_path"></field>
-      <field name="status">ignored</field>
-    </record>
-    <record id="slim4_connector_base_logistics_stockeditem" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_logistics" />
-      <field name="sequence">120</field>
-      <field name="slim4_field">stockedItem</field>
-      <field name="field_type">char</field>
       <field name="max_length">1</field>
       <field name="mapping_type">field</field>
       <field name="field_path"></field>
@@ -376,8 +377,6 @@
       <field name="field_path"></field>
       <field name="status">ignored</field>
     </record>
-
-
     <record id="slim4_connector_base_logistics_controlid" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">390</field>
