@@ -12,14 +12,17 @@
         </group>
       </xpath>
       <xpath expr="//page[@name='inventory']" position="inside">
-        <group string="Slim4" invisible="product_variant_count &gt; 1 and not is_product_variant">
-          <field name="warehouse_ids" groups="slim4_connector_base.warehouse_field" widget="many2many_tags" />
-          <field name="configure_stocked_item_warehouse_ids" readonly="0" groups="slim4_connector_base.warehouse_field,slim4_connector_base.stocked_item_field" >
-            <list editable="bottom" no_open="1" create="0" delete="0">
-              <field name="name" readonly="1"/>
-              <field name="slim4_stocked_item" readonly="0"/>
-            </list>
-          </field>
+        <group string="Available Warehouses" groups="slim4_connector_base.warehouse_field" invisible="product_variant_count &gt; 1 and not is_product_variant">
+          <group colspan="2">
+            <field name="configured_warehouse_ids" readonly="0" nolabel="1">
+              <list editable="bottom" no_open="1" create="1" delete="1">
+                <field name="product_id" column_invisible="1" readonly="1"/>
+                <field name="warehouse_id"/>
+                <field name="code" readonly="1"/>
+                <field name="slim4_stocked_item" groups="slim4_connector_base.stocked_item_field"/>
+              </list>
+            </field>
+          </group>
         </group>
       </xpath>
     </field>

@@ -70,11 +70,10 @@
       <field name="group_id" ref="slim4_connector_base.stocked_item_field" />
       <field name="field_type">char</field>
       <field name="max_length">1</field>
-      <field name="mapping_type">rule</field>
-      <field name="field_path">warehouse_ids.slim4_stocked_item</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">configured_warehouse_ids.slim4_stocked_item</field>
       <field name="status">validated</field>
     </record>
-
     <!-- Validated: rule mappings. -->
     <record id="slim4_connector_base_logistics_warehouse" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_logistics" />
@@ -82,8 +81,9 @@
       <field name="slim4_field">warehouse</field>
       <field name="field_type">char</field>
       <field name="max_length">20</field>
-      <field name="mapping_type">rule</field>
-      <field name="field_path">warehouse_ids.code</field>
+      <field name="group_id" ref="slim4_connector_base.warehouse_field" />
+      <field name="mapping_type">field</field>
+      <field name="field_path">configured_warehouse_ids.code</field>
       <field name="split_records">True</field>
       <field name="slim4_required" eval="True" />
       <field name="status">validated</field>
