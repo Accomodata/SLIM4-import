@@ -1,0 +1,169 @@
+<section class="oe_container">
+<div class="oe_row oe_spaced">
+<div class="oe_span12">
+<h1 class="oe_slogan">Slim4 Connector</h1>
+<p>Full documentation of the Slim4 connector, covering the three modules <code>slim4_connector_base</code>, <code>slim4_connector_api</code> and <code>slim4_connector_api_inbound</code>.</p>
+<p>The SLIM4 connector lets Slimstock's Slim4 planning tool read Odoo's products, suppliers, stock, orders and history, and turns Slim4's order proposals into draft purchase orders in Odoo. This guide explains how to use and configure it.</p>
+<h2 class="mt-4 mb-3">What the connector does</h2>
+<p>Slim4 is always the one that starts the exchange: it pulls data from Odoo on its own schedule and pushes order proposals back. Nobody in Odoo has to export or import files.</p>
+<ol class="mb-3">
+<li>Odoo exposes products, suppliers, stock, open orders and history; Slim4 pulls them on its own schedule.</li>
+<li>Slim4 sends order proposals back; Odoo stores them as <strong>Inbound Messages</strong>.</li>
+<li>Every 5 minutes (or manually) the messages become <strong>draft RFQs</strong>.</li>
+<li>A buyer reviews and confirms them as purchase orders.</li>
+</ol>
+<h4 class="mt-3 mb-2">What Slim4 reads from Odoo</h4>
+<table class="table table-sm table-bordered mb-3">
+<thead><tr><th>Data set</th><th>What Slim4 gets</th><th>Which Odoo records are included</th></tr></thead>
+<tbody>
+<tr><td>Article Filter</td><td>The list of articles to plan, per warehouse</td><td>Active products with an internal reference</td></tr>
+<tr><td>Article Code Master</td><td>Article details: description, cost and sales price, weight, volume, unit, barcode</td><td>Same as Article Filter</td></tr>
+<tr><td>Logistics</td><td>Per article: primary supplier, lead time, MOQ, IOQ, purchase price, supplier article code</td><td>Active products with an internal reference <strong>and a primary supplier</strong></td></tr>
+<tr><td>Suppliers</td><td>All supplier options per article, with the same logistics data</td><td>Every vendor pricelist line of an active, coded product</td></tr>
+<tr><td>Purchase Order</td><td>Open incoming quantities: PO number, supplier, planned date, open quantity</td><td>Confirmed PO lines not fully received</td></tr>
+<tr><td>Confirmed Demand</td><td>Open customer demand: SO number, customer, required date and quantity</td><td>Confirmed SO lines not fully delivered</td></tr>
+<tr><td>Stock Details</td><td>Stock on hand per warehouse (and lot)</td><td>Stock in internal locations</td></tr>
+<tr><td>Transactions</td><td>History of completed stock moves (mainly deliveries), used for forecasting</td><td>Done stock moves of coded products</td></tr>
+</tbody>
+</table>
+<h4 class="mt-3 mb-2">What Slim4 sends to Odoo</h4>
+<p>Order proposals: per line an article, a supplier, a quantity, an optional expected date and an optional warehouse. Odoo stores them and turns them into <strong>draft</strong> requests for quotation. Nothing is confirmed or sent to a supplier automatically.</p>
+<h2 class="mt-4 mb-3">Key concepts</h2>
+<p>Slim4 and Odoo recognise records by a few shared keys. If these keys are missing or duplicated, data is left out or orders cannot be matched.</p>
+<table class="table table-sm table-bordered mb-3">
+<thead><tr><th>Concept</th><th>In Odoo</th><th>Why it matters</th></tr></thead>
+<tbody>
+<tr><td>Article code</td><td>Product <strong>Internal Reference</strong></td><td>The only key for an article. Must be unique; products without one are never sent to Slim4</td></tr>
+<tr><td>Supplier number</td><td>Contact <strong>Reference</strong> (Sales &amp; Purchase tab)</td><td>Slim4 knows suppliers by this reference and uses it in order proposals. Must be unique</td></tr>
+<tr><td>Warehouse code</td><td>Warehouse <strong>Short Name</strong></td><td>Identifies the warehouse in every data set and in order proposals</td></tr>
+<tr><td>Slim4 warehouses</td><td>Product › Inventory tab</td><td>Warehouses in which Slim4 should plan this product. Empty = all warehouses</td></tr>
+<tr><td>Primary supplier</td><td>Product › Purchase tab › <em>Primary Supplier</em></td><td>The vendor line Slim4 uses for lead time, MOQ, IOQ and price in Logistics</td></tr>
+</tbody>
+</table>
+<h2 class="mt-4 mb-3">Daily use: products and suppliers</h2>
+<p>Most of the connector runs by itself; the team's job is to keep master data complete. A product only reaches Slim4 correctly when the checklist below is met.</p>
+<h4 class="mt-3 mb-2">New product</h4>
+<ul class="mb-3">
+<li>Internal Reference filled in and unique (Module refuses duplicates).</li>
+<li>Product is active.</li>
+<li>At least one vendor line on the Purchase tab with price, minimum quantity and lead time.</li>
+<li>A <strong>Primary Supplier</strong> selected on the Purchase tab, otherwise the product is missing from Logistics.</li>
+<li><em>Slim4 Warehouses</em> set on the Inventory tab if the product is not stocked in every warehouse.</li>
+</ul>
+<h4 class="mt-3 mb-2">New supplier</h4>
+<ul class="mb-3">
+<li>Reference filled in and unique. The module shows a <em>Potential duplicate</em> warning on the contact when another contact has the same reference.</li>
+</ul>
+<h4 class="mt-3 mb-2">Good to know</h4>
+<ul class="mb-3">
+<li>For variant products, only vendor lines valid for that variant (or for all variants) can be chosen.</li>
+<li>Purchase prices are sent in the supplier's purchase currency, or the company currency if none is set.</li>
+<li>Changes are picked up the next time Slim4 pulls data; there is nothing to trigger in Odoo.</li>
+</ul>
+<h2 class="mt-4 mb-3">Configuring the connector</h2>
+<p>Everything is under the <strong>Slim4</strong> app › Configuration. The default setup works out of the box; change it only when a client needs different data in Slim4. Configuration changes require Settings (administrator) rights.</p>
+<h4 class="mt-3 mb-2">Settings</h4>
+<p>Three options, all on by default. Turn one off only if the client uses its own custom fields.</p>
+<table class="table table-sm table-bordered mb-3">
+<thead><tr><th>Option</th><th>What it adds</th></tr></thead>
+<tbody>
+<tr><td>Warehouse</td><td><em>Slim4 Warehouses</em> field on products</td></tr>
+<tr><td>Primary Supplier</td><td><em>Primary Supplier</em> field on products</td></tr>
+<tr><td>Incremental Order Quantity (IOQ)</td><td><em>IOQ</em> column on vendor lines</td></tr>
+</tbody>
+</table>
+<p>When an option is off, the fields that depend on it no longer work. <strong>Validate Mapping</strong> then reports an error until another field is chosen, and Slim4 gets an error on that data set.</p>
+<h4 class="mt-3 mb-2">Interfaces</h4>
+<p>One interface per data set (the eight listed above). Per interface you can:</p>
+<ul class="mb-3">
+<li><strong>Archive</strong> it to stop Slim4 from reading that data set.</li>
+<li>Adjust <strong>Source Domain</strong>: the filter that decides which records are included (e.g. exclude a product category).</li>
+<li>Review the <strong>field mapping</strong>: which Odoo value goes into each Slim4 field.</li>
+</ul>
+<h4 class="mt-3 mb-2">Field mapping</h4>
+<p>Each Slim4 field is one line with a status and a way to fill it.</p>
+<table class="table table-sm table-bordered mb-3">
+<thead><tr><th>Status</th><th>Effect</th></tr></thead>
+<tbody>
+<tr><td>Validated</td><td>Sent to Slim4</td></tr>
+<tr><td>To Validate</td><td>Not sent yet; waiting for a decision</td></tr>
+<tr><td>Ignored</td><td>Not sent (optional Slim4 field the client does not use)</td></tr>
+</tbody>
+</table>
+<table class="table table-sm table-bordered mb-3">
+<thead><tr><th>Mapping type</th><th>Use it for</th><th>Example</th></tr></thead>
+<tbody>
+<tr><td>Odoo Field Path</td><td>Take a value from an Odoo field, also via related records</td><td>Supplier name → <em>Vendor › Name</em></td></tr>
+<tr><td>Constant Value</td><td>Always send the same value</td><td>Order type = <code>1</code></td></tr>
+<tr><td>Python Rule</td><td>Calculated values; a small code snippet (developer or experienced consultant)</td><td>Open quantity = ordered − received</td></tr>
+</tbody>
+</table>
+<p>Fields marked <em>Required</em> must have a value for every record; one empty value stops that whole data set for Slim4 (see Points of attention).</p>
+<p>Buttons on the interface:</p>
+<ul class="mb-3">
+<li><strong>Validate Mapping</strong> — checks that every validated line is complete and points to an existing field.</li>
+<li><strong>Preview JSON</strong> — shows the first 5 records exactly as Slim4 would receive them. Use it after every change.</li>
+<li><strong>Reset Mapping</strong> — restores the standard configuration of that interface.</li>
+</ul>
+<h2 class="mt-4 mb-3">Orders from Slim4</h2>
+<p>Slim4 order proposals land in <strong>Slim4 › Inbound Messages</strong> and become draft RFQs; a buyer always reviews and confirms them in Purchase. One message is created per proposed order line.</p>
+<h4 class="mt-3 mb-2">From proposal to RFQ</h4>
+<ol class="mb-3">
+<li>Slim4 sends a set of proposals (one <em>batch</em>). Odoo checks the whole set first; if one line is malformed (missing article, supplier or quantity, invalid date), the whole set is refused and Slim4 gets an error.</li>
+<li>Every accepted line becomes a message. Odoo looks up the article (Internal Reference), the supplier (Reference) and the receipt type of the warehouse.</li>
+<li>Lines that are found get status <strong>Received</strong>; lines with an unknown article or supplier get status <strong>Error</strong> with the reason.</li>
+<li>Every 5 minutes (or on demand) Odoo turns <em>Received</em> messages into draft RFQs: <strong>one RFQ per supplier and warehouse per batch</strong>, with one line per article. Price, unit and taxes come from the supplier pricelist as usual; the planned date is the date Slim4 proposed.</li>
+<li>Messages move to <strong>Processed</strong>. The buyer finds the new RFQs in Purchase and confirms them.</li>
+</ol>
+<h4 class="mt-3 mb-2">Message statuses</h4>
+<table class="table table-sm table-bordered mb-3">
+<thead><tr><th>Status</th><th>Meaning</th><th>What to do</th></tr></thead>
+<tbody>
+<tr><td>Received</td><td>Ready, waiting for processing</td><td>Nothing; or run <em>Process Received Orders</em> from the Action menu to process now</td></tr>
+<tr><td>Processed</td><td>RFQ created</td><td>Review the RFQ in Purchase</td></tr>
+<tr><td>Error</td><td>Article or supplier not found, or supplier reference used by several contacts</td><td>Fix the product or contact, then ask Slim4 to send the proposal again (an error message cannot be reprocessed)</td></tr>
+</tbody>
+</table>
+<p>Automatic processing runs through the scheduled action <em>Slim4: Process received orders</em>. It is <strong>off after installation</strong> and must be switched on (Settings › Technical › Scheduled Actions). The list shows <em>Received</em> messages by default; use the filters for errors or group by batch.</p>
+<h2 class="mt-4 mb-3">Go-live checklist</h2>
+<p>Run through this list for each new client environment before Slimstock connects.</p>
+<ul class="mb-3">
+<li>Internal References are unique (installation is blocked otherwise) and filled on every product to plan.</li>
+<li>Supplier References are unique and agreed with Slimstock.</li>
+<li>Every warehouse has a short, stable code agreed with Slimstock.</li>
+<li>Primary suppliers are set on all products that Slim4 must plan (Logistics).</li>
+<li>Slim4 warehouses are set on products that are not stocked everywhere.</li>
+<li>Each interface reviewed with the client: statuses, source filter, <strong>Validate Mapping</strong> and <strong>Preview JSON</strong> OK.</li>
+<li>An integration user for Slimstock exists, with access to products, purchase, sales and inventory <strong>and</strong> the group <em>Slim4: Receive Inbound API Data</em>.</li>
+<li>An API key has been created for that user and handed to Slimstock together with the Odoo URL.</li>
+<li>Scheduled action <em>Slim4: Process received orders</em> is switched on.</li>
+<li>A test order from Slim4 has produced a correct draft RFQ.</li>
+<li>Changes to the standard mapping are written in the mapping line <em>Notes</em> (a module update can reset them).</li>
+</ul>
+<h2 class="mt-4 mb-3">Troubleshooting</h2>
+<table class="table table-sm table-bordered mb-3">
+<thead><tr><th>Symptom</th><th>Likely cause</th><th>What to do</th></tr></thead>
+<tbody>
+<tr><td>Product missing in Slim4</td><td>No Internal Reference, product archived, or (Logistics) no primary supplier</td><td>Complete the product</td></tr>
+<tr><td>Product planned in the wrong warehouses</td><td><em>Slim4 Warehouses</em> empty, so all warehouses are sent</td><td>Set the warehouses on the product</td></tr>
+<tr><td>Slim4 reports an error on a whole data set</td><td>A required field is empty on one record, or a mapping is invalid</td><td>Open the interface, run <strong>Validate Mapping</strong> and <strong>Preview JSON</strong>; the error names the record</td></tr>
+<tr><td>Slim4 cannot connect at all</td><td>API key wrong, expired or revoked</td><td>Check the integration user's API keys; create a new one if needed</td></tr>
+<tr><td>Slim4 order refused completely</td><td>One line in the set is malformed, or the integration user lacks the inbound group</td><td>Check the user's groups; ask Slimstock for the error message</td></tr>
+<tr><td>Message in <em>Error</em>: not found</td><td>Article or supplier reference unknown in Odoo</td><td>Fix the data, ask Slim4 to resend</td></tr>
+<tr><td>Message in <em>Error</em>: ambiguous</td><td>Two contacts share the supplier reference</td><td>Make the reference unique, ask Slim4 to resend</td></tr>
+<tr><td>Messages stay <em>Received</em></td><td>Scheduled action is off</td><td>Switch it on, or use <em>Process Received Orders</em></td></tr>
+<tr><td>Mapping changes gone after an update</td><td>Module update restored the standard values</td><td>Re-apply from the notes on the mapping line</td></tr>
+</tbody>
+</table>
+<h2 class="mt-4 mb-3">Points of attention</h2>
+<ol class="mb-3">
+<li><strong>One incomplete record blocks a whole data set.</strong> If a required value (e.g. an Internal Reference or description) is empty on one record, Slim4 gets an error for that data set until the record is fixed.</li>
+<li><strong>One failing RFQ stops all order processing.</strong> If Odoo cannot create one RFQ (e.g. a product that cannot be purchased), none of the waiting messages are processed and the same error returns every 5 minutes. Check the scheduled action's log when messages stay <em>Received</em>.</li>
+<li><strong>Error messages cannot be reprocessed.</strong> After fixing the product or supplier, Slim4 has to send the proposal again; the old error message stays as history.</li>
+<li><strong>Warehouse codes must be text codes.</strong> A purely numeric warehouse code sent by Slim4 is not recognised, and the RFQ falls back to the default receipt type.</li>
+<li><strong>RFQs carry no Slim4 reference.</strong> A draft RFQ does not show that it came from Slim4; the link is only visible from the inbound message.</li>
+<li><strong>Module updates can reset mapping changes.</strong> Standard mapping lines and source filters are restored on update, including Python rules on MOQ and buying price. Keep client-specific changes documented in the line notes.</li>
+</ol>
+</div>
+</div>
+</section>
