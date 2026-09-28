@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <menuitem id="menu_warehouse_config" name="Slim4 Warehouse Configuration" parent="stock.menu_warehouse_config" action="action_slim4_warehouse_config" groups="slim4_connector_base.warehouse_field"  sequence="1" />
+</odoo>

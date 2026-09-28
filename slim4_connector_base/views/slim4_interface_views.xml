@@ -49,7 +49,7 @@
               <field name="mapping_line_ids" domain="mapping_line_domain">
                 <list editable="bottom" decoration-success="status == 'validated' and not mapping_error" decoration-warning="status == 'to_validate'" decoration-muted="status == 'ignored'" decoration-danger="status == 'validated' and mapping_error ">
                   <field name="sequence" widget="handle" />
-                  <field name="slim4_field" readonly="1" />
+                  <field name="slim4_field"/>
                   <field name="mapping_type" optional="show" />
                   <field name="source_model" column_invisible="1"/>
                   <field name="field_path" optional="show" widget="field_selector" invisible="mapping_type not in ['field', 'rule']" options="{'model': 'source_model', 'follow_relations': true, 'allow_properties': false}" />

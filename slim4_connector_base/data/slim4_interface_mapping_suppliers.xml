@@ -73,7 +73,7 @@
       <field name="field_type">char</field>
       <field name="max_length">20</field>
       <field name="mapping_type">rule</field>
-      <field name="field_path">product_id.warehouse_ids.code</field>
+      <field name="field_path">product_id.configured_warehouse_ids.code</field>
       <field name="split_records">True</field>
       <field name="slim4_required" eval="True" />
       <field name="status">validated</field>
