@@ -56,7 +56,7 @@ class Slim4LogisticsExportProvider(models.AbstractModel):
         """Apply ``mapped`` to stockedItem fields, as they use an O2M relation
         (``configured_warehouse_ids.slim4_stocked_item``).
         """
-        if not self.env.user.has_group('slim4_connector_base.stocked_item_field'):
+        if not self.env.user.has_group('slim4_connector_base.warehouse_field'):
             return super()._get_mapping_field_getter(line)
         if (
             line.mapping_type not in {'field', 'rule'}
@@ -77,7 +77,7 @@ class Slim4LogisticsExportProvider(models.AbstractModel):
         between both values.
         """
         if not self.env.user.has_group(
-                'slim4_connector_base.stocked_item_field',
+                'slim4_connector_base.warehouse_field',
             ):
             yield from super()._iter_split_rows(row, split_key)
         else:
