@@ -33,21 +33,18 @@
       <field name="slim4_required" eval="True" />
       <field name="status">validated</field>
     </record>
-
-    <!-- Validated: rule mappings. -->
     <record id="slim4_connector_base_stock_details_warehouse" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_stock_details" />
       <field name="sequence">40</field>
       <field name="slim4_field">warehouse</field>
       <field name="field_type">char</field>
       <field name="max_length">20</field>
-      <field name="mapping_type">rule</field>
+      <field name="mapping_type">field</field>
       <field name="field_path">warehouse_id.code</field>
       <field name="split_records">False</field>
       <field name="slim4_required" eval="True" />
       <field name="status">validated</field>
     </record>
-
     <!-- Ignored: field mappings. -->
     <record id="slim4_connector_base_stock_details_stocktype" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_stock_details" />
