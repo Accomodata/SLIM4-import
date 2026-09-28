@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <data noupdate="1">
+  <data noupdate="0">
     <record id="slim4_connector_base_historical_po_controlid" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_historical_po" />
       <field name="sequence">10</field>
