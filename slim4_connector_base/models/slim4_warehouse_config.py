@@ -36,6 +36,6 @@ class SlimWarehouseConfig(models.Model):
     )
 
     _slim4_warehouse_config_unique = models.Constraint(
-            'unique (product_id, warehouse_id, slim4_stocked_item)',
+            'unique (product_id, warehouse_id)',
             'This Configuration Already exists for this product/warehouse',
     )

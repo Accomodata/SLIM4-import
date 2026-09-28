@@ -63,13 +63,13 @@
         'data/slim4_interface_mapping_variant_generic.xml',
         'data/slim4_interface_mapping_historical_po.xml',
 
+        'views/res_config_settings_views.xml',
         'views/slim4_interface_views.xml',
         'views/slim4_interface_mapping_views.xml',
         'views/slim4_warehouse_config_views.xml',
         'views/slim4_menuitem.xml',
         'views/product_supplierinfo_views.xml',
         'views/product_template_views.xml',
-        'views/res_config_settings_views.xml',
         'views/res_partner_views.xml',
         'views/stock_menu_views.xml',
 
