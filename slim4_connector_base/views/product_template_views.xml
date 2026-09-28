@@ -19,7 +19,7 @@
                 <field name="product_id" column_invisible="1" readonly="1"/>
                 <field name="warehouse_id"/>
                 <field name="code" readonly="1"/>
-                <field name="slim4_stocked_item" groups="slim4_connector_base.stocked_item_field"/>
+                <field name="slim4_stocked_item"/>
               </list>
             </field>
           </group>

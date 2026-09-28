@@ -7,12 +7,13 @@
       <list>
         <field name="product_id"/>
         <field name="warehouse_id"/>
-        <field name="slim4_stocked_item" groups="slim4_connector_base.stocked_item_field"/>
+        <field name="slim4_stocked_item"/>
       </list>
     </field>
   </record>
   <record id="action_slim4_warehouse_config" model="ir.actions.act_window">
     <field name="name">Warehouse Config</field>
+    <field name="group_ids" eval="[(4, ref('slim4_connector_base.warehouse_field'))]"/>
     <field name="res_model">slim4.warehouse.config</field>
     <field name="view_mode">list</field>
     <field name="view_id" ref="view_slim4_warehouse_config_list"/>

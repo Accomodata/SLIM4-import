@@ -105,8 +105,21 @@ class ProductProduct(models.Model):
         return products
 
     def _create_slim4_default_wh_config(self, warehouses, products):
-        self.env['slim4.warehouse.config'].create([
-            {'product_id': product.id, 'warehouse_id': wh.id, 'slim4_stocked_item': 'n'}
-            for product in products
-            for wh in warehouses
+        config = self.env['slim4.warehouse.config']
+        existing_configs = config.search([
+            ('product_id', 'in', products.ids),
         ])
+
+        if products and warehouses:
+            vals = [
+                {
+                    'product_id': product.id,
+                    'warehouse_id': warehouse.id,
+                    'slim4_stocked_item': 'n',
+                }
+                for product in products
+                for warehouse in warehouses
+                if product.id not in existing_configs.mapped('product_id').ids
+            ]
+
+            config.create(vals)
