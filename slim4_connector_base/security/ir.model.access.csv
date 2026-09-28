@@ -5,3 +5,5 @@ access_slim4_interface_admin,slim4.interface admin,model_slim4_interface,base.gr
 access_slim4_interface_mapping_admin,slim4.interface.mapping admin,model_slim4_interface_mapping,base.group_system,1,1,1,1
 access_slim4_specific_rule_user,slim4.specific.rule.wizard user,model_slim4_specific_rule_wizard,base.group_user,1,0,0,0
 access_slim4_specific_rule_admin,slim4.specific.rule.wizard admin,model_slim4_specific_rule_wizard,base.group_system,1,1,1,1
+access_slim4_warehouse_config_user,slim4.warehouse.config user,model_slim4_warehouse_config,base.group_user,1,0,0,0
+access_slim4_warehouse_config_admin,slim4.warehouse.config admin,model_slim4_warehouse_config,base.group_system,1,1,1,1
