@@ -21,7 +21,7 @@
       <form string="Slim4 Interface">
         <header>
           <button name="action_validate_mapping_config" type="object" string="Validate Mapping" groups="base.group_system" />
-          <button name="action_reset_mapping_to_default" type="object" string="Reset Mapping" groups="base.group_system" />
+          <button name="action_reset_mapping_to_default" type="object" string="Reset Mapping" groups="base.group_no_one" />
         </header>
         <sheet>
           <group>

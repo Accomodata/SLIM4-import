@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <data noupdate="0">
+  <data noupdate="1">
     <!-- Validated: field mappings. -->
     <record id="slim4_connector_base_article_code_master_code" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_article_code_master" />

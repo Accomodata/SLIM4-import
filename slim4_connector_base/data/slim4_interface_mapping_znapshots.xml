@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <data noupdate="0">
+  <data noupdate="1">
     <!-- Loaded last in the manifest so every standard mapping is included in the default snapshots. -->
     <function model="slim4.interface.mapping" name="create_default_values_snapshots"
       eval="['slim4_connector_base']" />
