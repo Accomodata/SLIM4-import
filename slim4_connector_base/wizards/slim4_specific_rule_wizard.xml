@@ -42,10 +42,6 @@
             </p>
             <ul>
               <li>
-                <code>warehouse</code>: warehouse codes available to
-                the export.
-              </li>
-              <li>
                 <code>requiredDate</code>: fallback field path for
                 Confirmed Demand.
               </li>
@@ -58,7 +54,7 @@
 result = record.product_qty - record.qty_received
 
 # Use a value prepared by the export provider
-result = rule_context.get('warehouse', [])
+result = rule_context.get('requiredDate', [])
             </pre>
           </page>
         </notebook>

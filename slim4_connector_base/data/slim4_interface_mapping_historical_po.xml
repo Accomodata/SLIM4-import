@@ -94,7 +94,6 @@
       <field name="field_path">order_id.partner_id.ref</field>
       <field name="status">ignored</field>
     </record>
-    <!-- The workbook's first proposal order_id.notes is named order_id.note in Odoo 19. -->
     <record id="slim4_connector_base_historical_po_pocomment" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_historical_po" />
       <field name="sequence">100</field>
@@ -105,7 +104,6 @@
       <field name="field_path">order_id.note</field>
       <field name="status">ignored</field>
     </record>
-    <!-- The workbook only specifies x_* placeholders for these free fields. -->
     <record id="slim4_connector_base_historical_po_freetext1" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_historical_po" />
       <field name="sequence">110</field>
