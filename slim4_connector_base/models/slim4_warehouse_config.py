@@ -8,6 +8,7 @@ class SlimWarehouseConfig(models.Model):
     product_id = fields.Many2one(
         comodel_name='product.product',
         string='Product',
+        index=True,
     )
 
     product_tmpl_id = fields.Many2one(
@@ -26,7 +27,7 @@ class SlimWarehouseConfig(models.Model):
 
     slim4_stocked_item = fields.Selection(
         string='Stocked Item',
-        groups='slim4_connector_base.stocked_item_field',
+        groups='slim4_connector_base.warehouse_field',
         default='n',
         selection=[
             ('y', 'Stocked'),

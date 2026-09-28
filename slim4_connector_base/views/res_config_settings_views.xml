@@ -22,9 +22,6 @@
             <setting string="Incremental Order Quantity (IOQ)" help="Enables the incremental order quantity field on suppliers.">
               <field name="group_slim4_ioq_field"/>
             </setting>
-            <setting string="Warehouse Stocked item" help="Enables warehouse stock category specification.">
-              <field name="group_slim4_stocked_item"/>
-            </setting>
           </block>
         </app>
       </xpath>

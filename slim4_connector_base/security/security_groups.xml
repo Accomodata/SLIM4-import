@@ -15,11 +15,6 @@
     <field name="name">Slim4: Display IOQ Field</field>
     <field name="comment">Controls access and visibility for Slim4 Incremental Order Quantity fields.</field>
   </record>
-
-  <record id="stocked_item_field" model="res.groups">
-    <field name="name">Slim4: Display Stocked Item</field>
-    <field name="comment">Controls access and visibility for Slim4 Stocked Item.</field>
-  </record>
   <!-- Enable the Slim4 field groups by default on installation.
   noupdate prevents module upgrades from re-enabling options disabled-->
   <data noupdate="0">
@@ -28,7 +23,6 @@
             Command.link(ref('slim4_connector_base.warehouse_field')),
             Command.link(ref('slim4_connector_base.primary_supplier_field')),
             Command.link(ref('slim4_connector_base.ioq_field')),
-            Command.link(ref('slim4_connector_base.stocked_item_field')),
         ]"/>
     </record>
   </data>

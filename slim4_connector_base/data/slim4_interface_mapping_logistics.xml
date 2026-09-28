@@ -67,7 +67,6 @@
       <field name="interface_id" ref="slim4_interface_logistics" />
       <field name="sequence">70</field>
       <field name="slim4_field">stockedItem</field>
-      <field name="group_id" ref="slim4_connector_base.stocked_item_field" />
       <field name="field_type">char</field>
       <field name="max_length">1</field>
       <field name="mapping_type">field</field>
@@ -81,7 +80,6 @@
       <field name="slim4_field">warehouse</field>
       <field name="field_type">char</field>
       <field name="max_length">20</field>
-      <field name="group_id" ref="slim4_connector_base.warehouse_field" />
       <field name="mapping_type">field</field>
       <field name="field_path">configured_warehouse_ids.code</field>
       <field name="split_records">True</field>
@@ -107,7 +105,6 @@
       <field name="specific_rule" eval="False" />
       <field name="status">validated</field>
     </record>
-
     <!-- Ignored: field mappings. -->
     <record id="slim4_connector_base_logistics_reviewtime" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_logistics" />

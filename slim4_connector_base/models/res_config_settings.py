@@ -11,13 +11,6 @@ class ResConfigSettings(models.TransientModel):
         help='Enables the warehouse functionality on products.',
     )
 
-    group_slim4_stocked_item = fields.Boolean(
-        string='Enable Stocked Item',
-        implied_group='slim4_connector_base.stocked_item_field',
-        group='base.group_user',
-        help='Enables the ability to set warehouse stock category.',
-    )
-
     group_slim4_primary_supplier_field = fields.Boolean(
         string='Enable Primary Supplier',
         implied_group='slim4_connector_base.primary_supplier_field',
