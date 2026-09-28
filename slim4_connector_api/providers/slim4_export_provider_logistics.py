@@ -1,5 +1,5 @@
-import ast
 from odoo import models
+from operator import attrgetter, methodcaller
 
 
 class Slim4LogisticsExportProvider(models.AbstractModel):
@@ -52,49 +52,31 @@ class Slim4LogisticsExportProvider(models.AbstractModel):
             company=record.env.company,
         )
 
-    def _get_rule_context(self):
-        """Add warehouses aggregated by stocked item."""
-        rule_context = super()._get_rule_context()
-        if self.env.user.has_group('slim4_connector_base.stocked_item_field'):
-            rule_context = {
-                **rule_context,
-                'stockedItem': self._get_wh_by_stocked_item(),
-
-            }
-
-        return rule_context
-
-    def _get_wh_by_stocked_item(self):
-        warehouses = self._get_all_warehouses()
-        return {
-            wh.code: wh.slim4_stocked_item.upper() for wh in warehouses.filtered(
-                'slim4_stocked_item',
-            )
-        }
-
-    def _rule_logistics_stocked_item(
-        self,
-        line,
-        record,
-        field_getter=None,
-        rule_context=None,
-    ):
-        """Follow the exact same logic as warehouse rule:
-        Return the record's warehouse.slim4_stocked_item value,
-        fall back on all warehouses in rule_context.
+    def _get_mapping_field_getter(self, line):
+        """Apply ``mapped`` to stockedItem fields, as they use an O2M relation
+        (``configured_warehouse_ids.slim4_stocked_item``).
         """
-        value = field_getter(record) if field_getter else None
-        if value:
-            return value
+        if not self.env.user.has_group('slim4_connector_base.stocked_item_field'):
+            return super()._get_mapping_field_getter(line)
+        if (
+            line.mapping_type not in {'field', 'rule'}
+            or not line.field_path
+        ):
+            return None
+        # Use ``mapped`` for stockedItem fields to support the O2M relation.
+        if line.split_records or line.slim4_field == 'stockedItem':
+            return methodcaller('mapped', line.field_path)
 
-        return rule_context.get(
-            line.slim4_field,
-            None,
-    )
+        return attrgetter(line.field_path)
 
     def _iter_split_rows(self, row, split_key=None):
-        """Add the correct stocked item value on row when splitting by warehouse."""
-        if split_key != 'warehouse' or not self.env.user.has_group(
+        """Split rows by warehouse and keep the matching stocked item value.
+        ``stockedItem`` is mapped as a list because it comes from an O2M
+        relation. When splitting the row by warehouse, select the stocked item
+        at the same index as the current warehouse(code) to preserve the mapping
+        between both values.
+        """
+        if not self.env.user.has_group(
                 'slim4_connector_base.stocked_item_field',
             ):
             yield from super()._iter_split_rows(row, split_key)
@@ -104,11 +86,15 @@ class Slim4LogisticsExportProvider(models.AbstractModel):
                 yield row
                 return
 
-            for wh_code in wh_codes:
+            for idx, wh_code in enumerate(wh_codes):
                 split_row = row.copy()
                 split_row[split_key] = wh_code
-                stocked_item_by_wh_code = (
-                    ast.literal_eval(split_row['stockedItem']) or {}
+                # ``stockedItem`` contains one value per warehouse. Keep the
+                # value corresponding to the warehouse currently being split.
+                stocked_item_vals = split_row.get('stockedItem', [])
+                stocked_item = stocked_item_vals[idx]
+                split_row['stockedItem'] = (
+                    stocked_item.upper() if isinstance(stocked_item, str)
+                    else stocked_item
                 )
-                split_row['stockedItem'] = stocked_item_by_wh_code.get(wh_code, None)
                 yield split_row
