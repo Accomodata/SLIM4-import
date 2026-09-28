@@ -78,3 +78,28 @@ class ProductTemplate(models.Model):
                 line.id or 0,
             ),
         )
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        templates = super(
+            ProductTemplate,
+            self.with_context(skip_slim4_default_wh_config=True),
+        ).create(vals_list)
+
+        templates = templates.with_env(self.env)
+
+        if not self.env.context.get('skip_slim4_default_wh_config'):
+            warehouses = self.env['stock.warehouse'].search([
+                ('company_id', '=', self.env.company.id),
+            ])
+            products = templates.product_variant_ids
+            products._create_slim4_default_wh_config(warehouses, products)
+
+        return templates
+
+    @api.model
+    def _get_related_fields_variant_template(self):
+        return [
+            *super()._get_related_fields_variant_template(),
+            'configured_warehouse_ids',
+        ]

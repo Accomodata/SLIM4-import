@@ -97,16 +97,33 @@ class ProductProduct(models.Model):
     @api.model_create_multi
     def create(self, vals_list):
         products = super().create(vals_list)
-        all_warehouses = self.env['stock.warehouse'].search([
-            ('company_id', '=', self.env.company.id),
-        ])
-        if all_warehouses:
-            self._create_slim4_default_wh_config(all_warehouses, products)
+
+        if not self.env.context.get('skip_slim4_default_wh_config'):
+            warehouses = self.env['stock.warehouse'].search([
+                ('company_id', '=', self.env.company.id),
+            ])
+            self._create_slim4_default_wh_config(warehouses, products)
+
         return products
 
     def _create_slim4_default_wh_config(self, warehouses, products):
-        self.env['slim4.warehouse.config'].create([
-            {'product_id': product.id, 'warehouse_id': wh.id, 'slim4_stocked_item': 'n'}
-            for product in products
-            for wh in warehouses
+        if not products or not warehouses:
+            return
+
+        config = self.env['slim4.warehouse.config']
+        existing_configs = config.search([
+            ('product_id', 'in', products.ids),
         ])
+        products_to_configure = products - existing_configs.mapped('product_id')
+
+        vals = [
+            {
+                'product_id': product.id,
+                'warehouse_id': warehouse.id,
+                'slim4_stocked_item': 'n',
+            }
+            for product in products_to_configure
+            for warehouse in warehouses
+        ]
+        if vals:
+            config.create(vals)
