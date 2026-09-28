@@ -135,23 +135,7 @@ class Slim4ExportProvider(models.AbstractModel):
 
     def _get_rule_context(self):
         """Prepare reusable values required by configured rules."""
-        rule_context = {
-            # retrieve all warehouses as fallback for warehouse slim4 field
-            'warehouse': self._get_rule_context_warehouse(),
-        }
-        return rule_context
-
-    def _get_rule_context_warehouse(self):
-        """Return all warehouse codes."""
-        warehouses = self._get_all_warehouses()
-        return list(set(warehouses.mapped('code')))
-
-    def _get_all_warehouses(self):
-        """Return all warehouses."""
-        company = self.env.company
-        return self.env['stock.warehouse'].with_company(company.id).search([
-            ('company_id', '=', company.id),
-        ])
+        return {}
 
     def _iter_export_rows(
         self,
@@ -399,19 +383,6 @@ class Slim4ExportProvider(models.AbstractModel):
         }.get(line.field_type)
 
         return converter(value) if converter else value
-
-    def _rule_warehouse(self, line, record, field_getter=None, rule_context=None):
-        """Return the record's warehouse value,
-        fall back on all warehouses in rule_context.
-        """
-        value = field_getter(record) if field_getter else None
-        if value:
-            return value
-
-        return rule_context.get(
-            line.slim4_field,
-            None,
-        )
 
     def _get_next_skiptoken(self, source_records):
         """Return the keyset token following the last source record."""
