@@ -38,6 +38,11 @@ class ProductTemplate(models.Model):
         groups='slim4_connector_base.primary_supplier_field',
     )
 
+    _default_code_unique = models.Constraint(
+            'unique(default_code)',
+            'The Internal Reference must be unique.',
+        )
+
     @api.depends(
         'product_variant_ids',
         'product_variant_ids.slim4_matching_supplier_ids',

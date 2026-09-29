@@ -120,7 +120,7 @@ class ProductProduct(models.Model):
             {
                 'product_id': product.id,
                 'warehouse_id': warehouse.id,
-                'slim4_stocked_item': 'n',
+                'slim4_stocked_item': 'y',
             }
             for product in products_to_configure
             for warehouse in warehouses

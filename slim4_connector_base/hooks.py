@@ -26,3 +26,39 @@ def pre_init_hook(env):
                 duplicates=details,
             ),
         )
+
+
+def initialize_warehouse_configs(cr):
+    cr.execute("""
+        INSERT INTO slim4_warehouse_config (
+            product_id,
+            warehouse_id,
+            slim4_stocked_item
+        )
+        SELECT
+            p.id,
+            w.id,
+            'y'
+        FROM product_product p
+        JOIN product_template pt ON pt.id = p.product_tmpl_id
+        CROSS JOIN stock_warehouse w
+        WHERE p.active
+          AND pt.is_storable
+          AND w.active
+          AND (
+              pt.company_id IS NULL
+              OR pt.company_id = w.company_id
+          )
+          AND NOT EXISTS (
+              SELECT 1
+              FROM slim4_warehouse_config config
+              WHERE config.product_id = p.id
+                AND config.warehouse_id = w.id
+          )
+    """)
+
+
+def post_init_hook(env):
+    env.flush_all()
+    initialize_warehouse_configs(env.cr)
+    env.invalidate_all()
