@@ -32,7 +32,7 @@
 {
     'name': 'Slim4 Connector Base',
     'summary': 'Configure Slim4 interfaces and Odoo field mappings',
-    'version': '19.0.1.0.2',
+    'version': '19.0.1.0.3',
     'category': 'Inventory/Configuration',
     'author': 'Accomodata',
     'website': 'https://www.accomodata.be',
