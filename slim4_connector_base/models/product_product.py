@@ -19,6 +19,14 @@ class ProductProduct(models.Model):
         ),
     )
 
+    configured_warehouse_ids = fields.One2many(
+        comodel_name='slim4.warehouse.config',
+        inverse_name='product_id',
+        string='Configured Warehouses',
+        help='Configure Stock Item.',
+        groups='slim4_connector_base.warehouse_field',
+    )
+
     slim4_primary_supplier_ids = fields.Many2many(
         comodel_name='product.supplierinfo',
         relation='product_product_slim4_primary_supplierinfo_rel',
@@ -85,3 +93,37 @@ class ProductProduct(models.Model):
                     ),
                 )[:1]
             )
+
+    @api.model_create_multi
+    def create(self, vals_list):
+        products = super().create(vals_list)
+
+        if not self.env.context.get('skip_slim4_default_wh_config'):
+            warehouses = self.env['stock.warehouse'].search([
+                ('company_id', '=', self.env.company.id),
+            ])
+            self._create_slim4_default_wh_config(warehouses, products)
+
+        return products
+
+    def _create_slim4_default_wh_config(self, warehouses, products):
+        if not products or not warehouses:
+            return
+
+        config = self.env['slim4.warehouse.config']
+        existing_configs = config.search([
+            ('product_id', 'in', products.ids),
+        ])
+        products_to_configure = products - existing_configs.mapped('product_id')
+
+        vals = [
+            {
+                'product_id': product.id,
+                'warehouse_id': warehouse.id,
+                'slim4_stocked_item': 'n',
+            }
+            for product in products_to_configure
+            for warehouse in warehouses
+        ]
+        if vals:
+            config.create(vals)

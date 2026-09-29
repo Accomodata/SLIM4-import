@@ -1,18 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-
-  <record id="product_template_form_view_procurement_button" model="ir.ui.view">
-    <field name="name">product.template.view.form.inherit.slim4</field>
-    <field name="model">product.template</field>
-    <field name="inherit_id" ref="stock.product_template_form_view_procurement_button" />
-    <field name="arch" type="xml">
-      <xpath expr="//page[@name='inventory']" position="inside">
-        <group string="Slim4">
-          <field name="warehouse_ids" groups="slim4_connector_base.warehouse_field" widget="many2many_tags" />
-        </group>
-      </xpath>
-    </field>
-  </record>
   <record id="product_template_form_view_slim4" model="ir.ui.view">
     <field name="name">product.template.form.slim4</field>
     <field name="model">product.template</field>
@@ -22,6 +9,20 @@
         <group>
           <field name="slim4_matching_supplier_ids" invisible="1" groups="slim4_connector_base.primary_supplier_field" />
           <field name="slim4_primary_supplier_ids" widget="many2many_tags" invisible="not slim4_matching_supplier_ids" domain="[('id', 'in', slim4_matching_supplier_ids)]" options="{'no_create': True}" groups="slim4_connector_base.primary_supplier_field" />
+        </group>
+      </xpath>
+      <xpath expr="//page[@name='inventory']" position="inside">
+        <group string="Available Warehouses" groups="slim4_connector_base.warehouse_field" invisible="product_variant_count &gt; 1 and not is_product_variant">
+          <group colspan="2">
+            <field name="configured_warehouse_ids" readonly="0" nolabel="1">
+              <list editable="bottom" no_open="1" create="1" delete="1">
+                <field name="product_id" column_invisible="1" readonly="1"/>
+                <field name="warehouse_id"/>
+                <field name="code" readonly="1"/>
+                <field name="slim4_stocked_item"/>
+              </list>
+            </field>
+          </group>
         </group>
       </xpath>
     </field>

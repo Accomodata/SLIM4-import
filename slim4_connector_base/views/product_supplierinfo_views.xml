@@ -7,6 +7,7 @@
     <field name="arch" type="xml">
       <xpath expr="//list//field[@name='product_uom_id']" position="after">
         <field name="slim4_ioq" groups="slim4_connector_base.ioq_field" />
+        <field name="is_primary_supplier" groups='slim4_connector_base.primary_supplier_field' optional="hide"/>
       </xpath>
     </field>
   </record>

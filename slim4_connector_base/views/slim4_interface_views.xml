@@ -21,7 +21,7 @@
       <form string="Slim4 Interface">
         <header>
           <button name="action_validate_mapping_config" type="object" string="Validate Mapping" groups="base.group_system" />
-          <button name="action_reset_mapping_to_default" type="object" string="Reset Mapping" groups="base.group_system" />
+          <button name="action_reset_mapping_to_default" type="object" string="Reset Mapping" groups="base.group_no_one" />
         </header>
         <sheet>
           <group>
@@ -47,9 +47,9 @@
           <notebook>
             <page string="Field Mapping">
               <field name="mapping_line_ids" domain="mapping_line_domain">
-                <list editable="bottom" create="0" delete="0" decoration-success="status == 'validated' and not mapping_error" decoration-warning="status == 'to_validate'" decoration-muted="status == 'ignored'" decoration-danger="status == 'validated' and mapping_error ">
+                <list editable="bottom" decoration-success="status == 'validated' and not mapping_error" decoration-warning="status == 'to_validate'" decoration-muted="status == 'ignored'" decoration-danger="status == 'validated' and mapping_error ">
                   <field name="sequence" widget="handle" />
-                  <field name="slim4_field" readonly="1" />
+                  <field name="slim4_field"/>
                   <field name="mapping_type" optional="show" />
                   <field name="source_model" column_invisible="1"/>
                   <field name="field_path" optional="show" widget="field_selector" invisible="mapping_type not in ['field', 'rule']" options="{'model': 'source_model', 'follow_relations': true, 'allow_properties': false}" />

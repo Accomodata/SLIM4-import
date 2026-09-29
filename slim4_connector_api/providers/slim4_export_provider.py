@@ -71,9 +71,11 @@ class Slim4ExportProvider(models.AbstractModel):
         skiptoken=None,
         **params,
     ):
-        domain = self._get_source_domain(interface, **params)
+        domain = self._get_source_domain(interface)
+        filter_record = params.get('params', {}).get('filter_record')
 
-        if skiptoken is not None:
+        # Skip pagination domain if we are looking for a specific record (filter_record)
+        if skiptoken is not None and not filter_record:
             last_write_date, last_id = decode_skiptoken(skiptoken)
             domain += [
                 '|',
@@ -82,6 +84,10 @@ class Slim4ExportProvider(models.AbstractModel):
                 ('write_date', '=', last_write_date),
                 ('id', '>', last_id),
             ]
+
+        if filter_record:
+            domain += [('id', '=', filter_record)]
+            page_size = 1
 
         return self.env[interface.source_model].search(
             domain,
@@ -92,7 +98,7 @@ class Slim4ExportProvider(models.AbstractModel):
 
     def _get_available_mapping_lines(self, interface):
         """Return validated mappings available to the export user."""
-        user_group_ids = set(self.env.user.group_ids.ids)
+        user_group_ids = set(self.env.user.all_group_ids.ids)
 
         return interface.mapping_line_ids.filtered(
             lambda line: (
@@ -129,18 +135,7 @@ class Slim4ExportProvider(models.AbstractModel):
 
     def _get_rule_context(self):
         """Prepare reusable values required by configured rules."""
-        rule_context = {
-            # retrieve all warehouses as fallback for warehouse slim4 field
-            'warehouse': self._get_rule_context_warehouse(),
-        }
-        return rule_context
-
-    def _get_rule_context_warehouse(self):
-        """Return all warehouse codes available to the export user."""
-        company = self.env.company
-        warehouses = self.env['stock.warehouse'].with_company(
-            company.id).search([])
-        return list(set(warehouses.mapped('code')))
+        return {}
 
     def _iter_export_rows(
         self,
@@ -194,7 +189,7 @@ class Slim4ExportProvider(models.AbstractModel):
             split_row[split_key] = split_value
             yield split_row
 
-    def _get_source_domain(self, interface, **params):
+    def _get_source_domain(self, interface):
         """Parse the configured source domain."""
         return safe_eval(interface.source_domain)
 
@@ -218,13 +213,15 @@ class Slim4ExportProvider(models.AbstractModel):
         rule_context=None,
     ):
         if line.mapping_type == 'field':
-            value = self._resolve_field_path(record, line, field_getter, rule_context)
+            value = self._resolve_field_path(
+                record, line, field_getter, rule_context)
 
         if line.mapping_type == 'constant':
             value = self._normalize_mapping_value(line, line.constant_value)
 
         if line.mapping_type == 'rule':
-            value = self._resolve_rule_value(line, record, field_getter, rule_context)
+            value = self._resolve_rule_value(
+                line, record, field_getter, rule_context)
 
         if line.slim4_required and value in (None, '', []):
             raise UserError(
@@ -386,19 +383,6 @@ class Slim4ExportProvider(models.AbstractModel):
         }.get(line.field_type)
 
         return converter(value) if converter else value
-
-    def _rule_warehouse(self, line, record, field_getter=None, rule_context=None):
-        """Return the record's warehouse value,
-        fall back on all warehouses in rule_context.
-        """
-        value = field_getter(record) if field_getter else None
-        if value:
-            return value
-
-        return rule_context.get(
-            line.slim4_field,
-            None,
-        )
 
     def _get_next_skiptoken(self, source_records):
         """Return the keyset token following the last source record."""

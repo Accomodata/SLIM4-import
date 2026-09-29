@@ -1,4 +1,5 @@
 from odoo import models
+from operator import attrgetter, methodcaller
 
 
 class Slim4LogisticsExportProvider(models.AbstractModel):
@@ -50,3 +51,50 @@ class Slim4LogisticsExportProvider(models.AbstractModel):
             to_currency=target_currency,
             company=record.env.company,
         )
+
+    def _get_mapping_field_getter(self, line):
+        """Apply ``mapped`` to stockedItem fields, as they use an O2M relation
+        (``configured_warehouse_ids.slim4_stocked_item``).
+        """
+        if not self.env.user.has_group('slim4_connector_base.warehouse_field'):
+            return super()._get_mapping_field_getter(line)
+        if (
+            line.mapping_type not in {'field', 'rule'}
+            or not line.field_path
+        ):
+            return None
+        # Use ``mapped`` for stockedItem fields to support the O2M relation.
+        if line.split_records or line.slim4_field == 'stockedItem':
+            return methodcaller('mapped', line.field_path)
+
+        return attrgetter(line.field_path)
+
+    def _iter_split_rows(self, row, split_key=None):
+        """Split rows by warehouse and keep the matching stocked item value.
+        ``stockedItem`` is mapped as a list because it comes from an O2M
+        relation. When splitting the row by warehouse, select the stocked item
+        at the same index as the current warehouse(code) to preserve the mapping
+        between both values.
+        """
+        if not self.env.user.has_group(
+                'slim4_connector_base.warehouse_field',
+            ):
+            yield from super()._iter_split_rows(row, split_key)
+        else:
+            wh_codes = row.get(split_key) if split_key else None
+            if not isinstance(wh_codes, list):
+                yield row
+                return
+
+            for idx, wh_code in enumerate(wh_codes):
+                split_row = row.copy()
+                split_row[split_key] = wh_code
+                # ``stockedItem`` contains one value per warehouse. Keep the
+                # value corresponding to the warehouse currently being split.
+                stocked_item_vals = split_row.get('stockedItem', [])
+                stocked_item = stocked_item_vals[idx]
+                split_row['stockedItem'] = (
+                    stocked_item.upper() if isinstance(stocked_item, str)
+                    else stocked_item
+                )
+                yield split_row

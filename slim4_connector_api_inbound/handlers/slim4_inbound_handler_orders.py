@@ -88,6 +88,7 @@ class Slim4OrdersInboundHandler(models.AbstractModel):
         }
         products = self.env['product.product'].search_fetch([
             ('default_code', 'in', list(set(article_codes))),
+            ('company_id', 'in', [False, self.env.company.id]),
         ], ['default_code'])
 
         return {
@@ -103,6 +104,7 @@ class Slim4OrdersInboundHandler(models.AbstractModel):
 
         suppliers = self.env['res.partner'].search_fetch([
             ('ref', 'in', list(set(supplier_numbers))),
+            ('company_id', 'in', [False, self.env.company.id]),
         ], ['ref'])
 
         suppliers_by_ref = {}
@@ -140,7 +142,7 @@ class Slim4OrdersInboundHandler(models.AbstractModel):
             domain=self._get_processable_message_domain(),
             groupby=['batch_reference', 'supplier_id', 'picking_type_id'],
             aggregates=['id:recordset'],
-             limit=limit,
+            limit=limit,
         )
 
         processed_count = 0
@@ -164,7 +166,11 @@ class Slim4OrdersInboundHandler(models.AbstractModel):
                     'order_id': purchase_order.id,
                     'product_id': message.product_id.id,
                     'product_qty': message.payload['toOrder'],
-                    'date_planned': message.payload.get('expectedDate', ''),
+                    **(
+                        {'date_planned': message.payload['expectedDate']}
+                        if message.payload.get('expectedDate')
+                        else {}
+                    ),
                 }
                 for message in messages
             ])

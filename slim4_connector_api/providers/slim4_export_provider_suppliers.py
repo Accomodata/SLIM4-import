@@ -7,11 +7,33 @@ class Slim4SuppliersExportProvider(models.AbstractModel):
     _inherit = 'slim4.export.provider.logistics'
     _description = 'Slim4 Suppliers Export Provider'
 
-    def _get_supplierinfo(self, record, rule_context=None):
-        """Return the supplier line currently exported. To be able to reuse
-        _rule_moq ,_rule_buying_price,.. from logistics.
-        """
-        return record
+    def _rule_suppliers_minimum_order_quantity(
+        self,
+        line,
+        record,
+        field_getter=None,
+        rule_context=None,
+    ):
+        return self._rule_moq(
+            line,
+            record,
+            field_getter=field_getter,
+            rule_context=rule_context,
+        )
+
+    def _rule_suppliers_primary_supplier(
+            self,
+            line,
+            record,
+            field_getter=None,
+            rule_context=None,
+        ):
+        return (
+            1
+            if self.env.user.has_group('slim4_connector_base.primary_supplier_field')
+            and record.is_primary_supplier
+            else 0
+        )
 
     def _rule_suppliers_warehouse(
         self,
@@ -20,11 +42,12 @@ class Slim4SuppliersExportProvider(models.AbstractModel):
         field_getter=None,
         rule_context=None,
     ):
-        """Return the product warehouses, or all warehouses as fallback."""
-        product = self._get_product(record, rule_context)
-        warehouse_codes = product.mapped('warehouse_ids.code')
+        """Return the product warehouses."""
+        if self.env.user.has_group('slim4_connector_base.warehouse_field'):
+            product = self._get_product(record, rule_context)
+            warehouse_codes = product.mapped('configured_warehouse_ids.code')
 
-        return warehouse_codes or rule_context.get('warehouse')
+        return warehouse_codes or []
 
     def _get_product(self, record, rule_context=None):
         """Return the variant linked to or generated for the supplier line."""
@@ -76,3 +99,18 @@ class Slim4SuppliersExportProvider(models.AbstractModel):
             return occurrence_record.mapped(remaining_field_path)
 
         return attrgetter(remaining_field_path)(occurrence_record)
+
+    def _get_supplierinfo(self, record, rule_context=None):
+        """Return the supplier line currently exported. To be able to reuse
+        _rule_moq ,_rule_buying_price,.. from logistics.
+        """
+        return record
+
+    def _iter_split_rows(self, row, split_key=None):
+        """Skip _iter_split_rows parent logistics implementation,
+        as it contains stockItem logic, which is not applicable on suppliers.
+        """
+        # TODO: Refactor inheritance to extract generic split logic from logistics,
+        # avoiding the need to bypass the MRO here.
+        generic_provider = self.env['slim4.export.provider']
+        yield from generic_provider._iter_split_rows(row, split_key)

@@ -1,0 +1,1281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <data noupdate="0">
+    <!-- Validated: field mappings. -->
+    <record id="slim4_connector_base_article_code_master_code" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">10</field>
+      <field name="slim4_field">code</field>
+      <field name="field_type">char</field>
+      <field name="max_length">40</field>
+      <field name="slim4_required">1</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">default_code</field>
+      <field name="status">validated</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_creationdate" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">20</field>
+      <field name="slim4_field">creationDate</field>
+      <field name="field_type">date</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">create_date</field>
+      <field name="status">validated</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_description" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">30</field>
+      <field name="slim4_field">description</field>
+      <field name="field_type">char</field>
+      <field name="max_length">100</field>
+      <field name="slim4_required">1</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">name</field>
+      <field name="status">validated</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_unitprice" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">40</field>
+      <field name="slim4_field">unitPrice</field>
+      <field name="field_type">decimal</field>
+      <field name="max_length">15</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">standard_price</field>
+      <field name="status">validated</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_salesprice" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">50</field>
+      <field name="slim4_field">salesPrice</field>
+      <field name="field_type">decimal</field>
+      <field name="max_length">15</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">lst_price</field>
+      <field name="status">validated</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_criterium1" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">60</field>
+      <field name="slim4_field">criterium1</field>
+      <field name="field_type">decimal</field>
+      <field name="max_length">38</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">weight</field>
+      <field name="status">validated</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_criterium2" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">70</field>
+      <field name="slim4_field">criterium2</field>
+      <field name="field_type">decimal</field>
+      <field name="max_length">38</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">volume</field>
+      <field name="status">validated</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_ud1" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">80</field>
+      <field name="slim4_field">uD1</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">uom_name</field>
+      <field name="status">validated</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_barcode" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">90</field>
+      <field name="slim4_field">barCode</field>
+      <field name="field_type">char</field>
+      <field name="max_length">20</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">barcode</field>
+      <field name="status">validated</field>
+    </record>
+
+    <!-- Validated: rule mappings. -->
+    <record id="slim4_connector_base_article_code_master_warehouse" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">100</field>
+      <field name="slim4_field">warehouse</field>
+      <field name="field_type">char</field>
+      <field name="max_length">20</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">configured_warehouse_ids.code</field>
+      <field name="split_records">True</field>
+      <field name="slim4_required" eval="True" />
+      <field name="status">validated</field>
+    </record>
+
+    <!-- Ignored: field mappings. -->
+    <record id="slim4_connector_base_article_code_master_criterium3" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">110</field>
+      <field name="slim4_field">criterium3</field>
+      <field name="field_type">decimal</field>
+      <field name="max_length">38</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_groupcode1" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">120</field>
+      <field name="slim4_field">groupCode1</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_ud2" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">130</field>
+      <field name="slim4_field">uD2</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_articlestatus" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">140</field>
+      <field name="slim4_field">articleStatus</field>
+      <field name="field_type">char</field>
+      <field name="max_length">100</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_fefopercentage" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">150</field>
+      <field name="slim4_field">fefoPercentage</field>
+      <field name="field_type">decimal</field>
+      <field name="max_length">15</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+
+    <record id="slim4_connector_base_article_code_master_controlid" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">160</field>
+      <field name="slim4_field">controlID</field>
+      <field name="field_type">integer</field>
+      <field name="max_length">3</field>
+      <field name="mapping_type">rule</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_criterium4" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">170</field>
+      <field name="slim4_field">criterium4</field>
+      <field name="field_type">decimal</field>
+      <field name="max_length">38</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_groupcode2" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">180</field>
+      <field name="slim4_field">groupCode2</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_groupcode3" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">190</field>
+      <field name="slim4_field">groupCode3</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_groupcode4" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">200</field>
+      <field name="slim4_field">groupCode4</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_groupcode5" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">210</field>
+      <field name="slim4_field">groupCode5</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_groupcode6" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">220</field>
+      <field name="slim4_field">groupCode6</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+
+    <!-- Remaining user-defined fields. -->
+    <record id="slim4_connector_base_article_code_master_ud3" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">230</field>
+      <field name="slim4_field">uD3</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_ud4" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">240</field>
+      <field name="slim4_field">uD4</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_ud5" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">250</field>
+      <field name="slim4_field">uD5</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_ud6" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">260</field>
+      <field name="slim4_field">uD6</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_ud7" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">270</field>
+      <field name="slim4_field">uD7</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_ud8" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">280</field>
+      <field name="slim4_field">uD8</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_ud9" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">290</field>
+      <field name="slim4_field">uD9</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_ud10" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">300</field>
+      <field name="slim4_field">uD10</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_ud11" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">310</field>
+      <field name="slim4_field">uD11</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_ud12" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">320</field>
+      <field name="slim4_field">uD12</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_ud13" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">330</field>
+      <field name="slim4_field">uD13</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_ud14" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">340</field>
+      <field name="slim4_field">uD14</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_ud15" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">350</field>
+      <field name="slim4_field">uD15</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+
+    <!-- Additional article user-defined fields (aUDField1 to aUDField100). -->
+    <record id="slim4_connector_base_article_code_master_audfield1" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">360</field>
+      <field name="slim4_field">aUDField1</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield2" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">370</field>
+      <field name="slim4_field">aUDField2</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield3" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">380</field>
+      <field name="slim4_field">aUDField3</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield4" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">390</field>
+      <field name="slim4_field">aUDField4</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield5" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">400</field>
+      <field name="slim4_field">aUDField5</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield6" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">410</field>
+      <field name="slim4_field">aUDField6</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield7" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">420</field>
+      <field name="slim4_field">aUDField7</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield8" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">430</field>
+      <field name="slim4_field">aUDField8</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield9" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">440</field>
+      <field name="slim4_field">aUDField9</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield10" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">450</field>
+      <field name="slim4_field">aUDField10</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield11" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">460</field>
+      <field name="slim4_field">aUDField11</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield12" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">470</field>
+      <field name="slim4_field">aUDField12</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield13" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">480</field>
+      <field name="slim4_field">aUDField13</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield14" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">490</field>
+      <field name="slim4_field">aUDField14</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield15" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">500</field>
+      <field name="slim4_field">aUDField15</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield16" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">510</field>
+      <field name="slim4_field">aUDField16</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield17" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">520</field>
+      <field name="slim4_field">aUDField17</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield18" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">530</field>
+      <field name="slim4_field">aUDField18</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield19" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">540</field>
+      <field name="slim4_field">aUDField19</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield20" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">550</field>
+      <field name="slim4_field">aUDField20</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield21" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">560</field>
+      <field name="slim4_field">aUDField21</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield22" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">570</field>
+      <field name="slim4_field">aUDField22</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield23" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">580</field>
+      <field name="slim4_field">aUDField23</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield24" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">590</field>
+      <field name="slim4_field">aUDField24</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield25" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">600</field>
+      <field name="slim4_field">aUDField25</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield26" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">610</field>
+      <field name="slim4_field">aUDField26</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield27" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">620</field>
+      <field name="slim4_field">aUDField27</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield28" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">630</field>
+      <field name="slim4_field">aUDField28</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield29" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">640</field>
+      <field name="slim4_field">aUDField29</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield30" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">650</field>
+      <field name="slim4_field">aUDField30</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield31" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">660</field>
+      <field name="slim4_field">aUDField31</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield32" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">670</field>
+      <field name="slim4_field">aUDField32</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield33" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">680</field>
+      <field name="slim4_field">aUDField33</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield34" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">690</field>
+      <field name="slim4_field">aUDField34</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield35" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">700</field>
+      <field name="slim4_field">aUDField35</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield36" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">710</field>
+      <field name="slim4_field">aUDField36</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield37" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">720</field>
+      <field name="slim4_field">aUDField37</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield38" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">730</field>
+      <field name="slim4_field">aUDField38</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield39" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">740</field>
+      <field name="slim4_field">aUDField39</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield40" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">750</field>
+      <field name="slim4_field">aUDField40</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield41" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">760</field>
+      <field name="slim4_field">aUDField41</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield42" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">770</field>
+      <field name="slim4_field">aUDField42</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield43" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">780</field>
+      <field name="slim4_field">aUDField43</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield44" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">790</field>
+      <field name="slim4_field">aUDField44</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield45" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">800</field>
+      <field name="slim4_field">aUDField45</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield46" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">810</field>
+      <field name="slim4_field">aUDField46</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield47" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">820</field>
+      <field name="slim4_field">aUDField47</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield48" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">830</field>
+      <field name="slim4_field">aUDField48</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield49" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">840</field>
+      <field name="slim4_field">aUDField49</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield50" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">850</field>
+      <field name="slim4_field">aUDField50</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield51" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">860</field>
+      <field name="slim4_field">aUDField51</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield52" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">870</field>
+      <field name="slim4_field">aUDField52</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield53" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">880</field>
+      <field name="slim4_field">aUDField53</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield54" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">890</field>
+      <field name="slim4_field">aUDField54</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield55" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">900</field>
+      <field name="slim4_field">aUDField55</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield56" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">910</field>
+      <field name="slim4_field">aUDField56</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield57" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">920</field>
+      <field name="slim4_field">aUDField57</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield58" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">930</field>
+      <field name="slim4_field">aUDField58</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield59" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">940</field>
+      <field name="slim4_field">aUDField59</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield60" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">950</field>
+      <field name="slim4_field">aUDField60</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield61" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">960</field>
+      <field name="slim4_field">aUDField61</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield62" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">970</field>
+      <field name="slim4_field">aUDField62</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield63" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">980</field>
+      <field name="slim4_field">aUDField63</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield64" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">990</field>
+      <field name="slim4_field">aUDField64</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield65" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1000</field>
+      <field name="slim4_field">aUDField65</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield66" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1010</field>
+      <field name="slim4_field">aUDField66</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield67" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1020</field>
+      <field name="slim4_field">aUDField67</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield68" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1030</field>
+      <field name="slim4_field">aUDField68</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield69" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1040</field>
+      <field name="slim4_field">aUDField69</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield70" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1050</field>
+      <field name="slim4_field">aUDField70</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield71" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1060</field>
+      <field name="slim4_field">aUDField71</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield72" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1070</field>
+      <field name="slim4_field">aUDField72</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield73" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1080</field>
+      <field name="slim4_field">aUDField73</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield74" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1090</field>
+      <field name="slim4_field">aUDField74</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield75" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1100</field>
+      <field name="slim4_field">aUDField75</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield76" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1110</field>
+      <field name="slim4_field">aUDField76</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield77" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1120</field>
+      <field name="slim4_field">aUDField77</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield78" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1130</field>
+      <field name="slim4_field">aUDField78</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield79" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1140</field>
+      <field name="slim4_field">aUDField79</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield80" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1150</field>
+      <field name="slim4_field">aUDField80</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield81" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1160</field>
+      <field name="slim4_field">aUDField81</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield82" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1170</field>
+      <field name="slim4_field">aUDField82</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield83" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1180</field>
+      <field name="slim4_field">aUDField83</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield84" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1190</field>
+      <field name="slim4_field">aUDField84</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield85" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1200</field>
+      <field name="slim4_field">aUDField85</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield86" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1210</field>
+      <field name="slim4_field">aUDField86</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield87" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1220</field>
+      <field name="slim4_field">aUDField87</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield88" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1230</field>
+      <field name="slim4_field">aUDField88</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield89" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1240</field>
+      <field name="slim4_field">aUDField89</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield90" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1250</field>
+      <field name="slim4_field">aUDField90</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield91" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1260</field>
+      <field name="slim4_field">aUDField91</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield92" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1270</field>
+      <field name="slim4_field">aUDField92</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield93" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1280</field>
+      <field name="slim4_field">aUDField93</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield94" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1290</field>
+      <field name="slim4_field">aUDField94</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield95" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1300</field>
+      <field name="slim4_field">aUDField95</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield96" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1310</field>
+      <field name="slim4_field">aUDField96</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield97" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1320</field>
+      <field name="slim4_field">aUDField97</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield98" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1330</field>
+      <field name="slim4_field">aUDField98</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield99" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1340</field>
+      <field name="slim4_field">aUDField99</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_audfield100" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1350</field>
+      <field name="slim4_field">aUDField100</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+
+    <!-- Extended numeric criteria. -->
+    <record id="slim4_connector_base_article_code_master_criterium5" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1360</field>
+      <field name="slim4_field">criterium5</field>
+      <field name="field_type">decimal</field>
+      <field name="max_length">38</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_criterium6" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1370</field>
+      <field name="slim4_field">criterium6</field>
+      <field name="field_type">decimal</field>
+      <field name="max_length">38</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_criterium7" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1380</field>
+      <field name="slim4_field">criterium7</field>
+      <field name="field_type">decimal</field>
+      <field name="max_length">38</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+    <record id="slim4_connector_base_article_code_master_criterium8" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_article_code_master" />
+      <field name="sequence">1390</field>
+      <field name="slim4_field">criterium8</field>
+      <field name="field_type">decimal</field>
+      <field name="max_length">38</field>
+      <field name="mapping_type">field</field>
+      <field name="status">ignored</field>
+    </record>
+  </data>
+</odoo>
