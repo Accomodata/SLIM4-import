@@ -32,7 +32,7 @@
 {
     'name': 'Slim4 Connector API - Inbound',
     'summary': 'Receive and stage inbound Slim4 payloads through Odoo API endpoints',
-    'version': '19.0.1.0.3',
+    'version': '19.0.1.0.4',
     'category': 'Technical',
     'author': 'Accomodata',
     'website': 'https://www.accomodata.be',

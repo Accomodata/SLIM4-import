@@ -50,6 +50,15 @@ def _validate_order(order, item_index):
         item_index,
     )
 
+    warehouse = normalized_order.get('warehouse')
+    if warehouse is not None:
+        if isinstance(warehouse, bool) or not isinstance(warehouse, (str, int)):
+            raise PayloadValidationError(
+                'The "warehouse" value must be a string or an integer.',
+                context={'item_index': item_index},
+            )
+        normalized_order['warehouse'] = str(warehouse).strip()
+
     expected_date = normalized_order.get('expectedDate')
     if expected_date not in (None, ''):  # noqa: PLR6201 - JSON values may be unhashable.
         normalized_order['expectedDate'] = _normalize_expected_date(
