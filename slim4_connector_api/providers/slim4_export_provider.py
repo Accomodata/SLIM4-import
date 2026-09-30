@@ -76,14 +76,8 @@ class Slim4ExportProvider(models.AbstractModel):
 
         # Skip pagination domain if we are looking for a specific record (filter_record)
         if skiptoken is not None and not filter_record:
-            last_write_date, last_id = decode_skiptoken(skiptoken)
-            domain += [
-                '|',
-                ('write_date', '>', last_write_date),
-                '&',
-                ('write_date', '=', last_write_date),
-                ('id', '>', last_id),
-            ]
+            last_id = decode_skiptoken(skiptoken)
+            domain += [('id', '>', last_id)]
 
         if filter_record:
             domain += [('id', '=', filter_record)]
@@ -93,7 +87,7 @@ class Slim4ExportProvider(models.AbstractModel):
             domain,
             limit=page_size + 1,
             offset=offset if skiptoken is None else 0,
-            order='write_date ASC, id ASC',
+            order='id ASC',
         )
 
     def _get_available_mapping_lines(self, interface):
@@ -388,7 +382,4 @@ class Slim4ExportProvider(models.AbstractModel):
         """Return the keyset token following the last source record."""
         last_record = source_records[-1]
 
-        return encode_skiptoken(
-            last_record.write_date,
-            last_record.id,
-        )
+        return encode_skiptoken(last_record.id)

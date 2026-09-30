@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+  <!-- LIST -->
   <record id="view_slim4_warehouse_config_list" model="ir.ui.view">
     <field name="name">slim4.warehouse.config.list</field>
     <field name="model">slim4.warehouse.config</field>
@@ -11,9 +12,28 @@
       </list>
     </field>
   </record>
+  <!-- SEARCH -->
+  <record id="slim4_warehouse_config_view_search" model="ir.ui.view">
+    <field name="name">slim4.warehouse.config.view.search</field>
+    <field name="model">slim4.warehouse.config</field>
+    <field name="arch" type="xml">
+      <search string="Slim4 Warehouse Config">
+        <field name="product_id"/>
+        <field name="warehouse_id"/>
+        <filter name="active_products" string="Active Products" domain="[('product_id.active', '=', True)]"/>
+        <separator/>
+        <group>
+          <filter name="group_warehouse" string="Warehouse" context="{'group_by': 'warehouse_id'}"/>
+          <filter name="group_product" string="Product" context="{'group_by': 'product_id'}"/>
+        </group>
+      </search>
+    </field>
+  </record>
+  <!-- ACTION -->
   <record id="action_slim4_warehouse_config" model="ir.actions.act_window">
     <field name="name">Warehouse Config</field>
     <field name="group_ids" eval="[(4, ref('slim4_connector_base.warehouse_field'))]"/>
+    <field name="context">{'search_default_active_products': 1}</field>
     <field name="res_model">slim4.warehouse.config</field>
     <field name="view_mode">list</field>
     <field name="view_id" ref="view_slim4_warehouse_config_list"/>

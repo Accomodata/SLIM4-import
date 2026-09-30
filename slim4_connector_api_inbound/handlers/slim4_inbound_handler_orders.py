@@ -22,8 +22,9 @@ class Slim4OrdersInboundHandler(models.AbstractModel):
         batch_reference = str(uuid.uuid4())
 
         warehouse_codes = {
-            str(order.get('warehouse'))
+            order['warehouse']
             for order in validated_payload
+            if order.get('warehouse')
         }
 
         product_by_code = self._get_products_by_code(validated_payload)
@@ -31,6 +32,7 @@ class Slim4OrdersInboundHandler(models.AbstractModel):
             validated_payload,
         )
 
+        picking_type_by_warehouse = {}
         if warehouse_codes:
             picking_type_by_warehouse = self._get_picking_types_by_warehouse(
                 warehouse_codes,
@@ -40,11 +42,11 @@ class Slim4OrdersInboundHandler(models.AbstractModel):
         for item_index, order in enumerate(validated_payload):
             article_code = str(order['articleCode'])
             supplier_number = str(order['supplierNumber'])
-            wh_code = order.get('warehouse', '')
+            wh_code = order.get('warehouse')
 
             product = product_by_code.get(article_code)
             supplier = suppliers_by_ref.get(supplier_number)
-            picking_type = picking_type_by_warehouse.get(wh_code, '')
+            picking_type = picking_type_by_warehouse.get(wh_code)
 
             resolution_errors = []
             if not product:
@@ -60,6 +62,11 @@ class Slim4OrdersInboundHandler(models.AbstractModel):
             elif not supplier:
                 resolution_errors.append(
                     f'Supplier with number "{supplier_number}" was not found.',
+                )
+
+            if wh_code and not picking_type:
+                resolution_errors.append(
+                    f'No incoming picking type was found for warehouse "{wh_code}".',
                 )
 
             message_vals_list.append({

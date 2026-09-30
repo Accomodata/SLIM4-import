@@ -28,7 +28,7 @@ class SlimWarehouseConfig(models.Model):
     slim4_stocked_item = fields.Selection(
         string='Stocked Item',
         groups='slim4_connector_base.warehouse_field',
-        default='n',
+        default='y',
         selection=[
             ('y', 'Stocked'),
             ('n', 'Non-Stocked'),

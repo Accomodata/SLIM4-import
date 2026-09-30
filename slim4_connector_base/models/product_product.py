@@ -54,9 +54,14 @@ class ProductProduct(models.Model):
         ),
     )
 
-    _default_code_unique = models.Constraint(
-        'unique(default_code)',
-        'The Internal Reference must be unique.',
+    _default_code_unique = models.UniqueIndex(
+        """
+        (default_code)
+        WHERE active IS TRUE
+        AND default_code IS NOT NULL
+        AND default_code != ''
+        """,
+        'The Internal Reference must be unique among active products.',
     )
 
     @api.depends(
@@ -120,7 +125,7 @@ class ProductProduct(models.Model):
             {
                 'product_id': product.id,
                 'warehouse_id': warehouse.id,
-                'slim4_stocked_item': 'n',
+                'slim4_stocked_item': 'y',
             }
             for product in products_to_configure
             for warehouse in warehouses

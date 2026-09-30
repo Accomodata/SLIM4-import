@@ -82,6 +82,10 @@ class Slim4LogisticsExportProvider(models.AbstractModel):
             yield from super()._iter_split_rows(row, split_key)
         else:
             wh_codes = row.get(split_key) if split_key else None
+            stocked_item_vals = row.get('stockedItem')
+            if isinstance(stocked_item_vals, str):
+                row = {**row, 'stockedItem': stocked_item_vals.upper()}
+
             if not isinstance(wh_codes, list):
                 yield row
                 return
@@ -91,10 +95,10 @@ class Slim4LogisticsExportProvider(models.AbstractModel):
                 split_row[split_key] = wh_code
                 # ``stockedItem`` contains one value per warehouse. Keep the
                 # value corresponding to the warehouse currently being split.
-                stocked_item_vals = split_row.get('stockedItem', [])
-                stocked_item = stocked_item_vals[idx]
-                split_row['stockedItem'] = (
-                    stocked_item.upper() if isinstance(stocked_item, str)
-                    else stocked_item
-                )
+                if isinstance(stocked_item_vals, list):
+                    stocked_item = stocked_item_vals[idx]
+                    split_row['stockedItem'] = (
+                        stocked_item.upper() if isinstance(stocked_item, str)
+                        else stocked_item
+                    )
                 yield split_row
