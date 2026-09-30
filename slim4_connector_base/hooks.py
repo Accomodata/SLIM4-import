@@ -6,7 +6,9 @@ def pre_init_hook(env):
     env.cr.execute("""
         SELECT default_code, COUNT(*)
           FROM product_product
-         WHERE default_code IS NOT NULL
+          WHERE active IS TRUE
+          AND default_code IS NOT NULL
+          AND default_code != ''
          GROUP BY default_code
         HAVING COUNT(*) > 1
          LIMIT 10
