@@ -1,6 +1,7 @@
 from . import common
 from . import slim4_article_code_master
 from . import slim4_article_filter
+from . import slim4_bill_of_material
 from . import slim4_confirmed_demand
 from . import slim4_logistics
 from . import slim4_purchase_order

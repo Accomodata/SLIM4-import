@@ -6,6 +6,7 @@ PROVIDER_BY_INTERFACE = {
     'S4Import_Logistics': 'slim4.export.provider.logistics',
     'S4Import_ConfirmedDemand': 'slim4.export.provider.confirmed.demand',
     'S4Import_Suppliers': 'slim4.export.provider.suppliers',
+    'S4Import_BillOfMaterial': 'slim4.export.provider.bill.of.material',
 }
 
 
