@@ -6,3 +6,4 @@ from . import slim4_interface_mapping
 from . import product_product
 from . import res_partner
 from . import slim4_warehouse_config
+from . import stock_quant
