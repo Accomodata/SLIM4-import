@@ -45,7 +45,6 @@ def initialize_warehouse_configs(cr):
         JOIN product_template pt ON pt.id = p.product_tmpl_id
         CROSS JOIN stock_warehouse w
         WHERE p.active
-          AND pt.is_storable
           AND w.active
           AND (
               pt.company_id IS NULL
@@ -60,7 +59,18 @@ def initialize_warehouse_configs(cr):
     """)
 
 
+def initialize_primary_suppliers(env):
+    """Use matching suppliers as the initial Slim4 supplier selection."""
+    products = env['product.product'].with_context(active_test=False).search([
+        ('slim4_primary_supplier_ids', '=', False),
+        ('slim4_matching_supplier_ids', '!=', False),
+    ])
+    for product in products:
+        product.slim4_primary_supplier_ids = product.slim4_matching_supplier_ids[:1]
+
+
 def post_init_hook(env):
     env.flush_all()
     initialize_warehouse_configs(env.cr)
     env.invalidate_all()
+    initialize_primary_suppliers(env)
