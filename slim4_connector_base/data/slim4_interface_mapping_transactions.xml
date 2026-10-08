@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-  <data noupdate="1">
+  <data noupdate="0">
     <!-- Validated: field mappings. -->
     <record id="slim4_connector_base_transactions_transactionnumber" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
@@ -156,11 +156,21 @@
       <field name="field_path">sale_line_id.order_id.partner_shipping_id.contact_address</field>
       <field name="status">validated</field>
     </record>
+    <record id="slim4_connector_base_transactions_ud1" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_transactions" />
+      <field name="sequence">160</field>
+      <field name="slim4_field">uD1</field>
+      <field name="field_type">char</field>
+      <field name="max_length">255</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">sale_line_id.order_id.name</field>
+      <field name="status">validated</field>
+    </record>
 
     <!-- Validated: constant mappings. -->
     <record id="slim4_connector_base_transactions_transactiontype" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
-      <field name="sequence">160</field>
+      <field name="sequence">170</field>
       <field name="slim4_field">transactionType</field>
       <field name="field_type">char</field>
       <field name="max_length">50</field>
@@ -172,7 +182,7 @@
     <!-- Ignored: field mappings. -->
     <record id="slim4_connector_base_transactions_requesteddate" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
-      <field name="sequence">170</field>
+      <field name="sequence">180</field>
       <field name="slim4_field">requestedDate</field>
       <field name="field_type">date</field>
       <field name="mapping_type">field</field>
@@ -181,7 +191,7 @@
     </record>
     <record id="slim4_connector_base_transactions_conversionfactor" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
-      <field name="sequence">180</field>
+      <field name="sequence">190</field>
       <field name="slim4_field">conversionFactor</field>
       <field name="field_type">decimal</field>
       <field name="max_length">38</field>
@@ -189,15 +199,7 @@
       <field name="field_path">product_uom.factor</field>
       <field name="status">ignored</field>
     </record>
-    <record id="slim4_connector_base_transactions_ud1" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions" />
-      <field name="sequence">190</field>
-      <field name="slim4_field">uD1</field>
-      <field name="field_type">char</field>
-      <field name="max_length">255</field>
-      <field name="mapping_type">field</field>
-      <field name="status">ignored</field>
-    </record>
+
     <record id="slim4_connector_base_transactions_ud2" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">200</field>
