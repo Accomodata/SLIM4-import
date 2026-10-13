@@ -49,14 +49,14 @@
       <field name="source_model_id" ref="sale.model_sale_order_line" />
       <field name="source_domain"><![CDATA[[('order_id.state', 'in', ['sale', 'done']), ('product_uom_qty', '>', 0), ('product_id.default_code', '!=', False), ('move_ids.state', '!=', 'done'), ('product_id.type', '=', 'consu')]]]></field>
     </record>
-    <!-- Out-of-scope interfaces are prepared but disabled by default. -->
     <record id="slim4_interface_bill_of_material" model="slim4.interface">
       <field name="name">Bill of Material</field>
       <field name="technical_name">S4Import_BillOfMaterial</field>
       <field name="source_model_id" ref="mrp.model_mrp_bom_line" />
-      <field name="source_domain"><![CDATA[[('bom_id.active', '=', True), ('bom_id.product_tmpl_id.active', '=', True), ('bom_id.product_tmpl_id.default_code', '!=', False), ('product_id.active', '=', True), ('product_id.default_code', '!=', False), ('product_id.type', '=', 'consu')]]]></field>
-      <field name="active" eval="False" />
+      <field name="source_domain"><![CDATA[[('bom_id.active', '=', True), ('bom_id.product_tmpl_id.active', '=', True), ('product_id.active', '=', True), ('product_id.default_code', '!=', False), '|', '&', ('bom_id.product_id.active', '=', True), ('bom_id.product_id.default_code', '!=', False), '&', ('bom_id.product_id', '=', False), ('bom_id.product_tmpl_id.product_variant_ids', 'any', [('active', '=', True), ('default_code', '!=', False)])]]]></field>
+      <field name="active" eval="True" />
     </record>
+    <!-- Out-of-scope interfaces are prepared but disabled by default. -->
     <record id="slim4_interface_variant_generic" model="slim4.interface">
       <field name="name">Variant Generic</field>
       <field name="technical_name">S4Import_VariantGeneric</field>

@@ -1,18 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
   <data noupdate="0">
-    <record id="slim4_connector_base_historical_po_controlid" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_historical_po" />
-      <field name="sequence">10</field>
-      <field name="slim4_field">controlID</field>
-      <field name="field_type">integer</field>
-      <field name="max_length">3</field>
-      <field name="mapping_type">rule</field>
-      <field name="status">ignored</field>
-    </record>
+    <!-- Ignored: field mappings. -->
     <record id="slim4_connector_base_historical_po_warehouse" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_historical_po" />
-      <field name="sequence">20</field>
+      <field name="sequence">10</field>
       <field name="slim4_field">warehouse</field>
       <field name="field_type">char</field>
       <field name="max_length">20</field>
@@ -23,7 +15,7 @@
     </record>
     <record id="slim4_connector_base_historical_po_code" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_historical_po" />
-      <field name="sequence">30</field>
+      <field name="sequence">20</field>
       <field name="slim4_field">code</field>
       <field name="field_type">char</field>
       <field name="max_length">40</field>
@@ -34,7 +26,7 @@
     </record>
     <record id="slim4_connector_base_historical_po_ponumber" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_historical_po" />
-      <field name="sequence">40</field>
+      <field name="sequence">30</field>
       <field name="slim4_field">poNumber</field>
       <field name="field_type">char</field>
       <field name="max_length">100</field>
@@ -45,7 +37,7 @@
     </record>
     <record id="slim4_connector_base_historical_po_linenumber" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_historical_po" />
-      <field name="sequence">50</field>
+      <field name="sequence">40</field>
       <field name="slim4_field">lineNumber</field>
       <field name="field_type">integer</field>
       <field name="max_length">0</field>
@@ -54,19 +46,9 @@
       <field name="slim4_required" eval="True" />
       <field name="status">ignored</field>
     </record>
-    <record id="slim4_connector_base_historical_po_ordertypenumber" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_historical_po" />
-      <field name="sequence">60</field>
-      <field name="slim4_field">orderTypeNumber</field>
-      <field name="field_type">integer</field>
-      <field name="max_length">1</field>
-      <field name="mapping_type">rule</field>
-      <field name="field_path">order_id.picking_type_id</field>
-      <field name="status">ignored</field>
-    </record>
     <record id="slim4_connector_base_historical_po_delivereddate" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_historical_po" />
-      <field name="sequence">70</field>
+      <field name="sequence">50</field>
       <field name="slim4_field">deliveredDate</field>
       <field name="field_type">char</field>
       <field name="max_length">10</field>
@@ -76,7 +58,7 @@
     </record>
     <record id="slim4_connector_base_historical_po_deliveredquantity" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_historical_po" />
-      <field name="sequence">80</field>
+      <field name="sequence">60</field>
       <field name="slim4_field">deliveredQuantity</field>
       <field name="field_type">integer</field>
       <field name="max_length">0</field>
@@ -86,7 +68,7 @@
     </record>
     <record id="slim4_connector_base_historical_po_supplierdetails" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_historical_po" />
-      <field name="sequence">90</field>
+      <field name="sequence">70</field>
       <field name="slim4_field">supplierDetails</field>
       <field name="field_type">char</field>
       <field name="max_length">100</field>
@@ -96,7 +78,7 @@
     </record>
     <record id="slim4_connector_base_historical_po_pocomment" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_historical_po" />
-      <field name="sequence">100</field>
+      <field name="sequence">80</field>
       <field name="slim4_field">poComment</field>
       <field name="field_type">char</field>
       <field name="max_length">4000</field>
@@ -106,7 +88,7 @@
     </record>
     <record id="slim4_connector_base_historical_po_freetext1" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_historical_po" />
-      <field name="sequence">110</field>
+      <field name="sequence">90</field>
       <field name="slim4_field">freeText1</field>
       <field name="field_type">char</field>
       <field name="max_length">255</field>
@@ -115,7 +97,7 @@
     </record>
     <record id="slim4_connector_base_historical_po_freetext2" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_historical_po" />
-      <field name="sequence">120</field>
+      <field name="sequence">100</field>
       <field name="slim4_field">freeText2</field>
       <field name="field_type">char</field>
       <field name="max_length">255</field>
@@ -124,7 +106,7 @@
     </record>
     <record id="slim4_connector_base_historical_po_freenumber1" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_historical_po" />
-      <field name="sequence">130</field>
+      <field name="sequence">110</field>
       <field name="slim4_field">freeNumber1</field>
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
@@ -133,7 +115,7 @@
     </record>
     <record id="slim4_connector_base_historical_po_freenumber2" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_historical_po" />
-      <field name="sequence">140</field>
+      <field name="sequence">120</field>
       <field name="slim4_field">freeNumber2</field>
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
@@ -142,7 +124,7 @@
     </record>
     <record id="slim4_connector_base_historical_po_ordereddate" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_historical_po" />
-      <field name="sequence">150</field>
+      <field name="sequence">130</field>
       <field name="slim4_field">orderedDate</field>
       <field name="field_type">char</field>
       <field name="max_length">10</field>
@@ -152,7 +134,7 @@
     </record>
     <record id="slim4_connector_base_historical_po_requesteddate" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_historical_po" />
-      <field name="sequence">160</field>
+      <field name="sequence">140</field>
       <field name="slim4_field">requestedDate</field>
       <field name="field_type">char</field>
       <field name="max_length">10</field>
@@ -162,7 +144,7 @@
     </record>
     <record id="slim4_connector_base_historical_po_orderedquantity" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_historical_po" />
-      <field name="sequence">170</field>
+      <field name="sequence">150</field>
       <field name="slim4_field">orderedQuantity</field>
       <field name="field_type">integer</field>
       <field name="max_length">0</field>
@@ -172,7 +154,7 @@
     </record>
     <record id="slim4_connector_base_historical_po_requestedquantity" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_historical_po" />
-      <field name="sequence">180</field>
+      <field name="sequence">160</field>
       <field name="slim4_field">requestedQuantity</field>
       <field name="field_type">integer</field>
       <field name="max_length">0</field>
@@ -182,7 +164,7 @@
     </record>
     <record id="slim4_connector_base_historical_po_confirmedquantity" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_historical_po" />
-      <field name="sequence">190</field>
+      <field name="sequence">170</field>
       <field name="slim4_field">confirmedQuantity</field>
       <field name="field_type">integer</field>
       <field name="max_length">0</field>
@@ -192,7 +174,7 @@
     </record>
     <record id="slim4_connector_base_historical_po_confirmeddate" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_historical_po" />
-      <field name="sequence">200</field>
+      <field name="sequence">180</field>
       <field name="slim4_field">confirmedDate</field>
       <field name="field_type">char</field>
       <field name="max_length">10</field>
@@ -202,7 +184,7 @@
     </record>
     <record id="slim4_connector_base_historical_po_suppliernumber" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_historical_po" />
-      <field name="sequence">210</field>
+      <field name="sequence">190</field>
       <field name="slim4_field">supplierNumber</field>
       <field name="field_type">char</field>
       <field name="max_length">60</field>
@@ -212,7 +194,7 @@
     </record>
     <record id="slim4_connector_base_historical_po_suppliername" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_historical_po" />
-      <field name="sequence">220</field>
+      <field name="sequence">200</field>
       <field name="slim4_field">supplierName</field>
       <field name="field_type">char</field>
       <field name="max_length">100</field>
@@ -222,12 +204,24 @@
     </record>
     <record id="slim4_connector_base_historical_po_buyingprice" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_historical_po" />
-      <field name="sequence">230</field>
+      <field name="sequence">210</field>
       <field name="slim4_field">buyingPrice</field>
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
       <field name="mapping_type">field</field>
       <field name="field_path">price_unit</field>
+      <field name="status">ignored</field>
+    </record>
+
+    <!-- Ignored: rule mappings. -->
+    <record id="slim4_connector_base_historical_po_ordertypenumber" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_historical_po" />
+      <field name="sequence">220</field>
+      <field name="slim4_field">orderTypeNumber</field>
+      <field name="field_type">integer</field>
+      <field name="max_length">1</field>
+      <field name="mapping_type">rule</field>
+      <field name="field_path">order_id.picking_type_id</field>
       <field name="status">ignored</field>
     </record>
   </data>

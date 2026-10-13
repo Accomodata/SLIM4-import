@@ -1,79 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
   <data noupdate="0">
-    <record id="slim4_connector_base_bill_of_material_controlid" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_bill_of_material" />
-      <field name="sequence">10</field>
-      <field name="slim4_field">controlID</field>
-      <field name="field_type">integer</field>
-      <field name="max_length">3</field>
-      <field name="mapping_type">rule</field>
-      <field name="status">ignored</field>
-    </record>
-    <record id="slim4_connector_base_bill_of_material_articlecode" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_bill_of_material" />
-      <field name="sequence">20</field>
-      <field name="slim4_field">articleCode</field>
-      <field name="field_type">char</field>
-      <field name="max_length">65</field>
-      <field name="mapping_type">field</field>
-      <field name="field_path">bom_id.product_tmpl_id.default_code</field>
-      <field name="slim4_required" eval="True" />
-      <field name="status">ignored</field>
-    </record>
+    <!-- Validated: field mappings. -->
     <record id="slim4_connector_base_bill_of_material_componentarticlecode" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_bill_of_material" />
-      <field name="sequence">30</field>
+      <field name="sequence">10</field>
       <field name="slim4_field">componentArticleCode</field>
       <field name="field_type">char</field>
       <field name="max_length">65</field>
       <field name="mapping_type">field</field>
       <field name="field_path">product_id.default_code</field>
       <field name="slim4_required" eval="True" />
-      <field name="status">ignored</field>
+      <field name="status">validated</field>
     </record>
     <record id="slim4_connector_base_bill_of_material_quantity" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_bill_of_material" />
-      <field name="sequence">40</field>
+      <field name="sequence">20</field>
       <field name="slim4_field">quantity</field>
       <field name="field_type">decimal</field>
       <field name="max_length">38</field>
       <field name="mapping_type">field</field>
       <field name="field_path">product_qty</field>
-      <field name="status">ignored</field>
+      <field name="status">validated</field>
     </record>
     <record id="slim4_connector_base_bill_of_material_bomid" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_bill_of_material" />
-      <field name="sequence">50</field>
+      <field name="sequence">30</field>
       <field name="slim4_field">bomID</field>
       <field name="field_type">char</field>
       <field name="max_length">20</field>
       <field name="mapping_type">field</field>
       <field name="field_path">bom_id.code</field>
-      <field name="slim4_required" eval="True" />
-      <field name="status">ignored</field>
+      <field name="slim4_required" eval="False" />
+      <field name="status">validated</field>
     </record>
     <record id="slim4_connector_base_bill_of_material_linenumber" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_bill_of_material" />
-      <field name="sequence">60</field>
+      <field name="sequence">40</field>
       <field name="slim4_field">lineNumber</field>
       <field name="field_type">char</field>
       <field name="max_length">20</field>
       <field name="mapping_type">field</field>
       <field name="field_path">sequence</field>
       <field name="slim4_required" eval="True" />
-      <field name="status">ignored</field>
+      <field name="status">validated</field>
     </record>
     <record id="slim4_connector_base_bill_of_material_leadtime" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_bill_of_material" />
-      <field name="sequence">70</field>
+      <field name="sequence">50</field>
       <field name="slim4_field">leadTime</field>
       <field name="field_type">decimal</field>
       <field name="max_length">15</field>
       <field name="mapping_type">field</field>
       <field name="field_path">bom_id.produce_delay</field>
-      <field name="status">ignored</field>
+      <field name="status">validated</field>
     </record>
+    <record id="slim4_connector_base_bill_of_material_bomtype" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_bill_of_material" />
+      <field name="sequence">60</field>
+      <field name="slim4_field">bomType</field>
+      <field name="field_type">char</field>
+      <field name="max_length">20</field>
+      <field name="mapping_type">field</field>
+      <field name="field_path">bom_id.type</field>
+      <field name="status">validated</field>
+    </record>
+
+    <!-- Validated: rule mappings. -->
+    <record id="slim4_connector_base_bill_of_material_articlecode" model="slim4.interface.mapping">
+      <field name="interface_id" ref="slim4_interface_bill_of_material" />
+      <field name="sequence">70</field>
+      <field name="slim4_field">articleCode</field>
+      <field name="field_type">char</field>
+      <field name="max_length">65</field>
+      <field name="mapping_type">rule</field>
+      <field name="field_path" eval="False" />
+      <field name="slim4_required" eval="True" />
+      <field name="status">validated</field>
+    </record>
+
+    <!-- Ignored: field mappings. -->
     <record id="slim4_connector_base_bill_of_material_fromdate" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_bill_of_material" />
       <field name="sequence">80</field>
@@ -94,19 +100,9 @@
       <field name="field_path">bom_id.x_valid_from</field>
       <field name="status">ignored</field>
     </record>
-    <record id="slim4_connector_base_bill_of_material_bomtype" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_bill_of_material" />
-      <field name="sequence">100</field>
-      <field name="slim4_field">bomType</field>
-      <field name="field_type">char</field>
-      <field name="max_length">20</field>
-      <field name="mapping_type">field</field>
-      <field name="field_path">bom_id.type</field>
-      <field name="status">ignored</field>
-    </record>
     <record id="slim4_connector_base_bill_of_material_exceptionlevel" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_bill_of_material" />
-      <field name="sequence">110</field>
+      <field name="sequence">100</field>
       <field name="slim4_field">exceptionLevel</field>
       <field name="field_type">integer</field>
       <field name="max_length">0</field>
@@ -116,7 +112,7 @@
     </record>
     <record id="slim4_connector_base_bill_of_material_warehouse" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_bill_of_material" />
-      <field name="sequence">120</field>
+      <field name="sequence">110</field>
       <field name="slim4_field">warehouse</field>
       <field name="field_type">char</field>
       <field name="max_length">20</field>
@@ -124,9 +120,11 @@
       <field name="field_path">bom_id.picking_type_id.warehouse_id.code</field>
       <field name="status">ignored</field>
     </record>
+
+    <!-- Ignored: rule mappings. -->
     <record id="slim4_connector_base_bill_of_material_componentwarehouse" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_bill_of_material" />
-      <field name="sequence">130</field>
+      <field name="sequence">120</field>
       <field name="slim4_field">componentWarehouse</field>
       <field name="field_type">char</field>
       <field name="max_length">20</field>

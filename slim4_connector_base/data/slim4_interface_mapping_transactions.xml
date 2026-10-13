@@ -199,7 +199,6 @@
       <field name="field_path">product_uom.factor</field>
       <field name="status">ignored</field>
     </record>
-
     <record id="slim4_connector_base_transactions_ud2" model="slim4.interface.mapping">
       <field name="interface_id" ref="slim4_interface_transactions" />
       <field name="sequence">200</field>
@@ -316,15 +315,6 @@
       <field name="slim4_field">issueTime</field>
       <field name="field_type">char</field>
       <field name="max_length">5</field>
-      <field name="mapping_type">rule</field>
-      <field name="status">ignored</field>
-    </record>
-    <record id="slim4_connector_base_transactions_controlid" model="slim4.interface.mapping">
-      <field name="interface_id" ref="slim4_interface_transactions" />
-      <field name="sequence">330</field>
-      <field name="slim4_field">controlID</field>
-      <field name="field_type">integer</field>
-      <field name="max_length">3</field>
       <field name="mapping_type">rule</field>
       <field name="status">ignored</field>
     </record>
